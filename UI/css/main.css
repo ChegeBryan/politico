@@ -131,7 +131,7 @@ a {
   align-items: center;
 }
 /*============================================================================
-* FORMS
+* Forms and Buttons
 *===========================================================================*/
 
 .form__component {
@@ -149,6 +149,19 @@ a {
 }
 .form__component-input:focus {
   border: 1px solid #da7b98;
+}
+
+.btn {
+  padding: .625rem;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 1px solid transparent;
+  font-weight: 400;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: background-color .15s ease-in-out,
+   box-shadow .15s ease-in-out;
 }
 
 .hide {
