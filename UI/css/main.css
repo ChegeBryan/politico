@@ -27,4 +27,39 @@ a {
    text-decoration: none;
 }
 
+/*============================================================================
+* Layout and positioning (Flexbox)
+* ===========================================================================*/
+
+.container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*=============================================================================
+* Media Queries for different
+*============================================================================*/
+
+/* CSS to use on tablet or larger */
+@media (min-width: 48rem) {
+  .container {
+    max-width: 46rem;
+  }
+}
+
+/* CSS to use for netbooks and larger */
+@media (min-width: 64rem) {
+  .container {
+    max-width: 62rem;
+  }
+}
+
+/* CSS to use for notebooks and desktops */
+@media (min-width: 75rem) {
+  .container {
+    max-width: 73rem;
+  }
+}
 
