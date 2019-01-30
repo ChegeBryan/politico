@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
+  <meta name="author" content="Chege Bryan">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politico | Home</title>
+  <link rel="stylesheet"
+  href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+  integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+  crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto|Niconne" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+  <!--navigation bar-->
+  <nav class="container navbar">
+    <!--Project name-->
+    <a href="index.html" class="navbar--brand">Politico</a>
+
+    <!--Button to toggle navlink display on mobile-->
+    <button type="button" class="nav__link--toggler" onclick="toggleNavlink()"><i class="fas fa-bars"></i></button>
+
+    <!--Navigation links for log in and sign up-->
+    <div class="navbar__collapse">
+      <ul class="navbar__nav">
+        <li>
+          <a href="#" class="nav__link">Sign in</a>
+        </li>
+        <li>
+          <a href="#" class="nav__link">Sign up</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!--flex container-->
+    <div class="container__flex">
+      <!--Website features div-->
+      <div class="flex-col-7">
+        <div class="card">
+          <h1 class="card--title">Politico - Make your voice heard</h1>
+          <ol>
+            <li>Users can sign up.</li>
+            <li>Users can login.</li>
+            <li>Admin (electoral body) can create political parties.</li>
+            <li>Admin (electoral body) can delete a political party.</li>
+            <li>Admin (electoral body) can create different political offices.</li>
+            <li>Users can vote for only one politician per political office.</li>
+            <li>Users can see the results of election.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!--Countdown div-->
+      <div class="flex--col-5">
+        <div class="countdown">
+          <h1 class="card--title">Election countdown</h1>
+
+          <div id="timeLapse" class="time--lapse">
+            <!-- Day output -->
+            <div class="what__time">
+              <span id="days" class="time"></span>
+              <span class="time__text">Days</span>
+            </div>
+
+            <span class="time--separator">:</span>
+
+            <!-- Hours output -->
+            <div class="what__time">
+              <span id="hours" class="time"></span>
+              <span class="time__text">Hr</span>
+            </div>
+
+            <span class="time--separator">:</span>
+
+            <!-- Minutes output -->
+            <div class="what__time">
+              <span id="minutes" class="time"></span>
+              <span class="time__text">Mins</span>
+            </div>
+
+            <span class="time--separator">:</span>
+
+            <!-- Seconds output -->
+            <div class="what__time">
+              <span id="seconds" class="time"></span>
+              <span class="time__text">Secs</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/countdown.js"></script>
+</body>
+
+</html>
