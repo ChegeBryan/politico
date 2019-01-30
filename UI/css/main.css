@@ -52,6 +52,10 @@ a {
   padding: .5rem 0;
 }
 
+.navbar__collapse {
+  display: none;
+}
+
 /*============================================================================
 * Layout and positioning (Flexbox)
 * ===========================================================================*/
@@ -78,6 +82,12 @@ a {
   .navbar__nav .nav__link {
     padding-left: .5rem;
     padding-right: .5rem;
+  }
+  .nav__link--toggler {
+    display: none;
+  }
+  .navbar__collapse {
+    display: initial;
   }
 }
 
