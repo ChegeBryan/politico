@@ -242,6 +242,21 @@ hr {
 .time__text {
   font-size: 1rem;
 }
+
+.position--rv {
+  position: relative;
+}
+.pwd--toggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #2e151b;
+  cursor: pointer;
+}
+.pwd--toggle:hover {
+  color: #5f343e;
+}
 /*=============================================================================
 * Media Queries for different
 *============================================================================*/
