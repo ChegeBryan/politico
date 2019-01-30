@@ -177,6 +177,13 @@ a {
   display: none;
 }
 
+.btn--basic:hover, .btn--basic:focus {
+  outline: 0;
+  background-color: #5f343e;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2),
+   0 4px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 /*============================================================================
 * Layout and positioning (Flexbox)
 * ===========================================================================*/
