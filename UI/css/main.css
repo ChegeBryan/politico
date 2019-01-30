@@ -21,10 +21,35 @@ body {
 
 ul {
   list-style: none;
+  margin-top: 0;
 }
 
 a {
-   text-decoration: none;
+  text-decoration: none;
+}
+
+/*============================================================================
+* Navbar
+*===========================================================================*/
+
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem 1rem;
+  margin-bottom: 30px;
+}
+
+.navbar__nav {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.nav__link {
+  padding: .5rem 0;
 }
 
 /*============================================================================
@@ -46,6 +71,13 @@ a {
 @media (min-width: 48rem) {
   .container {
     max-width: 46rem;
+  }
+  .navbar__nav {
+    flex-direction: row;
+  }
+  .navbar__nav .nav__link {
+    padding-left: .5rem;
+    padding-right: .5rem;
   }
 }
 
