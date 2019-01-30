@@ -1,0 +1,30 @@
+/* =================================================================
+*  Reset some user-agent CSS values
+==================================================================*/
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  line-height: 1.15;
+  font-size: 1rem;
+}
+
+body {
+  margin: 0;
+  line-height: 1.5;
+  background-color: #ffffff;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+   text-decoration: none;
+}
+
+
