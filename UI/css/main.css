@@ -142,6 +142,7 @@ a {
   padding: .625rem;
   line-height: 1.2;
   font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
   color: #2f4454;
   border: 1px solid #2e151b;
   border-radius: .5rem;
@@ -152,6 +153,8 @@ a {
 }
 
 .btn {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
   padding: .625rem;
   text-align: center;
   white-space: nowrap;
