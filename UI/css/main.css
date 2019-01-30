@@ -16,7 +16,7 @@ html {
 body {
   margin: 0;
   line-height: 1.5;
-  background-color: #ffffff;
+  font-family: 'Roboto', sans-serif;
 }
 
 ul {
@@ -59,6 +59,20 @@ a {
   display: flex;
   flex-basis: 100%;
 }
+
+/*
+* Theme navbar
+*/
+.navbar--brand {
+  color: #da7b93;
+  font-size: 1.25rem;
+  letter-spacing: 0.1em;
+  line-height: inherit;
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 700;
+  margin-right: 1rem;
+}
+
 
 /*============================================================================
 * Layout and positioning (Flexbox)
