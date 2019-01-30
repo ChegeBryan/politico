@@ -153,6 +153,22 @@ a {
   margin-bottom: 1rem;
 }
 
+/* Countdown styling */
+.countdown h1 {
+  text-align: center;
+}
+
+.time--lapse {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  color: #fff;
+}
+.what__time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 /*=============================================================================
 * Media Queries for different
 *============================================================================*/
