@@ -24,6 +24,10 @@ ul {
   list-style: none;
   margin-top: 0;
 }
+ol {
+  margin: 0;
+  padding-left: 0;
+}
 
 a {
   text-decoration: none;
@@ -110,6 +114,12 @@ a {
   margin-right: auto;
 }
 
+.container__flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
 /*=============================================================================
 * Media Queries for different
 *============================================================================*/
