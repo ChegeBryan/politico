@@ -167,6 +167,9 @@ a {
   background-color: #2e151b;
   color: #fff;
 }
+.btn--block {
+  flex: 0 0 100%;
+}
 .hide {
   display: none;
 }
