@@ -74,6 +74,13 @@ a {
   margin-right: 1rem;
 }
 
+.nav__link {
+  color: #fff;
+}
+.nav__link:hover {
+  color: #da7b93;
+}
+
 
 /*============================================================================
 * Layout and positioning (Flexbox)
