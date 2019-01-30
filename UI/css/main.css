@@ -116,6 +116,12 @@ a {
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.card--title {
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+  color: #da7b93;
+}
+
 .card ol {
   padding-left: 1.5rem;
 }
