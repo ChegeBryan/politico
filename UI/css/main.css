@@ -32,6 +32,9 @@ ol {
 a {
   text-decoration: none;
 }
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+}
 
 /*============================================================================
 * Navbar
@@ -125,7 +128,69 @@ a {
 .card ol {
   padding-left: 1.5rem;
 }
+.card--actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+/*============================================================================
+* Forms and Buttons
+*===========================================================================*/
 
+.form__component {
+  margin-bottom: 1rem;
+}
+.form__component-input {
+  width: 100%;
+  padding: .625rem;
+  line-height: 1.2;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  color: #2f4454;
+  border: 1px solid #2e151b;
+  border-radius: .5rem;
+  outline: none;
+}
+.form__component-input:focus {
+  border: 1px solid #da7b98;
+}
+
+.btn {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  padding: .625rem;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 1px solid transparent;
+  font-weight: 400;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: background-color .15s ease-in-out,
+   box-shadow .15s ease-in-out;
+}
+.btn--basic {
+  background-color: #2e151b;
+  color: #fff;
+}
+.btn--block {
+  flex: 0 0 100%;
+}
+.btn--basic:hover, .btn--basic:focus {
+  outline: 0;
+  background-color: #5f343e;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2),
+   0 4px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.hide {
+  display: none;
+}
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgb(209, 173, 183);
+}
 
 /*============================================================================
 * Layout and positioning (Flexbox)

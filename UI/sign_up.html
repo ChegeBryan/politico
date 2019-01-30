@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
+  <meta name="author" content="Chege Bryan">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politico | Sign Up</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+    crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <!--navigation bar-->
+  <nav class="container navbar">
+    <!--Project name-->
+    <a href="index.html" class="navbar--brand">Politico</a>
+
+    <!--Button to toggle navlink display on mobile-->
+    <button type="button" class="nav__link--toggler" onclick="toggleNavlink()"><i class="fas fa-bars"></i></button>
+
+    <!--Navigation links for log in and sign up-->
+    <div class="navbar__collapse">
+      <ul class="navbar__nav">
+        <li>
+          <a href="#" class="nav__link">Sign in</a>
+        </li>
+        <li>
+          <a href="index.html" class="nav__link">Home</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="container__flex">
+      <!--Sign up form-->
+      <div class="flex--col-5">
+        <div class="card">
+          <form>
+            <div class="form__component">
+              <label for="username" class="hide">Username: </label>
+              <input type="text" class="form__component-input" id="username" placeholder="Username" required>
+            </div>
+            <div class="form__component">
+              <label for="user_email" class="hide">user email: </label>
+              <input type="email" class="form__component-input" id="user_email" placeholder="Email" required>
+            </div>
+            <div class="form__component">
+              <label for="pwd" class="hide">Password: </label>
+              <input type="password" class="form__component-input" id="pwd" placeholder="Password" required>
+            </div>
+            <div class="form__component">
+              <label for="pwd_check" class="hide">Confirm Password: </label>
+              <input type="password" class="form__component-input" id="pwd_check"
+              placeholder="Confirm Password" required>
+            </div>
+
+            <!--Form submit button-->
+            <div class="card--actions">
+              <button type="submit" class="btn btn--basic btn--block">Create account</button>
+            </div>
+
+            <hr>
+
+            <div class="container__flex">
+              <p>Been here before?</p>&nbsp;<a href="sign_in.html">Sign in</a>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
