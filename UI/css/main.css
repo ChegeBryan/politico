@@ -144,6 +144,15 @@ a {
   align-items: center;
   justify-content: center;
 }
+
+[class*=flex--col] {
+  width: 100%;/* fill available width */
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 /*=============================================================================
 * Media Queries for different
 *============================================================================*/
