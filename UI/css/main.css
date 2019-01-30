@@ -49,14 +49,20 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 30px;
 }
 
-.navbar__nav {
+.navbar__nav, .sidenav__nav {
   display: flex;
   flex-direction: column;
   padding-left: 0;
   margin-bottom: 0;
 }
-
+.sidenav__nav {
+  padding-top: 3.5rem;
+}
+.sidenav__item .nav__link{
+  padding: 1rem;
+}
 .nav__link {
+  display: block;
   padding: .5rem 0;
 }
 
