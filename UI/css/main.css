@@ -49,7 +49,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 30px;
 }
 
-.navbar__nav, .sidenav__nav {
+.navbar__nav, .sidenav__nav, .dropdown {
   display: flex;
   flex-direction: column;
   padding-left: 0;
@@ -58,8 +58,14 @@ h1, h2, h3, h4, h5, h6 {
 .sidenav__nav {
   padding-top: 3.5rem;
 }
-.sidenav__item .nav__link{
+.sidenav__item .nav__link, .dropdown__link{
   padding: 1rem;
+}
+.dropdown {
+  margin: 0 1rem;
+}
+.dropdown .dropdown__link{
+  padding: 0.25rem 1.5rem;
 }
 .nav__link {
   display: block;
@@ -107,9 +113,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav__link,
-.nav__link--toggler {
+.nav__link--toggler,
+.dropdown__link {
   color: #fff;
 }
+.dropdown__link:hover,
 .nav__link:hover {
   color: #da7b93;
 }
