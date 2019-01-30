@@ -92,6 +92,12 @@ a {
   border-radius: .25rem;
   cursor: pointer;
 }
+.nav__link--toggler:hover,
+.nav__link--toggler:focus {
+  text-decoration: none;
+  border: 1px solid #da7b93;
+  color: #da7b93;
+}
 
 /*============================================================================
 * Layout and positioning (Flexbox)
