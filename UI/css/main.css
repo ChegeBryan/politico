@@ -133,6 +133,19 @@ a {
 .form__component {
   margin-bottom: 1rem;
 }
+.form__component-input {
+  width: 100%;
+  padding: .625rem;
+  line-height: 1.2;
+  font-size: 1rem;
+  color: #2f4454;
+  border: 1px solid #2e151b;
+  border-radius: .5rem;
+  outline: none;
+}
+.form__component-input:focus {
+  border: 1px solid #da7b98;
+}
 
 .hide {
   display: none;
