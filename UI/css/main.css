@@ -55,6 +55,10 @@ a {
 .navbar__collapse {
   display: none;
 }
+.navbar__collapse--show {
+  display: flex;
+  flex-basis: 100%;
+}
 
 /*============================================================================
 * Layout and positioning (Flexbox)
