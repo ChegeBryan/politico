@@ -163,7 +163,10 @@ a {
   transition: background-color .15s ease-in-out,
    box-shadow .15s ease-in-out;
 }
-
+.btn--basic {
+  background-color: #2e151b;
+  color: #fff;
+}
 .hide {
   display: none;
 }
