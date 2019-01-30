@@ -181,6 +181,17 @@ a {
 * Media Queries for different
 *============================================================================*/
 
+/*
+* Css for mobile only
+*/
+@media (max-width: 48rem) {
+  .navbar {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+
 /* CSS to use on tablet or larger */
 @media (min-width: 48rem) {
   .container {
