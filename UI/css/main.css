@@ -74,13 +74,24 @@ a {
   margin-right: 1rem;
 }
 
-.nav__link {
+.nav__link,
+.nav__link--toggler {
   color: #fff;
 }
 .nav__link:hover {
   color: #da7b93;
 }
 
+.nav__link--toggler {
+  padding: .25rem .75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: 1px solid #ffffff;
+  outline: none;
+  border-radius: .25rem;
+  cursor: pointer;
+}
 
 /*============================================================================
 * Layout and positioning (Flexbox)
