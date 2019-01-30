@@ -163,11 +163,19 @@ a {
   justify-content: center;
   flex-wrap: wrap;
   color: #fff;
+  font-family: 'Niconne', cursive;
 }
 .what__time {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 3rem;
+}
+.time, .time--separator {
+  font-size: 2rem;
+}
+.time__text {
+  font-size: 1rem;
 }
 /*=============================================================================
 * Media Queries for different
