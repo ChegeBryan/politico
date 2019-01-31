@@ -211,6 +211,10 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #D8001F;
   color: #fff;
 }
+.btn--primary {
+  background-color: #2f4454;
+  color: #fff;
+}
 .btn:hover, .btn:focus {
   outline: 0;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
@@ -223,6 +227,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 .btn--danger:hover, .btn--danger:focus {
   background-color: #9F0000;
+}
+.btn--primary:hover, .btn--primary:focus {
+  background-color: #2F446E;
 }
 .hide {
   display: none;
