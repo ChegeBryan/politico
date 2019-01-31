@@ -14,6 +14,49 @@
 </head>
 
 <body>
-  
+  <!--navigation bar-->
+  <nav class="navbar navbar--fixed navbar--default">
+    <!--Project name-->
+    <a href="index.html" class="navbar--brand">Politico</a>
+
+    <!--Navigation link for and sign out-->
+    <ul class="navbar__nav">
+      <li>
+        <a href="signin.html" class="nav__link">Sign out</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!--Side bar navigation-->
+  <ul class="sidenav sidenav__nav">
+    <li class="sidenav__item">
+      <a href="admin_dashboard.html" class="nav__link">
+        <i class="fas fa-fw fa-tachometer-alt"></i>&nbsp;Admin Dashboard
+      </a>
+    </li>
+    <li class="sidenav__item">
+      <a href="#" class="nav__link">
+        <i class="fas fa-fw fa-handshake"></i>&nbsp;Political Parties
+      </a>
+      <div class="dropdown">
+        <a href="#" class="dropdown__link modal--open"><i class="fas fa-fw fa-plus"></i>&nbsp;Create party</a>
+        <a href="" class="dropdown__link"><i class="fas fa-fw fa-edit"></i>&nbsp;Edit party</a>
+      </div>
+    </li>
+    <li class="sidenav__item">
+      <a href="#" class="nav__link">
+        <i class="fas fa-fw fa-university"></i>&nbsp;Political Offices
+      </a>
+      <div class="dropdown">
+        <a href="#" class="dropdown__link"><i class="fas fa-fw fa-plus"></i>&nbsp;Create Office</a>
+        <a href="" class="dropdown__link"><i class="fas fa-fw
+        fa-edit"></i>&nbsp;Edit office</a>
+        <a href="" class="dropdown__link"><i class="fas fa-fw
+        fa-trash"></i>&nbsp;Remove office</a>
+      </div>
+    </li>
+  </ul>
+
 </body>
+
 </html>
