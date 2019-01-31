@@ -345,6 +345,7 @@ th {
 }
 
 .modal {
+  display: none;
   position: fixed;
   z-index: 10;
   top: 50%;
@@ -356,6 +357,7 @@ th {
   max-height: 100%;
 }
 .modal__overlay {
+  display: none;
   z-index: 9;
   position: fixed;
   top: 0;
@@ -371,6 +373,9 @@ th {
   color: #fff;
   font-size: 1.4rem;
   cursor: pointer;
+}
+.show {
+  display: block;
 }
 /*=============================================================================
 * Media Queries for different
