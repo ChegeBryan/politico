@@ -61,7 +61,7 @@
   <!--Page main content-->
   <div class="main">
     <div class="container">
-      <div class="card">
+      <div class="card edit__table">
         <h2 class="card--title">Edit Political party Details</h2>
         <div class="table--responsive">
           <table>
@@ -75,7 +75,7 @@
               <td>4</td>
               <td>
                 <div class="card--actions">
-                  <button type="submit" class="btn btn--primary"><i class="fas fa-fw fa-edit"></i>&nbsp;Edit</button>
+                  <button type="submit" class="btn btn--primary" onclick="editParty()"><i class="fas fa-fw fa-edit"></i>&nbsp;Edit</button>
                 </div>
               </td>
             </tr>
@@ -92,7 +92,7 @@
         </div>
       </div>
 
-      <div class="card flex--col-5">
+      <div class="card edit__form flex--col-5 hide">
         <h2 class="card--title">Edit party details</h2>
         <form>
           <div class="form__component">
@@ -112,6 +112,7 @@
     </div>
   </div>
 
+  <script src="js/main.js"></script>
 
 </body>
 
