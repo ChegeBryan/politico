@@ -37,3 +37,9 @@ openButton.addEventListener("click",
     overLay.classList.toggle("show");
   });
 
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.classList.toggle("show");
+    overLay.classList.toggle("show");
+  }
+}
