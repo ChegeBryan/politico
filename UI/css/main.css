@@ -207,14 +207,22 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #2e151b;
   color: #fff;
 }
+.btn--danger {
+  background-color: #D8001F;
+  color: #fff;
+}
+.btn:hover, .btn:focus {
+  outline: 0;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
+}
 .btn--block {
   flex: 0 0 100%;
 }
 .btn--basic:hover, .btn--basic:focus {
-  outline: 0;
   background-color: #5f343e;
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2),
-   0 4px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.btn--danger:hover, .btn--danger:focus {
+  background-color: #9F0000;
 }
 .hide {
   display: none;
