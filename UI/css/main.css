@@ -310,7 +310,7 @@ table {
 
 th, td {
   text-align: left;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
   border-bottom: 1px solid #ddd;
 }
 th {
@@ -318,6 +318,26 @@ th {
 }
 .table--responsive {
   overflow-x: auto;
+}
+
+.percentage__bar {
+  background-color: #f1f1f1;
+  color: #fff;
+  border-radius: 1rem;
+}
+.percentage__bar--level {
+  background-color: #2f4454;
+  text-align: center;
+  border-radius: 1rem;
+}
+.level-1 {
+  width: 25%;
+}
+.level-2 {
+  width: 60%;
+}
+.level-3 {
+  width: 45%;
 }
 /*=============================================================================
 * Media Queries for different
