@@ -22,20 +22,17 @@ function hidePassword() {
 // toggle hiding and opening modal
 var modal = document.getElementById("modal");
 var overLay = document.getElementById("modal-overlay");
-var closeButton = document.getElementsByClassName("modal--close")[0];
-var openButton = document.getElementsByClassName("modal--open")[0];
 
-closeButton.addEventListener("click",
-  function () {
-    modal.classList.toggle("show");
-    overLay.classList.toggle("show");
-  });
 
-openButton.addEventListener("click",
-  function () {
-    modal.classList.toggle("show");
-    overLay.classList.toggle("show");
-  });
+function closeModal() {
+  modal.classList.toggle("show");
+  overLay.classList.toggle("show");
+}
+
+function openModal() {
+  modal.classList.toggle("show");
+  overLay.classList.toggle("show");
+}
 
 window.onclick = function (event) {
   if (event.target == modal) {
