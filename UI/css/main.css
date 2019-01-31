@@ -290,6 +290,11 @@ hr {
 .pwd--toggle:hover {
   color: #5f343e;
 }
+
+.main {
+  margin-top: 60px;
+  margin-left: 3.5rem;
+}
 /*=============================================================================
 * Media Queries for different
 *============================================================================*/
@@ -325,6 +330,10 @@ hr {
   }
   .sidenav {
     width: 14rem;
+  }
+  .main {
+    margin-top: 60px;
+    margin-left: 15rem;
   }
 
   /* flex widths:
