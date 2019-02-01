@@ -43,7 +43,7 @@ window.onclick = function (event) {
 
 var editTable = document.getElementsByClassName("edit__table")[0];
 var editForm = document.getElementsByClassName("edit__form")[0];
-function editParty() {
+function edit() {
   editTable.classList.toggle("hide");
   editForm.classList.toggle("hide");
 }
