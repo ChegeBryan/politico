@@ -222,8 +222,24 @@ h1, h2, h3, h4, h5, h6 {
 .form__label--radio:hover input ~ .checkmark {
   background-color: #ccc;
 }
-.form__label--radio:checked ~ .checkmark {
+.form__label--radio input:checked ~ .checkmark {
   background-color: #2f4454;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.form__label--radio input:checked ~ .checkmark:after {
+  display: block;
+}
+.form__label--radio .checkmark:after {
+  top: 8px;
+  left: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fff;
 }
 
 .btn {
