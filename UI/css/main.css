@@ -174,7 +174,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*============================================================================
-* Forms and Buttons
+* Forms, Buttons and labels
 *===========================================================================*/
 
 .form__component {
@@ -209,7 +209,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: background-color .15s ease-in-out,
    box-shadow .15s ease-in-out;
 }
-.btn--basic {
+.btn--basic, .label--basic {
   background-color: #2e151b;
   color: #fff;
 }
@@ -217,7 +217,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #D8001F;
   color: #fff;
 }
-.btn--primary {
+.btn--primary, .label--primary {
   background-color: #2f4454;
   color: #fff;
 }
@@ -245,6 +245,9 @@ hr {
   margin-bottom: 1rem;
   border: 0;
   border-top: 1px solid rgb(209, 173, 183);
+}
+.label {
+  padding: .3rem;
 }
 
 /*============================================================================
