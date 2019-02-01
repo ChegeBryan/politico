@@ -6,7 +6,7 @@
   <meta name="description" content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
   <meta name="author" content="Chege Bryan">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Politico Admin | Add office</title>
+  <title>Politico Admin | Edit Office</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
     crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto" rel="stylesheet">
@@ -39,9 +39,8 @@
         <i class="fas fa-fw fa-handshake"></i>&nbsp;Political Parties
       </a>
       <div class="dropdown">
-        <a href="#" class="dropdown__link modal--open" onclick="openModal()"><i class="fas fa-fw fa-plus"></i>&nbsp;Create
-          party</a>
-        <a href="edit_party.html" class="dropdown__link"><i class="fas fa-fw fa-edit"></i>&nbsp;Edit party</a>
+        <a href="#" class="dropdown__link modal--open"><i class="fas fa-fw
+        fa-plus"></i>&nbsp;Create party</a>
         <a href="delete_party.html" class="dropdown__link"><i class="fas fa-fw fa-trash"></i>&nbsp;Delete party</a>
       </div>
     </li>
@@ -50,38 +49,12 @@
         <i class="fas fa-fw fa-university"></i>&nbsp;Political Offices
       </a>
       <div class="dropdown">
-        <a href="edit_office.html" class="dropdown__link"><i class="fas fa-fw
-        fa-edit"></i>&nbsp;Edit office</a>
-        <a href="" class="dropdown__link"><i class="fas fa-fw
+        <a href="add_office.html" class="dropdown__link"><i class="fas fa-fw fa-plus"></i>&nbsp;Create Office</a>
+        <a href="#" class="dropdown__link"><i class="fas fa-fw
         fa-trash"></i>&nbsp;Remove office</a>
       </div>
     </li>
   </ul>
-
-  <!--Page main content-->
-  <div class="main">
-    <div class="container">
-      <div class="container__flex">
-        <div class="flex--col-6 card">
-          <h2 class="card--title">Add new office</h2>
-          <form>
-            <div class="form__component">
-              <label for="office_name" class="hide">Political office name: </label>
-              <input type="text" class="form__component-input" id="office_name"
-              placeholder="Government office name" required>
-            </div>
-
-            <div class="card--actions">
-              <button type="submit" class="btn btn--basic card--actions-btn"> Create Office</button>
-              <button type="button" class="btn btn--basic card--actions-btn">Cancel</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
 
 </body>
 
