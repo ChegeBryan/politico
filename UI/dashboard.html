@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
+  <meta name="author" content="Chege Bryan">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politico | Dashboard</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+    crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <!--navigation bar-->
+  <nav class="navbar navbar--fixed navbar--default">
+    <!--Project name-->
+    <a href="index.html" class="navbar--brand">Politico</a>
+
+    <!--Button to toggle navlink display on mobile-->
+    <button type="button" class="nav__link--toggler" onclick="toggleNavlink()"><i class="fas fa-bars"></i></button>
+
+    <!--Navigation link for and sign out-->
+    <div class="navbar__collapse">
+      <ul class="navbar__nav">
+        <li>
+          <a href="vote.html" class="nav__link">Vote</a>
+        </li>
+        <li>
+          <a href="signin.html" class="nav__link">Sign out</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!--Side bar navigation-->
+  <ul class="sidenav sidenav__nav">
+    <li class="sidenav__item">
+      <a href="dashboard.html" class="nav__link">
+        <i class="fas fa-fw fa-tachometer-alt"></i>&nbsp;Dashboard
+      </a>
+    </li>
+    <li class="sidenav__item">
+      <a href="dashboard.html" class="nav__link">
+        <i class="fas fa-fw fa-handshake"></i>&nbsp;Political Parties
+      </a>
+    </li>
+    <li class="sidenav__item">
+      <a href="#" class="nav__link">
+        <i class="fas fa-fw fa-university"></i>&nbsp;Political Offices
+      </a>
+    </li>
+    <li class="sidenav__item">
+      <a href="#" class="nav__link">
+        <i class="fas fa-fw fa-vote-yea"></i>&nbsp;Vote
+      </a>
+    </li>
+    <li class="sidenav__item">
+      <a href="#" class="nav__link">
+        <i class="fas fa-fw fa-poll"></i>&nbsp;Election Results
+      </a>
+    </li>
+  </ul>
+
+  <!--Page main content-->
+  <div class="main">
+    <div class="container">
+      <div class="card">
+        <h2 class="card--title">Political parties overview</h2>
+        <div class="table--responsive">
+          <table>
+            <tr>
+              <th>Party name</th>
+              <th>% Members in party</th>
+              <th>% Offices occupied</th>
+            </tr>
+            <tr>
+              <td>Council of Ricks</td>
+              <td>
+                <div class="percentage__bar">
+                  <div class="percentage__bar--level level-2">60%</div>
+                </div>
+              </td>
+              <td>
+                <div class="percentage__bar">
+                  <div class="percentage__bar--level level-4">100%</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Council of Mortys</td>
+              <td>
+                <div class="percentage__bar">
+                  <div class="percentage__bar--level level-1">25%</div>
+                </div>
+              </td>
+              <td>
+                <div class="percentage__bar">
+                  <div class="percentage__bar--level level-3">45%</div>
+                </div>
+              </td>
+            <tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>
