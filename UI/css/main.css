@@ -166,15 +166,15 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
 }
+
 .card--actions-btn {
   margin-left: .5rem;
   margin-right: 0;
 }
 
 /*============================================================================
-* Forms and Buttons
+* Forms, Buttons and labels
 *===========================================================================*/
 
 .form__component {
@@ -195,6 +195,53 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid #da7b98;
 }
 
+.form__label--radio {
+  position: relative;
+  cursor: pointer;
+  display: block;
+  padding-left: 2rem;
+  margin-bottom: 0.75rem;
+  user-select: none;
+}
+.form__label--radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-color: #eee;
+  border-radius: 50%;
+}
+.form__label--radio:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+.form__label--radio input:checked ~ .checkmark {
+  background-color: #2f4454;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.form__label--radio input:checked ~ .checkmark:after {
+  display: block;
+}
+.form__label--radio .checkmark:after {
+  top: 8px;
+  left: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
 .btn {
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
@@ -209,7 +256,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: background-color .15s ease-in-out,
    box-shadow .15s ease-in-out;
 }
-.btn--basic {
+.btn--basic, .label--basic {
   background-color: #2e151b;
   color: #fff;
 }
@@ -217,7 +264,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #D8001F;
   color: #fff;
 }
-.btn--primary {
+.btn--primary, .label--primary {
   background-color: #2f4454;
   color: #fff;
 }
@@ -245,6 +292,9 @@ hr {
   margin-bottom: 1rem;
   border: 0;
   border-top: 1px solid rgb(209, 173, 183);
+}
+.label {
+  padding: .3rem;
 }
 
 /*============================================================================
