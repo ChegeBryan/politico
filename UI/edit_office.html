@@ -100,10 +100,20 @@
           <form>
             <div class="form__component">
               <label for="office_name_edit" class="hide">Government office name: </label>
-              <input type="text" class="form__component-input"
-              id="office_name_edit" placeholder="New Office name" required>
+              <input type="text" class="form__component-input" id="office_name_edit" placeholder="New Office name"required>
             </div>
-            
+
+            <div class="form__component">
+              <p>Mark as: </p>
+              <label class="form__label--radio">Occupied
+                <input type="radio" checked="checked" name="status">
+                <span class="checkmark"></span>
+              </label>
+              <label class="form__label--radio">Vacant
+                <input type="radio" name="status">
+                <span class="checkmark"></span>
+              </label>
+            </div>
           </form>
         </div>
       </div>
