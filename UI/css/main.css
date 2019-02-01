@@ -219,7 +219,12 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #eee;
   border-radius: 50%;
 }
-
+.form__label--radio:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+.form__label--radio:checked ~ .checkmark {
+  background-color: #2f4454;
+}
 
 .btn {
   font-family: 'Roboto', sans-serif;
