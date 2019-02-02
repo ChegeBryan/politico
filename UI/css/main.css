@@ -316,6 +316,9 @@ hr {
   align-items: center;
   justify-content: center;
 }
+.flex__justify--between {
+  justify-content: space-between;
+}
 
 [class*=flex--col] {
   width: 100%;/* fill available width */
