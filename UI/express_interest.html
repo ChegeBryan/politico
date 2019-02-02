@@ -6,7 +6,7 @@
   <meta name="description" content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
   <meta name="author" content="Chege Bryan">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Politico | Offices</title>
+  <title>Politico | Express interest</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
     crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto" rel="stylesheet">
@@ -64,49 +64,33 @@
     </li>
   </ul>
 
-  <!--Page main content-->
+  <!-- main content div-->
   <div class="main">
     <div class="container">
-      <div class="card">
-        <div class="container__flex flex__justify--between">
-        <h2 class="card--title">Government Offices overview</h2>
-        <div class="card--actions">
-          <a href="express_interest.html" class="label label--basic">Vie for
-            office</a>
-        </div>
-        </div>
-        <div class="table--responsive">
-          <table>
-            <tr>
-              <th>Office name</th>
-              <th>Office status</th>
-              <th>Interested in office</th>
-            </tr>
-            <tr>
-              <td>Ministry of bubles</td>
-              <td>
-                <span class="label label--basic">Occupied</span>
-              </td>
-              <td>
-                Office not open
-              </td>
-            </tr>
-            <tr>
-              <td>Space aviation</td>
-              <td>
-                <span class="label label--primary">Vacant</span>
-              </td>
-              <td>
-                Meeseks, Summer, Squanch
-              </td>
-            <tr>
-          </table>
+      <div class="container__flex">
+        <div class="card flex--col-5">
+          <h2 class="card--title">Express office interest</h2>
+          <form>
+            <div class="form__component">
+              <label for="government_office" class="hide">Government office: </label>
+              <input type="text" class="form__component-input"
+              id="government_office" placeholder="Office name" required>
+            </div>
+            <div class="form__component">
+              <label for="political_party" class="hide">Political office: </label>
+              <input type="text" class="form__component-input"
+              id="political_party" placeholder="Political party name" required>
+            </div>
+
+            <div class="card--actions">
+              <button type="submit" class="btn btn--basic card--actions-btn">Express interest</button>
+              <a href="government_offices.html" class="btn btn--basic">Cancel</a>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-
-  <script src="js/main.js"></script>
 </body>
 
 </html>

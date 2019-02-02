@@ -169,8 +169,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card--actions-btn {
-  margin-left: .5rem;
-  margin-right: 0;
+  margin-right: .5rem;
+  margin-left: 0;
 }
 
 /*============================================================================
@@ -315,6 +315,9 @@ hr {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+}
+.flex__justify--between {
+  justify-content: space-between;
 }
 
 [class*=flex--col] {
