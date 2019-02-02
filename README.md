@@ -4,7 +4,9 @@
 <p align=center>
 <br>
 <img src="./screenshot.png">
+<a href="https://chegebryan.github.io/politico/UI">View UI</a> Hosted with ❤️ at Github pages
 </br>
+
 </p>
 
 ### Project Description
