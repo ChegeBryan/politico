@@ -241,7 +241,9 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
   background-color: #fff;
 }
-
+td .form__label--radio:last-child {
+  margin-bottom: 0;
+}
 .btn {
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;

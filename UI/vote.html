@@ -6,7 +6,7 @@
   <meta name="description" content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
   <meta name="author" content="Chege Bryan">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Politico | Dashboard</title>
+  <title>Politico | Offices</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
     crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto" rel="stylesheet">
@@ -19,15 +19,9 @@
     <!--Project name-->
     <a href="index.html" class="navbar--brand">Politico</a>
 
-    <!--Button to toggle navlink display on mobile-->
-    <button type="button" class="nav__link--toggler" onclick="toggleNavlink()"><i class="fas fa-bars"></i></button>
-
     <!--Navigation link for and sign out-->
     <div class="navbar__collapse">
       <ul class="navbar__nav">
-        <li>
-          <a href="vote.html" class="nav__link">Vote</a>
-        </li>
         <li>
           <a href="signin.html" class="nav__link">Sign out</a>
         </li>
@@ -68,40 +62,49 @@
   <div class="main">
     <div class="container">
       <div class="card">
-        <h2 class="card--title">Political parties overview</h2>
+        <h2 class="card--title">Voting</h2>
         <div class="table--responsive">
           <table>
             <tr>
-              <th>Party name</th>
-              <th>% Members in party</th>
-              <th>% Offices occupied</th>
+              <th>Office name</th>
+              <th>Vote for</th>
             </tr>
             <tr>
-              <td>Council of Ricks</td>
+              <td>Ministry of bubles</td>
               <td>
-                <div class="percentage__bar">
-                  <div class="percentage__bar--level level-2">60%</div>
-                </div>
-              </td>
-              <td>
-                <div class="percentage__bar">
-                  <div class="percentage__bar--level level-4">100%</div>
-                </div>
+                <label class="form__label--radio">Jerry Smith
+                  <input type="radio" name="office_1">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="form__label--radio"> Morty
+                  <input type="radio" name="office_1">
+                  <span class="checkmark"></span>
+                </label>
               </td>
             </tr>
             <tr>
-              <td>Council of Mortys</td>
+              <td>Space aviation</td>
               <td>
-                <div class="percentage__bar">
-                  <div class="percentage__bar--level level-1">25%</div>
-                </div>
-              </td>
-              <td>
-                <div class="percentage__bar">
-                  <div class="percentage__bar--level level-3">45%</div>
-                </div>
+                <label class="form__label--radio">Lincler
+                  <input type="radio" name="office_2">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="form__label--radio"> Bird Person
+                  <input type="radio" name="office_2">
+                  <span class="checkmark"></span>
+                </label>
               </td>
             <tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>
+                <div class="card--actions">
+                  <button type="button" class="btn btn--basic">
+                    Send vote</button>
+                </div>
+              </td>
+            </tr>
+
           </table>
         </div>
       </div>
@@ -109,8 +112,6 @@
   </div>
 
 
-
-  <script src="js/main.js"></script>
 
 </body>
 
