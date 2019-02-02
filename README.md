@@ -1,4 +1,7 @@
-<h1 align="center">politico</h1>
+<h1 align=center>politico</h1>
+
+[![GitHub
+license](https://img.shields.io/github/license/ChegeBryan/politico.svg)](https://github.com/ChegeBryan/politico/blob/master/LICENSE)
 
 
 <p align=center>
