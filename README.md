@@ -4,6 +4,7 @@
 license](https://img.shields.io/github/license/ChegeBryan/politico.svg)](https://github.com/ChegeBryan/politico/blob/master/LICENSE)
 ![](https://img.shields.io/github/languages/count/ChegeBryan/politico.svg?style=flat)
 ![](https://img.shields.io/github/languages/top/ChegeBryan/politico.svg?colorB=blue&style=flat)
+![](https://img.shields.io/github/repo-size/ChegeBryan/politico.svg?style=flat)
 <p align=center>
 <br>
 <img src="./screenshot.png">
