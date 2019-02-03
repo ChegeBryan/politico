@@ -2,7 +2,7 @@
 
 [![GitHub
 license](https://img.shields.io/github/license/ChegeBryan/politico.svg)](https://github.com/ChegeBryan/politico/blob/master/LICENSE)
-
+![](https://img.shields.io/github/languages/count/ChegeBryan/politico.svg?style=flat)
 
 <p align=center>
 <br>
