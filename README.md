@@ -7,7 +7,9 @@ license](https://img.shields.io/github/license/ChegeBryan/politico.svg)](https:/
 ![](https://img.shields.io/badge/Andela%20Cohort-NB0--37-blue.svg)<br>
 [![Build
 Status](https://travis-ci.org/ChegeBryan/politico.svg?branch=develop)](https://travis-ci.org/ChegeBryan/politico)
-[![Coverage Status](https://coveralls.io/repos/github/ChegeBryan/politico/badge.svg?branch=develop)](https://coveralls.io/github/ChegeBryan/politico?branch=develop)
+[![Coverage
+Status](https://coveralls.io/repos/github/ChegeBryan/politico/badge.svg?branch=develop)](https://coveralls.io/github/ChegeBryan/politico?branch=develop)
+[![Maintainability](https://api.codeclimate.com/v1/badges/3315f3314f723a7c6136/maintainability)](https://codeclimate.com/github/ChegeBryan/politico/maintainability)
 # Politico
 <p align=center>
 <br>
