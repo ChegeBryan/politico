@@ -1,1 +1,1 @@
-# package contains the logic for the controller pac
+# package contains the logic for the application controller
