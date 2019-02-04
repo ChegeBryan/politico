@@ -68,8 +68,13 @@ pip3 install virtualenv
 - run `pytest` at the app root directory
 - run with coverage `pytest --cov=app/tests`
 
-### Built with
-- [Flask](http://flask.pocoo.org/docs/1.0/)
+### Powered by
+
+<a href="http://flask.pocoo.org/"><img
+   src="http://flask.pocoo.org/static/badges/flask-powered.png"
+   border="0"
+   alt="Flask powered"
+   title="Flask powered"></a>
 
 ### Contributing
 ![](https://img.shields.io/badge/PR%27s-Welcome-blue.svg)<br>Contributions will be highly appreciated. Make a pull request and lets build
