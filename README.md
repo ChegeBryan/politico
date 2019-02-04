@@ -30,4 +30,56 @@ transparency.
 
 ### Bonus features
 1. User can reset password.
-2. A politician can create a petition against a concluded political office election.
+2. A politician can create a petition against a concluded political office
+   election.
+
+
+## Getting started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+## Prerequisites
+
+- python 3.6
+- pip3
+
+If you wish to clone the repo please satisfy the requirements in the requirements.txt
+
+## Installing
+
+```
+clone the repo to local machine
+
+git clone https://github.com/ChegeBryan/politico.git
+
+pip3 install virtualenv
+
+```
+### Create a virtual environment and install requirements
+- Navigate to the cloned repo directory and open terminal from there.
+- run `virtualenv venv` to create virtual environment with the name `venv`
+- activate the virtualenv by `source venv/bin/activate`
+- `pip3 install -r requirements.txt` to install app requirements on your virtual environment
+
+### Starting the server
+- set APP_SETTING variable `export APP_SETTING=development`
+- followed by `python manage.py run`
+
+### Running the tests
+- run `pytest` at the app root directory
+- run with coverage `pytest --cov=app/tests`
+
+### Powered by
+
+<a href="http://flask.pocoo.org/"><img
+   src="http://flask.pocoo.org/static/badges/flask-powered.png"
+   border="0"
+   alt="Flask powered"
+   title="Flask powered"></a>
+
+### Contributing
+![](https://img.shields.io/badge/PR%27s-Welcome-blue.svg)<br>Contributions will be highly appreciated. Make a pull request and lets build
+software together.
+
+### Authors
+[Chege Brian](https://github.com/ChegeBryan)
+
