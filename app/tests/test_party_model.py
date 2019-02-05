@@ -5,6 +5,8 @@ import uuid
 
 
 from app.api.model.party import Party
+from app.api.db.mock_db import MockDB
+
 
 class TestPartyModel(unittest.TestCase):
     """ Test class for political party model """
@@ -27,3 +29,6 @@ class TestPartyModel(unittest.TestCase):
         self.assertTrue(self.new_party.party_id)
         self.assertEqual(self.new_party.party_name, 'party name')
         self.assertEqual(self.new_party.hq_address, 'party location')
+
+    def tearDown(self):
+        MockDB.PARTIES[:] = []
