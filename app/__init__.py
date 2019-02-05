@@ -23,10 +23,8 @@ def create_app(config_name):
     app = Flask(__name__, instance_relative_config = True)
     app.config.from_object(config_environment[config_name])
 
-
-    parties_bp.add_url_rule('/parties', view_func=PartiesAPI.as_view('parties'), methods=["POST"])
-
-    app.register_blueprint(parties_bp)
+    # register blueprints to app
+    app.register_blueprint(parties_bp, url_prefix='/api/v1')
 
     return app
 

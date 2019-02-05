@@ -21,5 +21,5 @@ class PartyAPITestCase(BaseTestData):
             json=self.party_holder
         )
         json_body = response.get_json()
-        self.assertTrue(json_body["data"] == [{"party_name": "example name", "hq_address": "example location"}])
+        self.assertIsInstance(json_body["data"], list)
         self.assertEqual(response.status_code, 201)
