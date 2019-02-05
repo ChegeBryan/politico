@@ -36,5 +36,12 @@ class TestPartyModel(unittest.TestCase):
         save_changes(self.new_party)
         self.assertEqual(len(MockDB.PARTIES), 1)
 
+    def test_multiple_parties_are_saved(self):
+        """ Test PARTIES list has the saved parties """
+        save_changes(self.new_party)
+        add_party = Party('another party', 'another location')
+        save_changes(add_party)
+        self.assertEqual(len(MockDB.PARTIES), 2)
+
     def tearDown(self):
         MockDB.PARTIES[:] = []
