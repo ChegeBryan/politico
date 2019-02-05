@@ -23,3 +23,23 @@ class PartyAPITestCase(BaseTestData):
         json_body = response.get_json()
         self.assertIsInstance(json_body["data"], list)
         self.assertEqual(response.status_code, 201)
+
+    def test_zero_length_party_name(self):
+        """
+        Test api returns correct error code and response message on attempt to
+        register a party with no party name
+        : return STATUS CODE 400 Bad Request
+        """
+        self.client = self.app.test_client()
+        response = self.client.post(
+            '/api/v1/parties',
+            json=self.null_party_name_holder
+        )
+        json_data = response.get_json()
+        self.assertEqual(json_data["error"], {"party_name": ["Party name cannot be empty"]})
+        self.assertEqual(response.status_code, 400)
+
+
+
+
+
