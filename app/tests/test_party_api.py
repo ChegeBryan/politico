@@ -73,6 +73,22 @@ class PartyAPITestCase(BaseTestData):
                          "Party name cannot be empty"])
         self.assertEqual(response.status_code, 400)
 
+    def test_party_name_cannot_contain_integer(self):
+        """
+        Test api returns correct error code and response message on attempt to
+        register a party with no party name
+        : return STATUS CODE 400 Bad Request
+        """
+        self.client = self.app.test_client()
+        response = self.client.post(
+            '/api/v1/parties',
+            json=self.int_party_name_holder
+        )
+        json_data = response.get_json()
+        self.assertEqual(json_data["error"], {
+                         "party_name": ["Party name cannot contain number(s)."]})
+        self.assertEqual(response.status_code, 400)
+
 
 
 
