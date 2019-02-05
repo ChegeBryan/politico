@@ -4,6 +4,7 @@ import unittest
 
 from app import create_app
 from app.api.model.party import Party
+from app.api.db.mock_db import MockDB
 
 
 class BaseTestData(unittest.TestCase):
@@ -26,5 +27,8 @@ class BaseTestData(unittest.TestCase):
         self.int_party_name = Party(party_name='12233', hq_address='example location')
         self.int_party_name_holder = self.int_party_name.party_jsonified()
         self.party_name_length = Party(party_name='rt', hq_address='example location')
-        
+
+    def tearDown(self):
+        """ Empty party list for each test """
+        MockDB.PARTIES[:] = []
 
