@@ -1,14 +1,22 @@
 """ Method for data manipulation in the mock db """
 from flask import jsonify
+from marshmallow import ValidationError
 
 from app.api.db.mock_db import MockDB
 from app.api.model.party import Party
 from app.api.util.dto import party_schema
 
+
 def save_new_party(json_data):
     # Deserialize the data input against the party schema
-    data = party_schema.load(json_data)
-
+    # check if input values throw validation errors
+    try:
+        data = party_schema.load(json_data)
+    except ValidationError as e:
+        return jsonify({
+            "status": 400,
+            "error": e.messages
+        }), 400
     party_name = data['party_name']
     hq_address = data['hq_address']
 
