@@ -7,7 +7,7 @@ class PartySchema(ma.Schema):
     """
     Party schema mapped onto Party() class attributes
     """
-    party_id = fields.UUID(dump_only=True)
+    party_id = fields.UUID()
     party_name = fields.String(required=True)
     hq_address = fields.String(required=True)
 
