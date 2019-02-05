@@ -36,7 +36,8 @@ class PartyAPITestCase(BaseTestData):
             json=self.null_party_name_holder
         )
         json_data = response.get_json()
-        self.assertEqual(json_data["error"], {"party_name": ["Party name cannot be empty"]})
+        self.assertIn("Party name cannot be empty",
+                      json_data["error"]["party_name"])
         self.assertEqual(response.status_code, 400)
 
     def test_zero_length_hq_address(self):
@@ -51,8 +52,8 @@ class PartyAPITestCase(BaseTestData):
             json=self.null_party_hq_holder
         )
         json_data = response.get_json()
-        self.assertEqual(json_data["error"], {
-                         "hq_address": ["Please provide party Headquarters address."]})
+        self.assertIn("Please provide party Headquarters address.",
+                         json_data["error"]["hq_address"])
         self.assertEqual(response.status_code, 400)
 
     def test_zero_length_party_fields(self):
@@ -69,8 +70,8 @@ class PartyAPITestCase(BaseTestData):
         json_data = response.get_json()
         self.assertEqual(json_data["error"]["hq_address"], [
                          "Please provide party Headquarters address."])
-        self.assertEqual(json_data["error"]["party_name"], [
-                         "Party name cannot be empty"])
+        self.assertIn("Party name cannot be empty",
+                      json_data["error"]["party_name"])
         self.assertEqual(response.status_code, 400)
 
     def test_party_name_cannot_contain_integer(self):
