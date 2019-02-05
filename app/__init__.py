@@ -26,6 +26,8 @@ def create_app(config_name):
 
     parties_bp.add_url_rule('/parties', view_func=PartiesAPI.as_view('parties'), methods=["POST"])
 
+    app.register_blueprint(parties_bp)
+
     return app
 
 
