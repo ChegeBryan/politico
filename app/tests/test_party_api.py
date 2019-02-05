@@ -39,6 +39,22 @@ class PartyAPITestCase(BaseTestData):
         self.assertEqual(json_data["error"], {"party_name": ["Party name cannot be empty"]})
         self.assertEqual(response.status_code, 400)
 
+    def test_zero_length_hq_address(self):
+        """
+        Test api returns correct error code and response message on attempt to
+        register a party with no Headquarters details
+        : return STATUS CODE 400 Bad Request
+        """
+        self.client = self.app.test_client()
+        response = self.client.post(
+            '/api/v1/parties',
+            json=self.null_party_hq_holder
+        )
+        json_data = response.get_json()
+        self.assertEqual(json_data["error"], {
+                         "hq_address": ["Please provide party Headquarters address."]})
+        self.assertEqual(response.status_code, 400)
+
 
 
 
