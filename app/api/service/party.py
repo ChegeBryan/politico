@@ -60,6 +60,14 @@ def get_party(_id):
             "error": "Resource /parties/{} not found".format(_id)
         }), 404
 
+def get_parties():
+    """Method to get all parties from list"""
+    return jsonify({
+        "status": 200,
+        "data": MockDB.PARTIES,
+    }), 200
+
+
 def save_changes(data):
     """ Write to the mock db """
     MockDB.PARTIES.append(data)
