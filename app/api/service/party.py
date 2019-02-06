@@ -20,20 +20,29 @@ def save_new_party(json_data):
     party_name = data['party_name']
     hq_address = data['hq_address']
 
-    new_party = Party(
-        party_name=party_name,
-        hq_address=hq_address
-    )
-    save_changes(new_party)
-
-    # 1. serialize the input for response
-    # 2. return serialized and proper format json to api endpoint
-    response = party_schema.dump(new_party)
-    response_object = jsonify({
-        "status": 201,
-        "data": [response]
-    })
-    return response_object, 201
+    # Query database for party name
+    party = Party.get_party_by_name(party_name)
+    if party is None:
+        # if name is not taken
+        new_party = Party(
+            party_name=party_name,
+            hq_address=hq_address
+        )
+        save_changes(new_party)
+        # 1. serialize the input for response
+        # 2. return serialized and proper format json to api endpoint
+        response = party_schema.dump(new_party)
+        response_object = jsonify({
+            "status": 201,
+            "data": [response]
+        })
+        return response_object, 201
+    else:
+        # When name is taken
+        return jsonify({
+            "status": 409,
+            "error": "Try a different Party name, Provided name is taken."
+        }), 409
 
 
 def save_changes(data):
