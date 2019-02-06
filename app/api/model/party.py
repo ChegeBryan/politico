@@ -2,6 +2,9 @@
 
 import uuid
 
+from app.api.db.mock_db import MockDB
+
+
 class Party:
     """
     Party model class
@@ -19,3 +22,10 @@ class Party:
             "hq_address": self.hq_address
         }
 
+    @classmethod
+    def get_party_by_name(cls, name):
+        """Method to get a party in the PARTIES list by its name"""
+        for party in MockDB.PARTIES:
+            party = party.party_jsonified()
+            if party["party_name"] == name:
+                return party
