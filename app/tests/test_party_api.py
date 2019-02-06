@@ -36,7 +36,7 @@ class PartyAPITestCase(BaseTestData):
             json=self.null_party_name_holder
         )
         json_data = response.get_json()
-        self.assertIn("Party name cannot be empty",
+        self.assertIn("Party name does not meet minimum length of 4 letters.",
                       json_data["error"]["party_name"])
         self.assertEqual(response.status_code, 400)
 
@@ -70,7 +70,7 @@ class PartyAPITestCase(BaseTestData):
         json_data = response.get_json()
         self.assertEqual(json_data["error"]["hq_address"], [
                          "Please provide party Headquarters address."])
-        self.assertIn("Party name cannot be empty",
+        self.assertIn("Party name does not meet minimum length of 4 letters.",
                       json_data["error"]["party_name"])
         self.assertEqual(response.status_code, 400)
 

@@ -9,7 +9,7 @@ class PartySchema(ma.Schema):
     """
     party_id = fields.UUID()
     party_name = fields.String(required=True, validate=[
-                               validate.Length(min=1, error="Party name cannot be empty"), validate.Regexp(r'[a-zA-Z]', error="Party name cannot contain number(s).")])
+                               validate.Length(min=4, error="Party name does not meet minimum length of 4 letters."), validate.Regexp(r'[a-zA-Z]', error="Party name cannot contain number(s).")])
     hq_address = fields.String(required=True, validate=[
                                validate.Length(min=1, error="Please provide party Headquarters address.")])
 
