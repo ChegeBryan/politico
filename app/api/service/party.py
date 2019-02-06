@@ -4,7 +4,7 @@ from marshmallow import ValidationError
 
 from app.api.db.mock_db import MockDB
 from app.api.model.party import Party
-from app.api.util.dto import party_schema
+from app.api.util.dto import party_schema, parties_schema
 
 
 def save_new_party(json_data):
@@ -59,6 +59,15 @@ def get_party(_id):
             "status": 404,
             "error": "Resource /parties/{} not found".format(_id)
         }), 404
+
+def get_parties():
+    """Method to get all parties from list"""
+    parties = parties_schema.dump(MockDB.PARTIES)
+    return jsonify({
+        "status": 200,
+        "data": parties,
+    }), 200
+
 
 def save_changes(data):
     """ Write to the mock db """

@@ -151,3 +151,29 @@ class PartyAPITestCase(BaseTestData):
         )
         self.assertEqual(get_response.status_code, 404)
 
+    def test_api_can_get_all_parties(self):
+        """
+        Test api can all parties from the PARTIES list.
+        :return: STATUS CODE 200
+        """
+        # do a post first
+        self.client = self.app.test_client()
+        response = self.client.post(
+            '/api/v1/parties',
+            json=self.party_holder
+        )
+        self.assertEqual(response.status_code, 201)
+        # add another entry
+        self.client = self.app.test_client()
+        response = self.client.post(
+            '/api/v1/parties',
+            json={
+                "party_name": "second party",
+                "hq_address": "somewhere"
+            }
+        )
+        self.assertEqual(response.status_code, 201)
+        get_response = self.client.get(
+            'api/v1/parties'
+        )
+        self.assertEqual(get_response.status_code, 200)

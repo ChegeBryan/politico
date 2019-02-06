@@ -15,3 +15,4 @@ class PartySchema(ma.Schema):
 
 
 party_schema = PartySchema()
+parties_schema = PartySchema(many=True)
