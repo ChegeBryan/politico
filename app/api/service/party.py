@@ -44,6 +44,21 @@ def save_new_party(json_data):
             "error": "Try a different Party name, Provided name is taken."
         }), 409
 
+def get_party(_id):
+    """Method to display out the party to the get /parties/<uuid:id>"""
+    party = Party.get_party_by_id(_id)
+    if party:
+        # response when party exists
+        return jsonify({
+            "status": 200,
+            "data": [party_schema.dump(party)]
+        }), 200
+    else:
+        # response when party not found
+        return jsonify({
+            "status": 404,
+            "error": "Resource /parties/{} not found".format(_id)
+        }), 404
 
 def save_changes(data):
     """ Write to the mock db """
