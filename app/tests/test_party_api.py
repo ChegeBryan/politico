@@ -90,7 +90,23 @@ class PartyAPITestCase(BaseTestData):
                          "party_name": ["Party name cannot contain number(s)."]})
         self.assertEqual(response.status_code, 400)
 
-
-
-
-
+    def test_api_cannot_register_duplicate_party_name(self):
+        """
+        Test api returns error message on attempt to register party
+        with same party name again.
+        :return STATUS CODE 409 Conflict
+        """
+        self.client = self.app.test_client()
+        response = self.client.post(
+            '/api/v1/parties',
+            json=self.party_holder
+        )
+        self.assertEqual(response.status_code, 201)
+        response_2 = self.client.post(
+            '/api/v1/parties',
+            json=self.party_holder
+        )
+        json_data = response_2.get_json()
+        self.assertTrue(
+            json_data["error"] == "Try a different Party name, Provided name is taken.")
+        self.assertEqual(response_2.status_code, 409)
