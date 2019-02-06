@@ -15,5 +15,3 @@ class PartySchema(ma.Schema):
 
 
 party_schema = PartySchema()
-
-
