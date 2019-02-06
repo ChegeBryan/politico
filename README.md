@@ -11,6 +11,8 @@ Status](https://travis-ci.org/ChegeBryan/politico.svg?branch=develop)](https://t
 Status](https://coveralls.io/repos/github/ChegeBryan/politico/badge.svg?branch=develop)](https://coveralls.io/github/ChegeBryan/politico?branch=develop)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1eeb18d72ffe4309812fd2ee5f9d0437)](https://www.codacy.com/app/ChegeBryan/politico?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ChegeBryan/politico&amp;utm_campaign=Badge_Grade)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3315f3314f723a7c6136/maintainability)](https://codeclimate.com/github/ChegeBryan/politico/maintainability)
+<br><br>
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/19e7782e3b958da0d0a0)
 
 # Politico
 <p align=center>

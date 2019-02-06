@@ -10,6 +10,7 @@ class Config:
     TESTING = False
     CSRF_ENABLED = True
     SECRET = os.getenv("SECRET", "dont_show_i_exist")
+    JSON_SORT_KEYS = False
 
 
 class DevelopmentConfig(Config):
