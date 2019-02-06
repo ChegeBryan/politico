@@ -4,7 +4,7 @@ from marshmallow import ValidationError
 
 from app.api.db.mock_db import MockDB
 from app.api.model.party import Party
-from app.api.util.dto import party_schema
+from app.api.util.dto import party_schema, parties_schema
 
 
 def save_new_party(json_data):
@@ -62,9 +62,10 @@ def get_party(_id):
 
 def get_parties():
     """Method to get all parties from list"""
+    parties = parties_schema.dump(MockDB.PARTIES)
     return jsonify({
         "status": 200,
-        "data": MockDB.PARTIES,
+        "data": parties,
     }), 200
 
 
