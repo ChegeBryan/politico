@@ -1,7 +1,7 @@
 from flask import request, Blueprint
 from flask.views import MethodView
 
-from app.api.service.party import save_new_party, get_party
+from app.api.service.party import save_new_party, get_party, get_parties
 
 parties = Blueprint('parties', __name__)
 
@@ -17,8 +17,10 @@ class PartiesAPI(MethodView):
 
     def get(self, _id):
         if _id is None:
-            pass
+            # return list of all parties
+            return get_parties()
         else:
+            # return single party
             return get_party(_id=_id)
 
 # register the class as view
