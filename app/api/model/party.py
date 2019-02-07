@@ -37,3 +37,11 @@ class Party:
             party = party.party_jsonified()
             if party["party_id"] == identifier:
                 return party
+
+    @classmethod
+    def update_party(cls, _id, name, address):
+        """ Method to update the name and address of called party """
+        party_to_edit = Party.get_party_by_id(_id)
+        party_to_edit["party_name"] = name
+        party_to_edit["hq_address"] = address
+        return party_to_edit
