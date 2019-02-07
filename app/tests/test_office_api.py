@@ -52,3 +52,19 @@ class OfficeAPITestCase(BaseTestData):
             'api/v1/offices/{}'.format(_id)
         )
         self.assertEqual(get_response.status_code, 404)
+
+    def test_get_all_offices(self):
+        """
+        Test api can all offices from the OFFICES list.
+        :return: STATUS CODE 200
+        """
+        # do a post first
+        response = self.office_data
+        self.assertEqual(response.status_code, 201)
+        # add another entry
+        response = self.office_data
+        self.assertEqual(response.status_code, 201)
+        get_response = self.client.get(
+            'api/v1/offices'
+        )
+        self.assertEqual(get_response.status_code, 200)
