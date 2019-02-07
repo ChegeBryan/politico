@@ -9,7 +9,7 @@ class PartyAPITestCase(BaseTestData):
     Class for testing api methods
     """
 
-    def test_api_can_create_party(self):
+    def test_create_party(self):
         """
         Test api return correct status code on success
         : return STATUS CODE 201 Ok Created
@@ -68,7 +68,7 @@ class PartyAPITestCase(BaseTestData):
                       json_data["error"]["party_name"])
         self.assertEqual(response.status_code, 400)
 
-    def test_party_name_cannot_contain_integer(self):
+    def test_party_name_contain_integer(self):
         """
         Test api returns correct error code and response message on attempt to
         register a party with no party name
@@ -83,7 +83,7 @@ class PartyAPITestCase(BaseTestData):
                          "party_name": ["Party name cannot contain number(s)."]})
         self.assertEqual(response.status_code, 400)
 
-    def test_api_cannot_register_duplicate_party_name(self):
+    def test_register_duplicate_party_name(self):
         """
         Test api returns error message on attempt to register party
         with same party name again.
@@ -97,7 +97,7 @@ class PartyAPITestCase(BaseTestData):
             json_data["error"] == "Try a different Party name, Provided name is taken.")
         self.assertEqual(response_2.status_code, 409)
 
-    def test_api_can_get_a_party(self):
+    def test_get_single_party(self):
         """
         Test api can get a specific party with the provided party id
         from the PARTIES list.
@@ -113,7 +113,7 @@ class PartyAPITestCase(BaseTestData):
         )
         self.assertEqual(get_response.status_code, 200)
 
-    def test_api_can_return_error_party_not_found(self):
+    def test_party_not_found(self):
         """
         Test api returns correct status code and message when party with an id
         is not found from the PARTIES list.
@@ -128,7 +128,7 @@ class PartyAPITestCase(BaseTestData):
         )
         self.assertEqual(get_response.status_code, 404)
 
-    def test_api_can_get_all_parties(self):
+    def test_get_all_parties(self):
         """
         Test api can all parties from the PARTIES list.
         :return: STATUS CODE 200
