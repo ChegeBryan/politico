@@ -173,6 +173,25 @@ class PartyAPITestCase(BaseTestData):
         self.assertEqual(new_data["data"][0]["party_name"], "Changed this")
         self.assertEqual(response_edit.status_code, 200)
 
+    def test_edit_party_error(self):
+        """
+        Test error returned when the party to edit is not found.
+        :return: STATUS CODE 404
+        """
+        _id = uuid.uuid4() # generate random id
+        # edit party details (party name)
+        response_edit = self.client.put(
+            'api/v1/parties/{}/edit'.format(_id),
+            json={
+                "party_name": "Changed this",
+                "hq_address": "We moved"
+            }
+        )
+        new_data = response_edit.get_json()
+        self.assertEqual(new_data["error"],
+                         "Resource requested for edit not found.")
+        self.assertEqual(response_edit.status_code, 404)
+
     def test_delete_party(self):
         """
         Test api deletes a political party.
