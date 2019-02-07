@@ -5,6 +5,8 @@ import uuid
 
 
 from app.api.model.office import Office
+from app.api.db.mock_db import MockDB
+from app.api.service.office import save_changes
 
 
 class TestOfficeModel(unittest.TestCase):
@@ -30,3 +32,8 @@ class TestOfficeModel(unittest.TestCase):
         self.assertEqual(self.new_office.officeName, 'Senate')
         self.assertEqual(self.new_office.officeType, 'Congress')
         self.assertFalse(self.new_office.isOccupied, False)
+
+    def test_office_is_saved(self):
+        """ Test party is saved on PARTIES list """
+        save_changes(self.new_office)
+        self.assertEqual(len(MockDB.OFFICES), 1)
