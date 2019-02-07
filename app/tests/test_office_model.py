@@ -37,3 +37,11 @@ class TestOfficeModel(unittest.TestCase):
         """ Test party is saved on PARTIES list """
         save_changes(self.new_office)
         self.assertEqual(len(MockDB.OFFICES), 1)
+
+
+    def test_multiple_offices_are_saved(self):
+        """ Test PARTIES list has the saved parties """
+        save_changes(self.new_office)
+        add_office = Office('House of Respresentatives', 'Congress', False)
+        save_changes(add_office)
+        self.assertEqual(len(MockDB.OFFICES), 2)
