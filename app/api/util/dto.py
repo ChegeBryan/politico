@@ -14,5 +14,17 @@ class PartySchema(ma.Schema):
                                validate.Length(min=1, error="Please provide party Headquarters address.")])
 
 
+class OfficeSchema(Schema):
+    """
+    Office schema mapped onto Office() class attributes
+    """
+    officeId = fields.UUID()
+    officeName = fields.Str(required=True)
+    officeType = fields.Str(required=True)
+    isOccupied = fields.Boolean(missing=False)
+
+
 party_schema = PartySchema()
 parties_schema = PartySchema(many=True)
+office_schema = OfficeSchema()
+offices_schema = OfficeSchema(many=True)
