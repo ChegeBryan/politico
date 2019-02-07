@@ -38,4 +38,17 @@ class OfficeAPITestCase(BaseTestData):
         )
         self.assertEqual(get_response.status_code, 200)
 
-    
+    def test_office_not_found(self):
+        """
+        Test api returns correct status code and message when party with an id
+        is not found from the PARTIES list.
+        :return: STATUS CODE 404
+        """
+        # do a post first
+        response = self.office_data
+        self.assertEqual(response.status_code, 201)
+        _id = uuid.uuid4()
+        get_response = self.client.get(
+            'api/v1/offices/{}'.format(_id)
+        )
+        self.assertEqual(get_response.status_code, 404)
