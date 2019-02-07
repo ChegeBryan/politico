@@ -1,7 +1,7 @@
 from flask import request, Blueprint
 from flask.views import MethodView
 
-from app.api.service.party import save_new_party, get_party, get_parties
+from app.api.service.party import save_new_party, get_party, get_parties, edit_party
 
 parties = Blueprint('parties', __name__)
 
@@ -22,6 +22,13 @@ class PartiesAPI(MethodView):
         else:
             # return single party
             return get_party(_id=_id)
+
+    def put(self, _id):
+        # edit party details
+        json_input = request.get_json()
+        return edit_party(_id=_id, json_data=json_input)
+
+
 
 # register the class as view
 parties_view = PartiesAPI.as_view('parties')
