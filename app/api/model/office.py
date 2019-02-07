@@ -24,3 +24,11 @@ class Office:
             "isOccupied": self.isOccupied
         }
 
+    @classmethod
+    def get_office_by_id(cls, identifier):
+        """Method to get office in the OFFICES list by its ID"""
+        for office in MockDB.OFFICES:
+            office = office.office_jsonified()
+            if office["officeId"] == identifier:
+                return office
+
