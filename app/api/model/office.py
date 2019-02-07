@@ -15,3 +15,12 @@ class Office:
         self.officeType = officeType
         self.isOccupied = False
 
+    def office_jsonified(self):
+        """ Return a office object as json """
+        return {
+            "officeId": self.officeId,
+            "officeName": self.officeName,
+            "officeType": self.officeType,
+            "isOccupied": self.isOccupied
+        }
+
