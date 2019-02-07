@@ -94,6 +94,26 @@ def edit_party(_id, json_data):
             "error": "Resource requested for edit not found"
         }), 404
 
+def delete_party(_id):
+    """ Method to delete party and return response message """
+    res = Party.delete_party(_id)
+    if res:
+        # response for successful deletion
+        return jsonify({
+            "status": 200,
+            "data": [{
+                "message": "Political Party deleted successfully."
+            }]
+        }), 200
+    else:
+        # response message when delete fails.
+        return jsonify({
+            "status": 404,
+            "data": [{
+                "message": "Political Party to delete not found."
+            }]
+        }), 404
+
 def save_changes(data):
     """ Write to the mock db """
     MockDB.PARTIES.append(data)

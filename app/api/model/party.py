@@ -45,3 +45,13 @@ class Party:
         party_to_edit["party_name"] = name
         party_to_edit["hq_address"] = address
         return party_to_edit
+
+    @classmethod
+    def delete_party(cls, _id):
+        """ Method to delete party from parties list """
+        for party in MockDB.PARTIES:
+            if party.party_id == _id:
+                MockDB.PARTIES.remove(party)
+                return True
+            else:
+                return False
