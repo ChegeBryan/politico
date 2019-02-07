@@ -14,6 +14,7 @@ class BaseTestData(unittest.TestCase):
     def setUp(self):
         """ Initialize app and the tests data """
         self.app = create_app('testing')
+        self.client = self.app.test_client()
 
         # dummy data for the tests
         self.party = Party(party_name='example name', hq_address='example location')
@@ -27,6 +28,10 @@ class BaseTestData(unittest.TestCase):
         self.int_party_name = Party(party_name='12233', hq_address='example location')
         self.int_party_name_holder = self.int_party_name.party_jsonified()
         self.party_name_length = Party(party_name='rt', hq_address='example location')
+
+        # for all posts use this variable
+        self.post_data = self.client.post(
+            "/api/v1/parties", json=self.party_holder)
 
     def tearDown(self):
         """ Empty party list for each test """

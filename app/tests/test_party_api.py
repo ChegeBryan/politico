@@ -9,18 +9,14 @@ class PartyAPITestCase(BaseTestData):
     Class for testing api methods
     """
 
-    def test_api_can_create_party(self):
+    def test_create_party(self):
         """
         Test api return correct status code on success
         : return STATUS CODE 201 Ok Created
         """
 
         #  app testing client
-        self.client = self.app.test_client()
-        response = self.client.post(
-            '/api/v1/parties',
-            json=self.party_holder
-        )
+        response = self.post_data
         json_body = response.get_json()
         self.assertIsInstance(json_body["data"], list)
         self.assertEqual(response.status_code, 201)
@@ -31,7 +27,6 @@ class PartyAPITestCase(BaseTestData):
         register a party with no party name
         : return STATUS CODE 400 Bad Request
         """
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json=self.null_party_name_holder
@@ -47,7 +42,6 @@ class PartyAPITestCase(BaseTestData):
         register a party with no Headquarters details
         : return STATUS CODE 400 Bad Request
         """
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json=self.null_party_hq_holder
@@ -63,7 +57,6 @@ class PartyAPITestCase(BaseTestData):
         register a party with no Headquarters details and party name
         : return STATUS CODE 400 Bad Request
         """
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json=self.null_party_entries_holder
@@ -75,13 +68,12 @@ class PartyAPITestCase(BaseTestData):
                       json_data["error"]["party_name"])
         self.assertEqual(response.status_code, 400)
 
-    def test_party_name_cannot_contain_integer(self):
+    def test_party_name_contain_integer(self):
         """
         Test api returns correct error code and response message on attempt to
         register a party with no party name
         : return STATUS CODE 400 Bad Request
         """
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json=self.int_party_name_holder
@@ -91,39 +83,30 @@ class PartyAPITestCase(BaseTestData):
                          "party_name": ["Party name cannot contain number(s)."]})
         self.assertEqual(response.status_code, 400)
 
-    def test_api_cannot_register_duplicate_party_name(self):
+    def test_register_duplicate_party_name(self):
         """
         Test api returns error message on attempt to register party
         with same party name again.
         :return STATUS CODE 409 Conflict
         """
-        self.client = self.app.test_client()
-        response = self.client.post(
-            '/api/v1/parties',
-            json=self.party_holder
-        )
+        response = self.post_data
         self.assertEqual(response.status_code, 201)
         response_2 = self.client.post(
-            '/api/v1/parties',
-            json=self.party_holder
+            'api/v1/parties', json=self.party_holder
         )
         json_data = response_2.get_json()
         self.assertTrue(
             json_data["error"] == "Try a different Party name, Provided name is taken.")
         self.assertEqual(response_2.status_code, 409)
 
-    def test_api_can_get_a_party(self):
+    def test_get_single_party(self):
         """
         Test api can get a specific party with the provided party id
         from the PARTIES list.
         :return: STATUS CODE 200
         """
         # do a post first
-        self.client = self.app.test_client()
-        response = self.client.post(
-            '/api/v1/parties',
-            json=self.party_holder
-        )
+        response = self.post_data
         self.assertEqual(response.status_code, 201)
         json_data = response.get_json()
         _id = json_data["data"][0]["party_id"]
@@ -132,18 +115,14 @@ class PartyAPITestCase(BaseTestData):
         )
         self.assertEqual(get_response.status_code, 200)
 
-    def test_api_can_return_error_party_not_found(self):
+    def test_party_not_found(self):
         """
         Test api returns correct status code and message when party with an id
         is not found from the PARTIES list.
         :return: STATUS CODE 404
         """
         # do a post first
-        self.client = self.app.test_client()
-        response = self.client.post(
-            '/api/v1/parties',
-            json=self.party_holder
-        )
+        response = self.post_data
         self.assertEqual(response.status_code, 201)
         _id = uuid.uuid4()
         get_response = self.client.get(
@@ -151,20 +130,15 @@ class PartyAPITestCase(BaseTestData):
         )
         self.assertEqual(get_response.status_code, 404)
 
-    def test_api_can_get_all_parties(self):
+    def test_get_all_parties(self):
         """
         Test api can all parties from the PARTIES list.
         :return: STATUS CODE 200
         """
         # do a post first
-        self.client = self.app.test_client()
-        response = self.client.post(
-            '/api/v1/parties',
-            json=self.party_holder
-        )
+        response = self.post_data
         self.assertEqual(response.status_code, 201)
         # add another entry
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json={
