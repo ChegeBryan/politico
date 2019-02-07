@@ -41,10 +41,11 @@ class Party:
     @classmethod
     def update_party(cls, _id, name, address):
         """ Method to update the name and address of called party """
-        party_to_edit = Party.get_party_by_id(_id)
-        party_to_edit["party_name"] = name
-        party_to_edit["hq_address"] = address
-        return party_to_edit
+        for party in MockDB.PARTIES:
+            if party.party_id == _id:
+                party.party_name = name
+                party.hq_address = address
+                return party
 
     @classmethod
     def delete_party(cls, _id):

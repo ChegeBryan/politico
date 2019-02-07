@@ -91,7 +91,7 @@ def edit_party(_id, json_data):
         # response when party not found
         return jsonify({
             "status": 404,
-            "error": "Resource requested for edit not found"
+            "error": "Resource requested for edit not found."
         }), 404
 
 def delete_party(_id):
