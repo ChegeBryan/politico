@@ -47,11 +47,12 @@ class Party:
         return party_to_edit
 
     @classmethod
-    def delete_party(cls, _id):
-        """ Method to delete a political party"""
+    def delete_party(_id):
+        """ Method to delete party from parties list """
         for party in MockDB.PARTIES:
             if party.party_id == _id:
                 MockDB.PARTIES.remove(party)
                 return True
             else:
                 return False
+    
