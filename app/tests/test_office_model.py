@@ -45,3 +45,6 @@ class TestOfficeModel(unittest.TestCase):
         add_office = Office('House of Respresentatives', 'Congress', False)
         save_changes(add_office)
         self.assertEqual(len(MockDB.OFFICES), 2)
+
+    def tearDown(self):
+        MockDB.OFFICES[:] = []
