@@ -4,6 +4,7 @@ import unittest
 
 from app import create_app
 from app.api.model.party import Party
+from app.api.model.office import Office
 from app.api.db.mock_db import MockDB
 
 
@@ -32,6 +33,15 @@ class BaseTestData(unittest.TestCase):
         # for all posts use this variable
         self.post_data = self.client.post(
             "/api/v1/parties", json=self.party_holder)
+
+        # data to use for office test
+        self.office = Office('Senate', 'Congress', False)
+        self.office_holder = self.office.office_jsonified()
+
+        # office post client
+        self.office_data = self.client.post(
+            '/api/v1/offices', json=self.office_holder
+        )
 
     def tearDown(self):
         """ Empty party list for each test """
