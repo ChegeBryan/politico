@@ -22,3 +22,11 @@ class TestOfficeModel(unittest.TestCase):
             False
         )
 
+    def test_office_object_creation(self):
+        """
+        Test office object is initialized properly
+        """
+        self.assertTrue(self.new_office.officeId)
+        self.assertEqual(self.new_office.officeName, 'Senate')
+        self.assertEqual(self.new_office.officeType, 'Congress')
+        self.assertFalse(self.new_office.isOccupied, False)
