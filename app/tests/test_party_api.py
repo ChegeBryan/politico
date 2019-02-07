@@ -91,7 +91,9 @@ class PartyAPITestCase(BaseTestData):
         """
         response = self.post_data
         self.assertEqual(response.status_code, 201)
-        response_2 = self.post_data
+        response_2 = self.client.post(
+            'api/v1/parties', json=self.party_holder
+        )
         json_data = response_2.get_json()
         self.assertTrue(
             json_data["error"] == "Try a different Party name, Provided name is taken.")
