@@ -88,8 +88,11 @@ def edit_party(_id, json_data):
             "data": [party_schema.dump(party_edit)]
         })
     else:
-        pass
-
+        # response when party not found
+        return jsonify({
+            "status": 404,
+            "error": "Resource requested for edit not found"
+        }), 404
 
 def save_changes(data):
     """ Write to the mock db """

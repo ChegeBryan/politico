@@ -154,7 +154,7 @@ class PartyAPITestCase(BaseTestData):
 
     def test_edit_party_name(self):
         """
-        Test api can edit a political party, with the a new name provided on endpoint.
+        Test api can edit a political party, with the a new name and address.
         :return: STATUS CODE 200
         """
         response = self.post_data
