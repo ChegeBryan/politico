@@ -9,5 +9,5 @@ from app.api.db.mock_db import MockDB
 
 def save_changes(data):
     """ Write to the mock db """
-    pass
+    MockDB.OFFICES.append(data)
 
