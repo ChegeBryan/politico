@@ -29,6 +29,10 @@ class BaseTestData(unittest.TestCase):
         self.int_party_name_holder = self.int_party_name.party_jsonified()
         self.party_name_length = Party(party_name='rt', hq_address='example location')
 
+        # for all posts use this variable
+        self.post_data = self.client.post(
+            "/api/v1/parties", json=self.party_holder)
+
     def tearDown(self):
         """ Empty party list for each test """
         MockDB.PARTIES[:] = []

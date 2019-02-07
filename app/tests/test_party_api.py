@@ -16,10 +16,7 @@ class PartyAPITestCase(BaseTestData):
         """
 
         #  app testing client
-        response = self.client.post(
-            '/api/v1/parties',
-            json=self.party_holder
-        )
+        response = self.post_data
         json_body = response.get_json()
         self.assertIsInstance(json_body["data"], list)
         self.assertEqual(response.status_code, 201)
@@ -92,15 +89,9 @@ class PartyAPITestCase(BaseTestData):
         with same party name again.
         :return STATUS CODE 409 Conflict
         """
-        response = self.client.post(
-            '/api/v1/parties',
-            json=self.party_holder
-        )
+        response = self.post_data
         self.assertEqual(response.status_code, 201)
-        response_2 = self.client.post(
-            '/api/v1/parties',
-            json=self.party_holder
-        )
+        response_2 = self.post_data
         json_data = response_2.get_json()
         self.assertTrue(
             json_data["error"] == "Try a different Party name, Provided name is taken.")
@@ -113,10 +104,7 @@ class PartyAPITestCase(BaseTestData):
         :return: STATUS CODE 200
         """
         # do a post first
-        response = self.client.post(
-            '/api/v1/parties',
-            json=self.party_holder
-        )
+        response = self.post_data
         self.assertEqual(response.status_code, 201)
         json_data = response.get_json()
         _id = json_data["data"][0]["party_id"]
@@ -132,10 +120,7 @@ class PartyAPITestCase(BaseTestData):
         :return: STATUS CODE 404
         """
         # do a post first
-        response = self.client.post(
-            '/api/v1/parties',
-            json=self.party_holder
-        )
+        response = self.post_data
         self.assertEqual(response.status_code, 201)
         _id = uuid.uuid4()
         get_response = self.client.get(
@@ -149,10 +134,7 @@ class PartyAPITestCase(BaseTestData):
         :return: STATUS CODE 200
         """
         # do a post first
-        response = self.client.post(
-            '/api/v1/parties',
-            json=self.party_holder
-        )
+        response = self.post_data
         self.assertEqual(response.status_code, 201)
         # add another entry
         response = self.client.post(
