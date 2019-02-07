@@ -1,8 +1,10 @@
 """ Office views """
-from flask import request
+from flask import request, Blueprint
 from flask.views import MethodView
 
 from app.api.service.office import save_new_office
+
+offices = Blueprint('office', __name__)
 
 class OfficeAPI(MethodView):
     """
