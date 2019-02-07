@@ -172,3 +172,21 @@ class PartyAPITestCase(BaseTestData):
         new_data = response_edit.get_json()
         self.assertEqual(new_data["data"][0]["party_name"], "Changed this")
         self.assertEqual(response_edit.status_code, 200)
+
+    def test_delete_party(self):
+        """
+        Test api can edit a political party, with the a new name and address.
+        :return: STATUS CODE 200
+        """
+        response = self.post_data
+        self.assertEqual(response.status_code, 201)
+        json_data = response.get_json()
+        _id = json_data["data"][0]["party_id"]
+        #  party details (party name)
+        response_edit = self.client.delete(
+            'api/v1/parties/{}'.format(_id)
+        )
+        new_data = response_edit.get_json()
+        self.assertEqual(new_data["data"][0]["message"],
+                         "Political Party deleted successfully.")
+        self.assertEqual(response_edit.status_code, 200)
