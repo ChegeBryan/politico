@@ -16,7 +16,6 @@ class PartyAPITestCase(BaseTestData):
         """
 
         #  app testing client
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json=self.party_holder
@@ -31,7 +30,6 @@ class PartyAPITestCase(BaseTestData):
         register a party with no party name
         : return STATUS CODE 400 Bad Request
         """
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json=self.null_party_name_holder
@@ -47,7 +45,6 @@ class PartyAPITestCase(BaseTestData):
         register a party with no Headquarters details
         : return STATUS CODE 400 Bad Request
         """
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json=self.null_party_hq_holder
@@ -63,7 +60,6 @@ class PartyAPITestCase(BaseTestData):
         register a party with no Headquarters details and party name
         : return STATUS CODE 400 Bad Request
         """
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json=self.null_party_entries_holder
@@ -81,7 +77,6 @@ class PartyAPITestCase(BaseTestData):
         register a party with no party name
         : return STATUS CODE 400 Bad Request
         """
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json=self.int_party_name_holder
@@ -97,7 +92,6 @@ class PartyAPITestCase(BaseTestData):
         with same party name again.
         :return STATUS CODE 409 Conflict
         """
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json=self.party_holder
@@ -119,7 +113,6 @@ class PartyAPITestCase(BaseTestData):
         :return: STATUS CODE 200
         """
         # do a post first
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json=self.party_holder
@@ -139,7 +132,6 @@ class PartyAPITestCase(BaseTestData):
         :return: STATUS CODE 404
         """
         # do a post first
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json=self.party_holder
@@ -157,14 +149,12 @@ class PartyAPITestCase(BaseTestData):
         :return: STATUS CODE 200
         """
         # do a post first
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json=self.party_holder
         )
         self.assertEqual(response.status_code, 201)
         # add another entry
-        self.client = self.app.test_client()
         response = self.client.post(
             '/api/v1/parties',
             json={

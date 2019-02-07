@@ -14,6 +14,7 @@ class BaseTestData(unittest.TestCase):
     def setUp(self):
         """ Initialize app and the tests data """
         self.app = create_app('testing')
+        self.client = self.app.test_client()
 
         # dummy data for the tests
         self.party = Party(party_name='example name', hq_address='example location')
