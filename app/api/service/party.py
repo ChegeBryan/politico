@@ -69,6 +69,31 @@ def get_parties():
     }), 200
 
 
+def edit_party(_id, json_data):
+    """ Method to apply new changes to party details """
+    try:
+        data = party_schema.load(json_data)
+    except ValidationError as e:
+        return jsonify({
+            "status": 400,
+            "error": e.messages
+        }), 400
+    party = Party.get_party_by_id(_id)
+    if party:
+        new_name = data["party_name"]
+        new_address = data["hq_address"]
+        party_edit = Party.update_party(_id, new_name, new_address)
+        return jsonify({
+            "status": 200,
+            "data": [party_schema.dump(party_edit)]
+        })
+    else:
+        # response when party not found
+        return jsonify({
+            "status": 404,
+            "error": "Resource requested for edit not found"
+        }), 404
+
 def save_changes(data):
     """ Write to the mock db """
     MockDB.PARTIES.append(data)
