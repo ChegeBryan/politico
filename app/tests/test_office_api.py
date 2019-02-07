@@ -21,3 +21,21 @@ class OfficeAPITestCase(BaseTestData):
         json_body = response.get_json()
         self.assertIsInstance(json_body["data"], list)
         self.assertEqual(response.status_code, 201)
+
+    def test_get_single_office(self):
+        """
+        Test api can get a specific office with the provided office id
+        from the OFFICES list.
+        :return: STATUS CODE 200
+        """
+        # do a post first
+        response = self.office_data
+        self.assertEqual(response.status_code, 201)
+        json_data = response.get_json()
+        _id = json_data["data"][0]["officeId"]
+        get_response = self.client.get(
+            'api/v1/offices/{}'.format(_id)
+        )
+        self.assertEqual(get_response.status_code, 200)
+
+    
