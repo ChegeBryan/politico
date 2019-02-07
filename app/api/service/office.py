@@ -30,6 +30,23 @@ def save_new_office(json_data):
     })
     return response_object, 201
 
+
+def get_office(_id):
+    """Method to display out the office to the get /offices/<uuid:id>"""
+    office = Office.get_office_by_id(_id)
+    if office:
+        # response when office exists
+        return jsonify({
+            "status": 200,
+            "data": [office_schema.dump(office)]
+        }), 200
+    else:
+        # response when offices not found
+        return jsonify({
+            "status": 404,
+            "error": "Resource /offices/{} not found".format(_id)
+        }), 404
+
 def save_changes(data):
     """ Write to the mock db """
     MockDB.OFFICES.append(data)
