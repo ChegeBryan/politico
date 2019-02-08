@@ -39,6 +39,8 @@ class BaseTestData(unittest.TestCase):
         self.office_holder = self.office.office_jsonified()
         self.invalid_office_name = Office('sene', "congress", False)
         self.invalid_office_name_holder = self.invalid_office_name.office_jsonified()
+        self.invalid_office_type = Office('senator', "cong", False)
+        self.invalid_office_type_holder = self.invalid_office_type.office_jsonified()
         # office post client
         self.office_data = self.client.post(
             '/api/v1/offices', json=self.office_holder
