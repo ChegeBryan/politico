@@ -42,7 +42,17 @@ def create_app(config_name):
               "status": 500,
               "error": "Our developers are looking into the issue."
           }), 500
-          
+
+     @app.errorhandler(400)
+     def bad_request(e):
+          """
+          Custom json response for bad request at app level
+          """
+          return jsonify({
+              "status": 400,
+              "error": "Check your request format."
+          }), 400
+
      # register blueprints to app
      app.register_blueprint(parties_bp, url_prefix='/api/v1')
      app.register_blueprint(office_bp, url_prefix='/api/v1')
