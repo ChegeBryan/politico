@@ -3,6 +3,7 @@ Method for data manipulation between controller and models
 in the mock db
 """
 from flask import jsonify
+from marshmallow import ValidationError
 
 from app.api.db.mock_db import MockDB
 from app.api.model.office import Office
@@ -12,7 +13,14 @@ from app.api.util.dto import office_schema, offices_schema
 def save_new_office(json_data):
     """ Method to save new office to list """
     # Deserialize the data input against the office schema
-    data = office_schema.load(json_data)
+    # check for validation errors
+    try:
+        data = office_schema.load(json_data)
+    except ValidationError as e:
+        return jsonify({
+           "status": 400,
+           "error": e.messages
+        }), 400
     officeName = data["officeName"]
     officeType = data["officeType"]
     isOccupied = data["isOccupied"]
