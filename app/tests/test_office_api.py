@@ -68,3 +68,29 @@ class OfficeAPITestCase(BaseTestData):
             'api/v1/offices'
         )
         self.assertEqual(get_response.status_code, 200)
+
+    def test_office_entered_is_valid(self):
+        """
+        Test validates if an office name entered is a valid office
+        : STATUS CODE 400
+        """
+        response = self.client.post(
+            '/api/v1/offices', json=self.invalid_office_name_holder
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["error"]["officeName"][0],
+                         "sene not a valid office name. Try one of these president, governor, senator, house of representatives.")
+        self.assertEqual(response.status_code, 400)
+
+    def test_office_type_is_valid(self):
+        """
+        Test to check office type entered is a valid office
+        STATUS CODE 400
+        """
+        response = self.client.post(
+            '/api/v1/offices', json=self.invalid_office_type_holder
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["error"]["officeType"][0],
+                         "cong not a valid office type. Try one of these federal, congress, state.")
+        self.assertEqual(response.status_code, 400)
