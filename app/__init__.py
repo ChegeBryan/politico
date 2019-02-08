@@ -53,6 +53,16 @@ def create_app(config_name):
               "error": "Check your request format."
           }), 400
 
+     @app.errorhandler(404)
+     def url_not_found(e):
+          """
+          Custom json response for bad request at app level
+          """
+          return jsonify({
+              "status": 404,
+              "error": "Check url and try again."
+          }), 404
+
      # register blueprints to app
      app.register_blueprint(parties_bp, url_prefix='/api/v1')
      app.register_blueprint(office_bp, url_prefix='/api/v1')
