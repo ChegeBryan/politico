@@ -19,8 +19,10 @@ class OfficeSchema(Schema):
     Office schema mapped onto Office() class attributes
     """
     officeId = fields.UUID()
-    officeName = fields.Str(required=True)
-    officeType = fields.Str(required=True)
+    officeName = fields.Str(required=True, validate=[validate.OneOf(
+        ('president', 'governor', 'senator', 'house of representatives'), error="{input} not a valid office name. Try one of these {choices}.")])
+    officeType = fields.Str(required=True, validate=[validate.OneOf(
+        ('federal', 'congress', 'state'), error="{input} not a valid office type. Try one of these {choices}.")])
     isOccupied = fields.Boolean(missing=False)
 
 
