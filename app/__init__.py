@@ -32,6 +32,17 @@ def create_app(config_name):
                "status": 405,
                "error": "Method Not Allowed on Url."
           }), 405
+
+     @app.errorhandler(500)
+     def internal_server_error(e):
+          """
+          custom json response when server hits a 500
+          """
+          return jsonify({
+              "status": 500,
+              "error": "Our developers are looking into the issue."
+          }), 500
+          
      # register blueprints to app
      app.register_blueprint(parties_bp, url_prefix='/api/v1')
      app.register_blueprint(office_bp, url_prefix='/api/v1')
