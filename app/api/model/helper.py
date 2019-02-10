@@ -1,5 +1,4 @@
 # functions that are common models.
-from app.api.db.mock_db import MockDB
 
 
 def get_item(identifier, listName):

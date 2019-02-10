@@ -5,7 +5,7 @@ class PartySchema(Schema):
     """
     Party schema mapped onto Party() class attributes
     """
-    party_id = fields.UUID()
+    party_id = fields.UUID(attribute='_id')
     party_name = fields.String(required=True, validate=[
                                validate.Length(min=4, error="Party name does not meet minimum length of 4 letters."), validate.Regexp(r'[a-zA-Z]', error="Party name cannot contain number(s).")])
     hq_address = fields.String(required=True, validate=[

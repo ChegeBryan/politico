@@ -11,6 +11,7 @@ from app.api.service.party import save_changes
 
 class TestPartyModel(unittest.TestCase):
     """ Test class for political party model """
+
     def setUp(self):
         """
         Creation of party object
@@ -27,7 +28,7 @@ class TestPartyModel(unittest.TestCase):
         """
         Test party object is initialized properly
         """
-        self.assertTrue(self.new_party.party_id)
+        self.assertTrue(self.new_party._id)
         self.assertEqual(self.new_party.party_name, 'party name')
         self.assertEqual(self.new_party.hq_address, 'party location')
 
