@@ -1,9 +1,7 @@
 from marshmallow import Schema, fields, validate
-from flask_marshmallow import Marshmallow
 
-ma = Marshmallow()
 
-class PartySchema(ma.Schema):
+class PartySchema(Schema):
     """
     Party schema mapped onto Party() class attributes
     """
