@@ -48,7 +48,7 @@ class PartyAPITestCase(BaseTestData):
         )
         json_data = response.get_json()
         self.assertIn("Please provide party Headquarters address.",
-                         json_data["error"]["hq_address"])
+                      json_data["error"]["hq_address"])
         self.assertEqual(response.status_code, 400)
 
     def test_zero_length_party_fields(self):
@@ -162,14 +162,16 @@ class PartyAPITestCase(BaseTestData):
         json_data = response.get_json()
         _id = json_data["data"][0]["party_id"]
         # edit party details (party name)
-        response_edit = self.client.put(
-            'api/v1/parties/{}/edit'.format(_id),
+        response_edit = self.client.patch(
+            'api/v1/parties/{}/name'.format(_id),
             json={
-                "party_name": "Changed this",
-                "hq_address": "We moved"
+                "party_name": "Changed this"
             }
         )
-        new_data = response_edit.get_json()
+        edited_data = self.client.get(
+            'api/v1/parties/{}'.format(_id)
+        )
+        new_data = edited_data.get_json()
         self.assertEqual(new_data["data"][0]["party_name"], "Changed this")
         self.assertEqual(response_edit.status_code, 200)
 
@@ -178,13 +180,12 @@ class PartyAPITestCase(BaseTestData):
         Test error returned when the party to edit is not found.
         :return: STATUS CODE 404
         """
-        _id = uuid.uuid4() # generate random id
+        _id = uuid.uuid4()  # generate random id
         # edit party details (party name)
-        response_edit = self.client.put(
-            'api/v1/parties/{}/edit'.format(_id),
+        response_edit = self.client.patch(
+            'api/v1/parties/{}/name'.format(_id),
             json={
-                "party_name": "Changed this",
-                "hq_address": "We moved"
+                "party_name": "Changed this"
             }
         )
         new_data = response_edit.get_json()

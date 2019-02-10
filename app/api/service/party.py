@@ -44,6 +44,7 @@ def save_new_party(json_data):
             "error": "Try a different Party name, Provided name is taken."
         }), 409
 
+
 def get_party(_id):
     """Method to display out the party to the get /parties/<uuid:id>"""
     party = Party.get_party_by_id(_id)
@@ -60,6 +61,7 @@ def get_party(_id):
             "error": "Resource /parties/{} not found".format(_id)
         }), 404
 
+
 def get_parties():
     """Method to get all parties from list"""
     parties = parties_schema.dump(MockDB.PARTIES)
@@ -72,7 +74,7 @@ def get_parties():
 def edit_party(_id, json_data):
     """ Method to apply new changes to party details """
     try:
-        data = party_schema.load(json_data)
+        data = party_schema.load(json_data, partial=True)
     except ValidationError as e:
         return jsonify({
             "status": 400,
@@ -81,8 +83,7 @@ def edit_party(_id, json_data):
     party = Party.get_party_by_id(_id)
     if party:
         new_name = data["party_name"]
-        new_address = data["hq_address"]
-        party_edit = Party.update_party(_id, new_name, new_address)
+        party_edit = party.update_party(_id, new_name)
         return jsonify({
             "status": 200,
             "data": [party_schema.dump(party_edit)]
@@ -93,6 +94,7 @@ def edit_party(_id, json_data):
             "status": 404,
             "error": "Resource requested for edit not found."
         }), 404
+
 
 def delete_party(_id):
     """ Method to delete party and return response message """
@@ -113,6 +115,7 @@ def delete_party(_id):
                 "message": "Political Party to delete not found."
             }]
         }), 404
+
 
 def save_changes(data):
     """ Write to the mock db """

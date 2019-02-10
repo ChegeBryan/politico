@@ -1,13 +1,11 @@
 from marshmallow import Schema, fields, validate
-from flask_marshmallow import Marshmallow
 
-ma = Marshmallow()
 
-class PartySchema(ma.Schema):
+class PartySchema(Schema):
     """
     Party schema mapped onto Party() class attributes
     """
-    party_id = fields.UUID()
+    party_id = fields.UUID(attribute='_id')
     party_name = fields.String(required=True, validate=[
                                validate.Length(min=4, error="Party name does not meet minimum length of 4 letters."), validate.Regexp(r'[a-zA-Z]', error="Party name cannot contain number(s).")])
     hq_address = fields.String(required=True, validate=[
@@ -18,7 +16,7 @@ class OfficeSchema(Schema):
     """
     Office schema mapped onto Office() class attributes
     """
-    officeId = fields.UUID()
+    officeId = fields.UUID(attribute='_id')
     officeName = fields.Str(required=True, validate=[validate.OneOf(
         ('president', 'governor', 'senator', 'house of representatives'), error="{input} not a valid office name. Try one of these {choices}.")])
     officeType = fields.Str(required=True, validate=[validate.OneOf(

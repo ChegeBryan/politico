@@ -11,6 +11,7 @@ from app.api.service.office import save_changes
 
 class TestOfficeModel(unittest.TestCase):
     """ Test class for office model """
+
     def setUp(self):
         """
         Creation of office object
@@ -28,7 +29,7 @@ class TestOfficeModel(unittest.TestCase):
         """
         Test office object is initialized properly
         """
-        self.assertTrue(self.new_office.officeId)
+        self.assertTrue(self.new_office._id)
         self.assertEqual(self.new_office.officeName, 'Senate')
         self.assertEqual(self.new_office.officeType, 'Congress')
         self.assertFalse(self.new_office.isOccupied, False)
@@ -37,7 +38,6 @@ class TestOfficeModel(unittest.TestCase):
         """ Test party is saved on PARTIES list """
         save_changes(self.new_office)
         self.assertEqual(len(MockDB.OFFICES), 1)
-
 
     def test_multiple_offices_are_saved(self):
         """ Test PARTIES list has the saved parties """
