@@ -74,7 +74,7 @@ def get_parties():
 def edit_party(_id, json_data):
     """ Method to apply new changes to party details """
     try:
-        data = party_schema.load(json_data)
+        data = party_schema.load(json_data, partial=True)
     except ValidationError as e:
         return jsonify({
             "status": 400,
@@ -83,8 +83,7 @@ def edit_party(_id, json_data):
     party = Party.get_party_by_id(_id)
     if party:
         new_name = data["party_name"]
-        new_address = data["hq_address"]
-        party_edit = Party.update_party(_id, new_name, new_address)
+        party_edit = party.update_party(_id, new_name)
         return jsonify({
             "status": 200,
             "data": [party_schema.dump(party_edit)]

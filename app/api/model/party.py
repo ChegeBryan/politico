@@ -38,12 +38,11 @@ class Party:
                 return party
 
     @staticmethod
-    def update_party(_id, name, address):
+    def update_party(_id, name):
         """ Method to update the name and address of called party """
         for party in MockDB.PARTIES:
             if party.party_id == _id:
                 party.party_name = name
-                party.hq_address = address
                 return party
 
     @staticmethod
