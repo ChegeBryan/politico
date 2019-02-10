@@ -54,7 +54,6 @@ These instructions will get you a copy of the project up and running on your loc
 If you wish to clone the repo please satisfy the requirements in the requirements.txt
 
 ## Installing
-
 ```
 clone the repo to local machine
 
@@ -70,12 +69,36 @@ pip3 install virtualenv
 - `pip3 install -r requirements.txt` to install app requirements on your virtual environment
 
 ### Starting the server
+while still at the terminal:
 - set APP_SETTING variable `export APP_SETTING=development`
-- followed by `python manage.py run`
+- Set application entry point by `export FLASK_APP=run`
+- Start the app by running `flask run`
 
 ### Running the tests
+To run the application unit_tests
 - run `pytest` at the app root directory
-- run with coverage `pytest --cov=app/tests`
+- run with coverage `pytest --cov=app app/tests`
+
+### Api endpoints (Non-Persistent)
+This are the currently available endpoints. The data is written into python data
+strucutures.
+
+| HTTP Method   | URL Endpoint  | Description  |
+| -------- | ------------------------------------ | ---------------- |
+| `GET`    | `/api/v1/offices`                    | Fetch offices records |
+| `POST`   | `/api/v1/offices`                    | Create a new office |
+| `GET`    | `/api/v1/offices/<uuid:office_id>`    | Fetch a specific office |
+| `GET`    | `/api/v1/parties`                    | Fetch all parties created |
+| `POST`   | `/api/v1/parties`                    | Create a new party |
+| `GET`    | `/api/v1/parties/<uuid:party_id>`      | Fetch specific party |
+| `PATCH`  | `/api/v1/parties/<uuid:party_id>/name` | Update a party name |
+| `DELETE` | `/api/v1/parties/<uuid:party_id>`      | Delete a party |
+
+### API hosting
+[![](https://img.shields.io/badge/Heroku-v1-blue.svg)](https://politico-cb.herokuapp.com)
+
+### Postman Documentation
+[Postman Docs](https://documenter.getpostman.com/view/4869820/RztoM8mV)
 
 ### Powered by
 
