@@ -18,15 +18,16 @@ def save_new_office(json_data):
         data = office_schema.load(json_data)
     except ValidationError as e:
         return jsonify({
-           "status": 400,
-           "error": e.messages
+            "status": 400,
+            "error": e.messages
         }), 400
     officeName = data["officeName"]
     officeType = data["officeType"]
     isOccupied = data["isOccupied"]
 
     # create office object
-    new_office = Office(officeName=officeName, officeType=officeType, isOccupied=isOccupied)
+    new_office = Office(officeName=officeName,
+                        officeType=officeType, isOccupied=isOccupied)
 
     save_changes(new_office)
     # 1. serialize the input for response
@@ -55,6 +56,7 @@ def get_office(_id):
             "error": "Resource /offices/{} not found".format(_id)
         }), 404
 
+
 def get_offices():
     """Method to get all offices from list"""
     offices = offices_schema.dump(MockDB.OFFICES)
@@ -63,7 +65,7 @@ def get_offices():
         "data": offices,
     }), 200
 
+
 def save_changes(data):
     """ Write to the mock db """
     MockDB.OFFICES.append(data)
-

@@ -44,6 +44,7 @@ def save_new_party(json_data):
             "error": "Try a different Party name, Provided name is taken."
         }), 409
 
+
 def get_party(_id):
     """Method to display out the party to the get /parties/<uuid:id>"""
     party = Party.get_party_by_id(_id)
@@ -59,6 +60,7 @@ def get_party(_id):
             "status": 404,
             "error": "Resource /parties/{} not found".format(_id)
         }), 404
+
 
 def get_parties():
     """Method to get all parties from list"""
@@ -94,6 +96,7 @@ def edit_party(_id, json_data):
             "error": "Resource requested for edit not found."
         }), 404
 
+
 def delete_party(_id):
     """ Method to delete party and return response message """
     res = Party.delete_party(_id)
@@ -113,6 +116,7 @@ def delete_party(_id):
                 "message": "Political Party to delete not found."
             }]
         }), 404
+
 
 def save_changes(data):
     """ Write to the mock db """

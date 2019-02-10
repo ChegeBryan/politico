@@ -9,6 +9,7 @@ class Office:
     """
     Office model
     """
+
     def __init__(self, officeName, officeType, isOccupied):
         self.officeId = uuid.uuid4()
         self.officeName = officeName
@@ -24,11 +25,10 @@ class Office:
             "isOccupied": self.isOccupied
         }
 
-    @classmethod
-    def get_office_by_id(cls, identifier):
+    @staticmethod
+    def get_office_by_id(identifier):
         """Method to get office in the OFFICES list by its ID"""
         for office in MockDB.OFFICES:
             office = office.office_jsonified()
             if office["officeId"] == identifier:
                 return office
-
