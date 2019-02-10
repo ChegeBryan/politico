@@ -16,7 +16,7 @@ class OfficeSchema(Schema):
     """
     Office schema mapped onto Office() class attributes
     """
-    officeId = fields.UUID()
+    officeId = fields.UUID(attribute='_id')
     officeName = fields.Str(required=True, validate=[validate.OneOf(
         ('president', 'governor', 'senator', 'house of representatives'), error="{input} not a valid office name. Try one of these {choices}.")])
     officeType = fields.Str(required=True, validate=[validate.OneOf(
