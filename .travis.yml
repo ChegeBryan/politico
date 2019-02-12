@@ -8,6 +8,12 @@ install:
   - pip3 install -r requirements.txt
   - pip3 install coveralls
 
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database politico_test;' -U postgres
+
 # command to run tests with coverage
 script:
   - pytest --cov=app/tests
