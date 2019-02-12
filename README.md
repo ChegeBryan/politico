@@ -112,6 +112,9 @@ strucutures.
 ![](https://img.shields.io/badge/PR%27s-Welcome-blue.svg)<br>Contributions will be highly appreciated. Make a pull request and lets build
 software together.
 
+### Changelog
+see [Changelog](./CHANGELOG.md)
+
 ### Authors
 [Chege Brian](https://github.com/ChegeBryan)
 
