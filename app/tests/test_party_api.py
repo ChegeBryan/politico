@@ -2,6 +2,8 @@
 import uuid
 
 from .base_test import BaseTestData
+from .party_test_data import (
+    null_party_entries_holder, null_party_hq_holder, int_party_name_holder, null_party_name_holder, party_holder)
 
 
 class PartyAPITestCase(BaseTestData):
@@ -29,7 +31,7 @@ class PartyAPITestCase(BaseTestData):
         """
         response = self.client.post(
             '/api/v1/parties',
-            json=self.null_party_name_holder
+            json=null_party_name_holder
         )
         json_data = response.get_json()
         self.assertIn("Party name does not meet minimum length of 4 letters.",
@@ -44,7 +46,7 @@ class PartyAPITestCase(BaseTestData):
         """
         response = self.client.post(
             '/api/v1/parties',
-            json=self.null_party_hq_holder
+            json=null_party_hq_holder
         )
         json_data = response.get_json()
         self.assertIn("Please provide party Headquarters address.",
@@ -59,7 +61,7 @@ class PartyAPITestCase(BaseTestData):
         """
         response = self.client.post(
             '/api/v1/parties',
-            json=self.null_party_entries_holder
+            json=null_party_entries_holder
         )
         json_data = response.get_json()
         self.assertEqual(json_data["error"]["hq_address"], [
@@ -76,7 +78,7 @@ class PartyAPITestCase(BaseTestData):
         """
         response = self.client.post(
             '/api/v1/parties',
-            json=self.int_party_name_holder
+            json=int_party_name_holder
         )
         json_data = response.get_json()
         self.assertEqual(json_data["error"], {
@@ -92,7 +94,7 @@ class PartyAPITestCase(BaseTestData):
         response = self.post_data
         self.assertEqual(response.status_code, 201)
         response_2 = self.client.post(
-            'api/v1/parties', json=self.party_holder
+            'api/v1/parties', json=party_holder
         )
         json_data = response_2.get_json()
         self.assertTrue(
