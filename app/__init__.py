@@ -6,16 +6,14 @@ Creation of application factory
 from flask import Flask, jsonify
 
 from instance.config import config_environment
-from app.api.db.db import connect_db
+from app.api.db.database import AppDatabase
 from app.api.util.error_handlers import bad_request, internal_server_error, url_not_found, method_not_allowed
 from app.api.controller.party_api import parties as parties_bp
 from app.api.controller.office_api import offices as offices_bp
 
 
 def create_app(config_name):
-    """
-
-    App creation function
+    """App creation function
     Args:
        config_name string: environment name
     return:
@@ -23,7 +21,9 @@ def create_app(config_name):
     """
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config_environment[config_name])
-    connect_db(app.config["DATABASE_DSN"])
+    dsn = config_environment[config_name].DATABASE_DSN
+    # create database connection based on the passed in environment
+    AppDatabase(dsn)
 
     # register error handlers
     app.register_error_handler(400, bad_request)
