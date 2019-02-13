@@ -12,9 +12,11 @@ class BaseTestData(unittest.TestCase):
     """
     base test data
     """
+
     def setUp(self):
         """ Initialize app and the tests data """
         self.app = create_app('testing')
+
         self.client = self.app.test_client()
 
         # for all posts use this variable
