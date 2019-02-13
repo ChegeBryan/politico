@@ -28,4 +28,13 @@ class AppDatabase:
         for query in queries:
             self.cur.execute(query)
 
-        self.conn.commit
+        self.conn.commit()
+
+    def drop_all(self):
+        """ Drop all the relations """
+        queries = drop_tables()
+        # execute the queries to drop the tables
+        for query in queries:
+            self.cur.execute(query)
+
+        self.conn.commit()
