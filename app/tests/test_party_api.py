@@ -2,7 +2,7 @@
 import uuid
 
 from .base_test import BaseTestData
-from .party_test_data import (
+from app.api.db.party_test_data import (
     null_party_entries_holder, null_party_hq_holder, int_party_name_holder, null_party_name_holder, party_holder)
 
 

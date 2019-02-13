@@ -3,8 +3,8 @@
 import unittest
 
 from app import create_app
-from .party_test_data import party_holder
-from .office_test_data import office_holder
+from app.api.db.party_test_data import party_holder
+from app.api.db.office_test_data import office_holder
 from app.api.db.mock_db import MockDB
 
 

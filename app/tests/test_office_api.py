@@ -3,7 +3,7 @@
 import uuid
 
 from .base_test import BaseTestData
-from .office_test_data import invalid_office_name_holder, invalid_office_type_holder
+from app.api.db.office_test_data import invalid_office_name_holder, invalid_office_type_holder
 
 
 class OfficeAPITestCase(BaseTestData):
