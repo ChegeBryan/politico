@@ -25,6 +25,12 @@ def create_tables():
     """
     return users
 
+def add_admin(conn):
+    """ Adds an admin user to the table """
+    query = """
+    INSERT INTO users(firstname, lastname, email, phonenumber, password, passportUrl, isAdmin) VALUES ('admin', 'user', 'admin@politico.org', '2019nbo37', 'True')"""
 
-
+    cur = conn.cursor()
+    cur.execute(query)
+    conn.commit()
 
