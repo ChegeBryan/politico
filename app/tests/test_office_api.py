@@ -3,6 +3,7 @@
 import uuid
 
 from .base_test import BaseTestData
+from .office_test_data import invalid_office_name_holder, invalid_office_type_holder
 
 
 class OfficeAPITestCase(BaseTestData):
@@ -75,7 +76,7 @@ class OfficeAPITestCase(BaseTestData):
         : STATUS CODE 400
         """
         response = self.client.post(
-            '/api/v1/offices', json=self.invalid_office_name_holder
+            '/api/v1/offices', json=invalid_office_name_holder
         )
         json_body = response.get_json()
         self.assertEqual(json_body["error"]["officeName"][0],
@@ -88,7 +89,7 @@ class OfficeAPITestCase(BaseTestData):
         STATUS CODE 400
         """
         response = self.client.post(
-            '/api/v1/offices', json=self.invalid_office_type_holder
+            '/api/v1/offices', json=invalid_office_type_holder
         )
         json_body = response.get_json()
         self.assertEqual(json_body["error"]["officeType"][0],

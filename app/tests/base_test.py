@@ -4,7 +4,7 @@ import unittest
 
 from app import create_app
 from .party_test_data import party_holder
-from app.api.model.office import Office
+from .office_test_data import office_holder
 from app.api.db.mock_db import MockDB
 
 
@@ -21,16 +21,9 @@ class BaseTestData(unittest.TestCase):
         self.post_data = self.client.post(
             "/api/v1/parties", json=party_holder)
 
-        # data to use for office test
-        self.office = Office('senator', 'congress', False)
-        self.office_holder = self.office.office_jsonified()
-        self.invalid_office_name = Office('sene', "congress", False)
-        self.invalid_office_name_holder = self.invalid_office_name.office_jsonified()
-        self.invalid_office_type = Office('senator', "cong", False)
-        self.invalid_office_type_holder = self.invalid_office_type.office_jsonified()
         # office post client
         self.office_data = self.client.post(
-            '/api/v1/offices', json=self.office_holder
+            '/api/v1/offices', json=office_holder
         )
 
     def tearDown(self):
