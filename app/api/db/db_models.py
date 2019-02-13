@@ -1,5 +1,11 @@
 # database relations.
 
+def drop_table():
+    """  Removes tables form the database (TDD) """
+    users = """ DROP TABLE IF EXISTS users """
+    return users
+
+
 
 def create_tables():
     """Create relations in the database"""
@@ -17,6 +23,8 @@ def create_tables():
         isPolitician BOOLEAN DEFAULT FALSE
     );
     """
-    return [users]
+    return users
+
+
 
 
