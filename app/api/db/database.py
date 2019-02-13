@@ -5,6 +5,7 @@ import psycopg2
 
 from psycopg2.extras import RealDictCursor as dict_cursor
 
+from app.api.db.db_models import create_tables, drop_tables
 
 class AppDatabase:
 
@@ -19,3 +20,12 @@ class AppDatabase:
             self.cur = self.conn.cursor()
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
+
+    def add_tables(self):
+        """ Registers all tables to the database """
+        queries = create_tables()
+        # execute the queries in create_tables methods
+        for query in queries:
+            self.cur.execute(query)
+
+        self.conn.commit

@@ -1,6 +1,6 @@
 # database relations.
 
-def drop_table():
+def drop_tables():
     """  Removes tables form the database (TDD) """
     users = """ DROP TABLE IF EXISTS users """
     return users
