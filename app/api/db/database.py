@@ -30,6 +30,23 @@ class AppDatabase:
 
         self.conn.commit()
 
+    def get_single_row(self, query):
+        """ Fetches single data row """
+        self.cur.execute(query)
+        row = self.cur.fetchone()
+        return row
+
+    def get_all_rows(self, query):
+        """ Returns the queried rows """
+        self.cur.execute(query)
+        rows = self.cur.fetchall()
+        return rows
+
+    def commit_changes(self, query, values):
+        """ saves the data to database """
+        self.cur.execute(query, values)
+        self.conn.commit()
+
     def drop_all(self):
         """ Drop all the relations """
         queries = drop_tables()
