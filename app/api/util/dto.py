@@ -24,7 +24,24 @@ class OfficeSchema(Schema):
     isOccupied = fields.Boolean(missing=False)
 
 
+class UserSchema(Schema):
+    """
+    User schema mapped on User class attributes
+    """
+    firstname = fields.Str(required=True)
+    lastname = fields.Str(required=True)
+    othername = fields.Str(required=True)
+    email = fields.Email(required=True)
+    phonenumber = fields.Str(required=True)
+    password = fields.Str(required=True)
+    passportUrl = fields.Url(required=True, default="https://api.some.password.org/")
+    isAdmin = fields.Boolean(missing=False)
+    isPolitician = fields.Boolean(missing=False)
+
+
+
 party_schema = PartySchema()
 parties_schema = PartySchema(many=True)
 office_schema = OfficeSchema()
 offices_schema = OfficeSchema(many=True)
+user_schema = UserSchema()
