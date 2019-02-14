@@ -1,5 +1,6 @@
 """ Methods that involve data manipulation in the database """
 from flask import jsonify
+from marshmallow import ValidationError
 
 from app.api.model.user import User
 from app.api.util.dto import user_schema
@@ -12,9 +13,14 @@ def save_new_user(json_data):
     """ Method to save a new user to the database """
 
     # 1. Deserialize the data input against the user schema
-
-    data = user_schema.load(json_data)
-
+    # 2. check for validation errors
+    try:
+        data = user_schema.load(json_data)
+    except ValidationError as e:
+        return jsonify({
+            "status": 400,
+            "error": e.messages
+        }), 400
     firstname = data["firstname"]
     lastname = data["lastname"]
     othername = data["othername"]
