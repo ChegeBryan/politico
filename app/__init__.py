@@ -10,6 +10,7 @@ from app.api.db.database import AppDatabase
 from app.api.util.error_handlers import bad_request, internal_server_error, url_not_found, method_not_allowed
 from app.api.controller.party_api import parties as parties_bp
 from app.api.controller.office_api import offices as offices_bp
+from app.api.controller.user_api import users as users_bp
 
 
 def create_app(config_name):
@@ -35,6 +36,7 @@ def create_app(config_name):
 
     # register blueprints to app
     app.register_blueprint(parties_bp, url_prefix='/api/v1')
-    app.register_blueprint(offices_bp, url_prefix='/api/v1')
+    app.register_blueprint(offices_bp, url_prefix ='/api/v1')
+    app.register_blueprint(users_bp, url_prefix='/api/v2')
 
     return app
