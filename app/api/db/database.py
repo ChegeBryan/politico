@@ -1,11 +1,17 @@
 """
 database setup
 """
+import os
+
 import psycopg2
 
 from psycopg2.extras import RealDictCursor as dict_cursor
-
 from app.api.db.db_models import create_tables, drop_tables
+
+from instance.config import config_environment
+
+use_db = os.getenv("APP_SETTING")
+dsn = config_environment[use_db].DATABASE_DSN
 
 class AppDatabase:
 
