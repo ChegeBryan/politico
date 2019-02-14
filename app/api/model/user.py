@@ -15,3 +15,14 @@ class User:
         self.passportUrl = kwargs.get("passportUrl")
         self.isAdmin = isAdmin
         self.isPolitician = isPolitician
+
+    def add_user(self):
+        query = """INSERT INTO users(firstname, lastname, othername, email,
+        phonenumber, password, passportUrl, isAdmin, isPolitician) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);
+        """
+        values = (self.firstname, self.lastname, self.othername, self.email,
+        self.phonenumber, self.password, self.passportUrl, self.isAdmin,
+        self.isPolitician)
+
+        return query, values
+
