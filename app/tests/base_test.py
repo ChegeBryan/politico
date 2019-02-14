@@ -5,6 +5,7 @@ import unittest
 from app import create_app
 from app.api.db.party_test_data import party_holder
 from app.api.db.office_test_data import office_holder
+from app.api.db.user_test_data import user
 from app.api.db.mock_db import MockDB
 from app.api.db.database import AppDatabase
 from instance.config import config_environment
@@ -29,6 +30,11 @@ class BaseTestData(unittest.TestCase):
         # office post client
         self.office_data = self.client.post(
             '/api/v1/offices', json=office_holder
+        )
+
+        # post a user
+        self.user_data = self.client.post(
+            '/api/v2/auth/signup', json=user
         )
 
     def tearDown(self):
