@@ -6,7 +6,10 @@ from app import create_app
 from app.api.db.party_test_data import party_holder
 from app.api.db.office_test_data import office_holder
 from app.api.db.mock_db import MockDB
+from app.api.db.database import AppDatabase
+from instance.config import config_environment
 
+db = AppDatabase(config_environment['testing'].DATABASE_DSN)
 
 class BaseTestData(unittest.TestCase):
     """
@@ -32,3 +35,4 @@ class BaseTestData(unittest.TestCase):
         """ Empty party list for each test """
         MockDB.PARTIES[:] = []
         MockDB.OFFICES[:] = []
+        db.drop_all()

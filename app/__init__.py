@@ -23,7 +23,9 @@ def create_app(config_name):
     app.config.from_object(config_environment[config_name])
     dsn = config_environment[config_name].DATABASE_DSN
     # create database connection based on the passed in environment
-    AppDatabase(dsn)
+    db = AppDatabase(dsn)
+
+    db.add_tables()
 
     # register error handlers
     app.register_error_handler(400, bad_request)

@@ -3,7 +3,7 @@
 def drop_tables():
     """  Removes tables form the database (TDD) """
     users = """ DROP TABLE IF EXISTS users """
-    return users
+    return [users]
 
 
 
@@ -23,7 +23,7 @@ def create_tables():
         isPolitician BOOLEAN DEFAULT FALSE
     );
     """
-    return users
+    return [users]
 
 def add_admin(conn):
     """ Adds an admin user to the table """
