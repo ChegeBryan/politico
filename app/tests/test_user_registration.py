@@ -1,6 +1,9 @@
 """ Tests for user registration """
 
 from .base_test import BaseTestData
+from app.api.db.user_test_data import (
+    user_null_values, user_names_integer, user_invalid_email,
+    user_invalid_passporturl)
 
 class UserRegistrationTestCases(BaseTestData):
     """
@@ -16,5 +19,57 @@ class UserRegistrationTestCases(BaseTestData):
         self.assertEqual(json_body["status"], 201)
         self.assertEqual(response.status_code, 201)
 
+    def test_zero_length_fields(self):
+        """Test api returns an error when user attempts to register user with no field values
+        : return STATUS CODE 400 Bad Request
+        """
+        response = self.client.post(
+            '/api/v2/auth/signup', json=user_null_values
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 400)
+        self.assertEqual(response.status_code, 400)
+
+    def test_person_names_contain_integer(self):
+        """Test api returns an error when user attempts to register user with no person names that contain integers
+        : return STATUS CODE 400 Bad Request
+        """
+        response = self.client.post(
+            '/api/v2/auth/signup', json=user_names_integer
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 400)
+        self.assertEqual(json_body["error"], {
+                         "firstname": ["Person name cannot contain number(s)."],
+                         "lastname": ["Person name cannot contain number(s)."],
+                         "othername": ["Person name cannot contain number(s)."]
+                         })
+        self.assertEqual(response.status_code, 400)
+
+    def test_invalid_email(self):
+        """Test api returns an error when user attempts to register user with no person names that contain integers
+        : return STATUS CODE 400 Bad Request
+        """
+        response = self.client.post(
+            '/api/v2/auth/signup', json=user_invalid_email
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 400)
+        self.assertEqual(json_body["error"], {
+                         'email': ['Not a valid email address.']})
+        self.assertEqual(response.status_code, 400)
+
+    def test_invalid_passporturl(self):
+        """Test api returns an error when user attempts to register user with no person names that contain integers
+        : return STATUS CODE 400 Bad Request
+        """
+        response = self.client.post(
+            '/api/v2/auth/signup', json=user_invalid_passporturl
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 400)
+        self.assertEqual(json_body["error"], {
+                         'passportUrl': ['Not a valid URL.']})
+        self.assertEqual(response.status_code, 400)
 
 
