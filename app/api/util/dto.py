@@ -28,12 +28,16 @@ class UserSchema(Schema):
     """
     User schema mapped on User class attributes
     """
-    firstname = fields.Str(required=True)
-    lastname = fields.Str(required=True)
-    othername = fields.Str(required=True)
+    firstname = fields.String(required=True, validate=[validate.Length(
+        min=2, error="{input} is not a valid person's name."), validate.Regexp(r'^[a-zA-Z]*$', error="Person name cannot contain number(s).")])
+    lastname = fields.String(required=True, validate=[validate.Length(
+        min=2, error="{input} is not a valid person's name."), validate.Regexp(r'^[a-zA-Z]*$', error="Person name cannot contain number(s).")])
+    othername = fields.String(required=True, validate=[validate.Length(
+        min=2, error="{input} is not a valid person's name."), validate.Regexp(r'^[a-zA-Z]*$', error="Person name cannot contain number(s).")])
     email = fields.Email(required=True)
-    phonenumber = fields.Str(required=True)
-    password = fields.Str(required=True)
+    phonenumber = fields.String(required=True, validate=[validate.Length(
+        min=10, error="{input} is not a valid phonename.")])
+    password = fields.String(required=True)
     passportUrl = fields.Url(required=True, default="https://api.some.password.org/")
     isAdmin = fields.Boolean(missing=False)
     isPolitician = fields.Boolean(missing=False)
