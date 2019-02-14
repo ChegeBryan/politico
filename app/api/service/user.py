@@ -4,7 +4,9 @@ from flask import jsonify
 from app.api.model.user import User
 from app.api.util.dto import user_schema
 from app.api.model.user import User
+from app.api.db.database import AppDatabase, dsn
 
+db = AppDatabase(dsn)
 
 def save_new_user(json_data):
     """ Method to save a new user to the database """
@@ -45,4 +47,5 @@ def get_all_users():
 
 def save_changes(data):
     """ Write to the database """
-    pass
+    query, values = User.add_user(data)
+    db.commit_changes(query, values)
