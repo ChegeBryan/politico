@@ -3,7 +3,7 @@
 from .base_test import BaseTestData
 from app.api.db.user_test_data import (
     user_null_values, user_names_integer, user_invalid_email,
-    user_invalid_passporturl)
+    user_invalid_passporturl, user_same_email, user_same_passport)
 
 class UserRegistrationTestCases(BaseTestData):
     """
@@ -47,7 +47,7 @@ class UserRegistrationTestCases(BaseTestData):
         self.assertEqual(response.status_code, 400)
 
     def test_invalid_email(self):
-        """Test api returns an error when user attempts to register user with no person names that contain integers
+        """Test api returns an error when user attempts to register user with an invalid email
         : return STATUS CODE 400 Bad Request
         """
         response = self.client.post(
@@ -60,7 +60,7 @@ class UserRegistrationTestCases(BaseTestData):
         self.assertEqual(response.status_code, 400)
 
     def test_invalid_passporturl(self):
-        """Test api returns an error when user attempts to register user with no person names that contain integers
+        """Test api returns an error when user attempts to register user with no invalid passport url
         : return STATUS CODE 400 Bad Request
         """
         response = self.client.post(
@@ -71,5 +71,35 @@ class UserRegistrationTestCases(BaseTestData):
         self.assertEqual(json_body["error"], {
                          'passportUrl': ['Not a valid URL.']})
         self.assertEqual(response.status_code, 400)
+
+    def test_duplicate_user_registration_email(self):
+        """
+        Test api returns error message on attempt to register party
+        with a user with the same email address
+        :return STATUS CODE 409 Conflict
+        """
+        response = self.user_data
+        self.assertEqual(response.status_code, 201)
+        response_2 = self.client.post(
+            'api/v2/auth/signup', json=user_same_email
+        )
+        json_body = response_2.get_json()
+        self.assertEqual(json_body["status"], 409)
+        self.assertTrue(json_body["error"] == "Try a different email.")
+
+    def test_duplicate_user_registration_passport(self):
+        """
+        Test api returns error message on attempt to register party
+        with a user with the same passport url
+        :return STATUS CODE 409 Conflict
+        """
+        response = self.user_data
+        self.assertEqual(response.status_code, 201)
+        response_2 = self.client.post(
+            'api/v2/auth/signup', json=user_same_passport
+        )
+        json_body = response_2.get_json()
+        self.assertEqual(json_body["status"], 409)
+        self.assertTrue(json_body["error"] == "Try a different passport uri.")
 
 
