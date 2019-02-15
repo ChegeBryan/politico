@@ -31,17 +31,29 @@ def save_new_user(json_data):
     isAdmin = data["isAdmin"]
     isPolitician = data["isPolitician"]
 
-    new_user = User(firstname=firstname, lastname=lastname, othername=othername,email=email, phonenumber=phonenumber, password=password, passportUrl=passportUrl, isAdmin=isAdmin, isPolitician=isPolitician)
+    # 1. query database if provided email exists.
+    # 2. if it exists exit with a 409 error
+    user_by_email = User.get_user_by_email(email)
+    user_by_passport = User.get_user_by_passport(passportUrl)
+    user_email = db.get_single_row(user_by_email)
+    user_passport = db.get_single_row(user_by_passport)
+    if user_email and user_passport is None:
+        new_user = User(firstname=firstname, lastname=lastname, othername=othername,email=email, phonenumber=phonenumber, password=password, passportUrl=passportUrl, isAdmin=isAdmin, isPolitician=isPolitician)
 
-    save_changes(new_user)
-    # 1. Serialize the input for response
-    # 2. Return serialized and proper format json to api endpoint
-    response = user_schema.dump(new_user)
-    response_object = jsonify({
-        "status": 201,
-        "data": [response]
-    })
-    return response_object, 201
+        save_changes(new_user)
+        # 1. Serialize the input for response
+        # 2. Return serialized and proper format json to api endpoint
+        response = user_schema.dump(new_user)
+        response_object = jsonify({
+            "status": 201,
+            "data": [response]
+        })
+        return response_object, 201
+    else:
+        return jsonify({
+            "status": 409,
+            "error": "User with that email or passport exists."
+        }), 409
 
 def get_user():
     """ Method to get the one single record from users relations. """

@@ -39,3 +39,16 @@ class User:
         """Method to decrypt hash password"""
         return sha256.verify(password, hash)
 
+    @staticmethod
+    def get_user_by_email(email):
+        """ Returns a user found from the database with specified email. """
+        query = """SELECT email FROM users WHERE email={}""".format('email')
+        return query
+
+    @staticmethod
+    def get_user_by_passport(passportUrl):
+        """Return user SQL query to a user from database with a certain passport
+        url """
+        query = """SELECT passportUrl from users WHERE passportUrl={}""".format('passportUrl')
+        return query
+
