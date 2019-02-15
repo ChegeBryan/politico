@@ -1,5 +1,8 @@
 """ User class methods and model"""
 
+from passlib.hash import pbkdf2_sha256 as sha256
+
+
 class User:
     """  User model class """
 
@@ -25,4 +28,14 @@ class User:
         self.isPolitician)
 
         return query, values
+
+    @staticmethod
+    def generate_hash_password(password):
+        """Method to encrypt password"""
+        return sha256.hash(password)
+
+    @staticmethod
+    def verify_hash_password(password, hash):
+        """Method to decrypt hash password"""
+        return sha256.verify(password, hash)
 

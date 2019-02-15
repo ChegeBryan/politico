@@ -26,7 +26,7 @@ def save_new_user(json_data):
     othername = data["othername"]
     email = data["email"]
     phonenumber = data["phonenumber"]
-    password = data["password"]
+    password = User.generate_hash_password(data["password"])
     passportUrl = data["passportUrl"]
     isAdmin = data["isAdmin"]
     isPolitician = data["isPolitician"]
