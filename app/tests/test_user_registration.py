@@ -85,7 +85,9 @@ class UserRegistrationTestCases(BaseTestData):
         )
         json_body = response_2.get_json()
         self.assertEqual(json_body["status"], 409)
-        self.assertTrue(json_body["error"] == "Try a different email.")
+        self.assertTrue(json_body["error"] ==
+                        "User with that email or passport exists.")
+        self.assertEqual(response_2.status_code, 409)
 
     def test_duplicate_user_registration_passport(self):
         """
@@ -100,6 +102,7 @@ class UserRegistrationTestCases(BaseTestData):
         )
         json_body = response_2.get_json()
         self.assertEqual(json_body["status"], 409)
-        self.assertTrue(json_body["error"] == "Try a different passport uri.")
-
+        self.assertTrue(json_body["error"] ==
+                        "User with that email or passport exists.")
+        self.assertEqual(response_2.status_code, 409)
 
