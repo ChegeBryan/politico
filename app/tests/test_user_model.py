@@ -4,13 +4,11 @@ import unittest
 
 
 from app.api.model.user import User
-from .base_test import db
-from app.api.service.user import save_changes
 
 
 class UserModelTestCases(unittest.TestCase):
     """
-    Class to test if the user data is saved tp the database.
+    Class to test if the user required fields are present.
     """
     def setUp(self):
         """
@@ -27,8 +25,8 @@ class UserModelTestCases(unittest.TestCase):
         )
 
     def tearDown(self):
-        """ Clear the database"""
-        db.drop_all()
+        """ Clears the database"""
+        pass
 
 
     def test_user_object_creation(self):
@@ -37,8 +35,9 @@ class UserModelTestCases(unittest.TestCase):
         self.assertEqual(self.new_user.lastname, 'simon')
         self.assertEqual(self.new_user.othername, 'john')
         self.assertEqual(self.new_user.email, 'email@example.com')
+        self.assertEqual(self.new_user.phonenumber, '7859393982')
+        self.assertEqual(self.new_user.password, '089292')
+        self.assertEqual(self.new_user.passportUrl,
+                         'https://api.passposts.com/')
         self.assertFalse(self.new_user.isAdmin, False)
         self.assertFalse(self.new_user.isPolitician, False)
-
-
-
