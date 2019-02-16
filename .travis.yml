@@ -18,7 +18,7 @@ before_script:
 
 # command to run tests with coverage
 script:
-  - pytest --cov=app/tests
+  - pytest --cov=app/api app/tests
 
 after_success:
   - coveralls
