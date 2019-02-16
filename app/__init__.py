@@ -3,7 +3,7 @@ app / __init.py
 Creation of application factory
 """
 
-from flask import Flask, jsonify
+from flask import Flask
 
 from instance.config import config_environment
 from app.api.db.database import AppDatabase
@@ -22,11 +22,11 @@ def create_app(config_name):
     """
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config_environment[config_name])
-    dsn = config_environment[config_name].DATABASE_DSN
-    # create database connection based on the passed in environment
-    db = AppDatabase(dsn)
 
-    db.add_tables()
+    # create database connection based on the application context
+    with app.app_context():
+       db = AppDatabase()
+       db.add_tables()
 
     # register error handlers
     app.register_error_handler(400, bad_request)
@@ -36,7 +36,7 @@ def create_app(config_name):
 
     # register blueprints to app
     app.register_blueprint(parties_bp, url_prefix='/api/v1')
-    app.register_blueprint(offices_bp, url_prefix ='/api/v1')
+    app.register_blueprint(offices_bp, url_prefix='/api/v1')
     app.register_blueprint(users_bp, url_prefix='/api/v2')
 
     return app
