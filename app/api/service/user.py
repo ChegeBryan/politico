@@ -1,13 +1,12 @@
 """ Methods that involve data manipulation in the database """
-from flask import jsonify
+from flask import jsonify, g
 from marshmallow import ValidationError
 
 from app.api.model.user import User
 from app.api.util.dto import user_schema
 from app.api.model.user import User
-from app.api.db.database import AppDatabase, dsn
+from app.api.db.database import AppDatabase as db
 
-db = AppDatabase(dsn)
 
 def save_new_user(json_data):
     """ Method to save a new user to the database """
@@ -35,9 +34,9 @@ def save_new_user(json_data):
     # 2. if it exists exit with a 409 error
     user_by_email = User.get_user_by_email(email)
     user_by_passport = User.get_user_by_passport(passportUrl)
-    user_email = db.get_single_row(user_by_email)
-    user_passport = db.get_single_row(user_by_passport)
-    if user_email and user_passport is None:
+    user_email = db().get_single_row(query=user_by_email)
+    user_passport = db().get_single_row(query=user_by_passport)
+    if user_email is None and user_passport is None:
         new_user = User(firstname=firstname, lastname=lastname, othername=othername,email=email, phonenumber=phonenumber, password=password, passportUrl=passportUrl, isAdmin=isAdmin, isPolitician=isPolitician)
 
         save_changes(new_user)
@@ -66,4 +65,4 @@ def get_all_users():
 def save_changes(data):
     """ Write to the database """
     query, values = User.add_user(data)
-    db.commit_changes(query, values)
+    db().commit_changes(query, values)
