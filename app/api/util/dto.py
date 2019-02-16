@@ -38,7 +38,7 @@ class UserSchema(Schema):
     phonenumber = fields.String(required=True, validate=[validate.Length(
         min=10, error="{input} is not a valid phonename.")])
     password = fields.String(required=True)
-    passportUrl = fields.Url(required=True, default="https://api.some.password.org/")
+    passportUrl = fields.Url(required=True)
     isAdmin = fields.Boolean(missing=False)
     isPolitician = fields.Boolean(missing=False)
 
