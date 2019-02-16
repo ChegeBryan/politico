@@ -8,9 +8,7 @@ from app.api.db.office_test_data import office_holder
 from app.api.db.user_test_data import user
 from app.api.db.mock_db import MockDB
 from app.api.db.database import AppDatabase
-from instance.config import config_environment
 
-db = AppDatabase(config_environment['testing'].DATABASE_DSN)
 
 class BaseTestData(unittest.TestCase):
     """
@@ -20,8 +18,8 @@ class BaseTestData(unittest.TestCase):
     def setUp(self):
         """ Initialize app and the tests data """
         self.app = create_app('testing')
-
-        self.client = self.app.test_client()
+        with self.app.app_context():
+            self.client = self.app.test_client()
 
         # for all posts use this variable
         self.post_data = self.client.post(
@@ -41,4 +39,6 @@ class BaseTestData(unittest.TestCase):
         """ Empty party list for each test """
         MockDB.PARTIES[:] = []
         MockDB.OFFICES[:] = []
-        db.drop_all()
+        with self.app.app_context():
+            db = AppDatabase()
+            db.drop_all()
