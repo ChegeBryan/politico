@@ -13,6 +13,8 @@ services:
 
 before_script:
   - psql -c 'create database politico_test;' -U postgres
+  - psql -c 'create database politico;' -U postgres
+  - psql -c 'create database politico_main;' -U postgres
 
 # command to run tests with coverage
 script:
