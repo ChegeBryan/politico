@@ -78,3 +78,8 @@ user_invalid_passporturl = {
     "isAdmin": "False",
     "isPolitician": "False"
 }
+
+user_logins = {
+    "email": "email@exampl.com",
+    "password": "some_passowrd"
+}
