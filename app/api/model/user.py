@@ -42,13 +42,15 @@ class User:
     @staticmethod
     def get_user_by_email(email):
         """ Returns a user found from the database with specified email. """
-        query = """SELECT email FROM users WHERE email={}""".format('email')
+        sql = """SELECT email FROM users WHERE email=%s"""
+        query = sql, (email,)
         return query
 
     @staticmethod
     def get_user_by_passport(passportUrl):
         """Return user SQL query to a user from database with a certain passport
         url """
-        query = """SELECT passportUrl from users WHERE passportUrl={}""".format('passportUrl')
+        sql = """SELECT passportUrl from users WHERE passportUrl=%s"""
+        query = sql, (passportUrl,)
         return query
 

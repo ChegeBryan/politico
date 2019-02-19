@@ -43,9 +43,9 @@ class AppDatabase:
 
         self.conn.commit()
 
-    def get_single_row(self, query):
+    def get_single_row(self, query, value):
         """ Fetches single data row """
-        self.cur.execute(query)
+        self.cur.execute(query, value)
         row = self.cur.fetchone()
         return row
 

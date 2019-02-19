@@ -34,8 +34,8 @@ def save_new_user(json_data):
     # 2. if it exists exit with a 409 error
     user_by_email = User.get_user_by_email(email)
     user_by_passport = User.get_user_by_passport(passportUrl)
-    user_email = db().get_single_row(query=user_by_email)
-    user_passport = db().get_single_row(query=user_by_passport)
+    user_email = db().get_single_row(*user_by_email)
+    user_passport = db().get_single_row(*user_by_passport)
     if user_email is None and user_passport is None:
         new_user = User(firstname=firstname, lastname=lastname, othername=othername,email=email, phonenumber=phonenumber, password=password, passportUrl=passportUrl, isAdmin=isAdmin, isPolitician=isPolitician)
 
