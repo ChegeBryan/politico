@@ -1,5 +1,6 @@
 """ User authentication helper methods """
 from flask import jsonify
+from marshmallow import ValidationError
 
 from app.api.model.user import User
 from app.api.db.database import AppDatabase as db
@@ -12,7 +13,13 @@ def login_user(json_data):
     Args:
         data (json): User email and password
     """
-    data = auth_schema.load(json_data)
+    try:
+        data = auth_schema.load(json_data)
+    except ValidationError as e:
+        return jsonify({
+            "status": 400,
+            "error": e.messages
+        }), 400
     email = data["email"]
 
     # Query database for if provided user with email exists
