@@ -31,6 +31,11 @@ def login_user(json_data):
                     "user": [response]
                 }]
             }), 200
+        else:
+            return jsonify({
+                "status": 400,
+                "error": "Incorrect user email or password."
+            }), 400
     else:
         # when no user with particular email exists
         return jsonify({
