@@ -4,7 +4,6 @@ import unittest
 
 
 from app.api.model.user import User
-from app.api.service.user import save_changes
 
 
 class UserModelTestCases(unittest.TestCase):
