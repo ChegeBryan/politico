@@ -1,6 +1,8 @@
 """ Test user login and authentication """
 import unittest
 
+from app.api.db.user_test_data import (
+    user_malformed_login_email, user_no_email, user_no_password, user_no_fields)
 from .base_test import BaseTestData
 
 
@@ -27,7 +29,7 @@ class UserAuthTesCases(BaseTestData):
 
     def test_unregistered_user_login(self):
         """
-        Test error is thrown when a unregistered user trys to login
+        Test error is thrown when a unregistered user tries to login
         STATUS CODE: 404 Not Found
         """
         # login user
@@ -45,7 +47,7 @@ class UserAuthTesCases(BaseTestData):
 
     def test_password_missmatch(self):
         """
-        Test error is thrown when a unregistered user trys to login
+        Test error is thrown when a unregistered user tries to login
         STATUS CODE: 404 Not Found
         """
         # login user
@@ -61,7 +63,59 @@ class UserAuthTesCases(BaseTestData):
         self.assertEqual(json_body["error"], "Incorrect user email or password.")
         self.assertEqual(user_login.status_code, 400)
 
+    def test_malformed_login_email(self):
+        """Test api returns an error when user attempts to login with \
+        a malformed email
+        : return STATUS CODE 400 Bad Request
+        """
+        response = self.client.post(
+            '/api/v2/auth/signin', json=user_malformed_login_email
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 400)
+        self.assertEqual(json_body["error"], {
+                         'email': ['Not a valid email address.']})
+        self.assertEqual(response.status_code, 400)
 
+    def test_missing_login_email(self):
+        """Test api returns an error when user attempts to login with \
+        missing email field in the request.
+        : return STATUS CODE 400 Bad Request
+        """
+        response = self.client.post(
+            '/api/v2/auth/signin', json=user_no_email
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 400)
+        self.assertEqual(json_body["error"], {
+                         'email': ['Missing data for required field.']})
+        self.assertEqual(response.status_code, 400)
 
+    def test_missing_login_password(self):
+        """Test api returns an error when user attempts to login with \
+        missing email field in the request.
+        : return STATUS CODE 400 Bad Request
+        """
+        response = self.client.post(
+            '/api/v2/auth/signin', json=user_no_password
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 400)
+        self.assertEqual(json_body["error"], {
+                         'password': ['Missing data for required field.']})
+        self.assertEqual(response.status_code, 400)
 
-
+    def test_missing_login_fields(self):
+        """Test api returns an error when user attempts to login with \
+        missing email field in the request. \
+        : return STATUS CODE 400 Bad Request
+        """
+        response = self.client.post(
+            '/api/v2/auth/signin', json=user_no_fields
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 400)
+        self.assertEqual(json_body["error"], {
+            'email': ['Missing data for required field.'],
+            'password': ['Missing data for required field.']})
+        self.assertEqual(response.status_code, 400)
