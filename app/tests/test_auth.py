@@ -43,6 +43,24 @@ class UserAuthTesCases(BaseTestData):
         self.assertEqual(json_body["message"], "User does not exists.")
         self.assertEqual(user_login.status_code, 404)
 
+    def test_password_missmatch(self):
+        """
+        Test error is thrown when a unregistered user trys to login
+        STATUS CODE: 404 Not Found
+        """
+        # login user
+        user_login = self.client.post(
+            '/api/v2/auth/signin',
+            json={
+                "email": "email@exampl.com",
+                "password": "different_password"
+            }
+        )
+        json_body = user_login.get_json()
+        self.assertEqual(json_body["status"], 400)
+        self.assertEqual(json_body["error"], "Incorrect user email or password.")
+        self.assertEqual(user_login.status_code, 400)
+
 
 
 
