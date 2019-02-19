@@ -20,7 +20,17 @@ def login_user(json_data):
     user_email = db().get_single_row(*user_by_email)
     if user_email:
         # check if password provided matches
-        pass
+        password_candidate = data['password']
+        user_password = user_email['password']
+        if User.verify_hash_password(password_candidate, user_password):
+            response = user_schema.dump(user_email)
+            return jsonify({
+                "status": 200,
+                "message": "Successfully logged in.",
+                "data": [{
+                    "user": [response]
+                }]
+            }), 200
     else:
         # when no user with particular email exists
         return jsonify({
