@@ -4,6 +4,7 @@ import unittest
 
 
 from app.api.model.user import User
+from app.api.service.user import save_changes
 
 
 class UserModelTestCases(unittest.TestCase):
@@ -41,3 +42,8 @@ class UserModelTestCases(unittest.TestCase):
                          'https://api.passposts.com/')
         self.assertFalse(self.new_user.isAdmin, False)
         self.assertFalse(self.new_user.isPolitician, False)
+
+    def test_encode_auth_token(self):
+        user = self.new_user
+        auth_token = user.encode_auth_token(user.email)
+        self.assertTrue(isinstance(auth_token, bytes))
