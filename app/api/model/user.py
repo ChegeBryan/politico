@@ -42,7 +42,7 @@ class User:
     @staticmethod
     def get_user_by_email(email):
         """ Returns a user found from the database with specified email. """
-        sql = """SELECT email FROM users WHERE email=%s"""
+        sql = """SELECT * FROM users WHERE email=%s"""
         query = sql, (email,)
         return query
 

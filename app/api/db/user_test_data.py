@@ -78,3 +78,24 @@ user_invalid_passporturl = {
     "isAdmin": "False",
     "isPolitician": "False"
 }
+
+user_logins = {
+    "email": "email@exampl.com",
+    "password": "some_passowrd"
+}
+
+user_malformed_login_email = {
+    "email": "emila.sk.cl",
+    "password": "some_password"
+}
+
+user_no_email = {
+    "password": "some_password"
+}
+user_no_password = {
+    "email": "eamil@domain.com",
+}
+
+user_no_fields = {
+
+}

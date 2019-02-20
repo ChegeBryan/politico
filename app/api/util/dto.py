@@ -43,9 +43,18 @@ class UserSchema(Schema):
     isPolitician = fields.Boolean(missing=False)
 
 
+class AuthSchema(Schema):
+    """
+    User login data schema
+    """
+    email = fields.Email(required=True)
+    password = fields.String(required=True)
+
 
 party_schema = PartySchema()
 parties_schema = PartySchema(many=True)
 office_schema = OfficeSchema()
 offices_schema = OfficeSchema(many=True)
 user_schema = UserSchema()
+auth_schema = AuthSchema()
+
