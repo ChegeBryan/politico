@@ -30,11 +30,13 @@ def login_user(json_data):
         password_candidate = data['password']
         user_password = user_email['password']
         if User.verify_hash_password(password_candidate, user_password):
+            access_token = User.encode_auth_token(email)
             response = user_schema.dump(user_email)
             return jsonify({
                 "status": 200,
                 "message": "Successfully logged in.",
                 "data": [{
+                    "token": access_token.decode(),
                     "user": [response]
                 }]
             }), 200
