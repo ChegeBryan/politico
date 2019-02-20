@@ -1,7 +1,11 @@
 """ User class methods and model"""
+import datetime
 
+import jwt
+from instance.config import Config
 from passlib.hash import pbkdf2_sha256 as sha256
 
+key = Config.SECRET
 
 class User:
     """  User model class """
@@ -53,4 +57,42 @@ class User:
         sql = """SELECT passportUrl from users WHERE passportUrl=%s"""
         query = sql, (passportUrl,)
         return query
+
+    @staticmethod
+    def encode_auth_token(email):
+        """Generate auth token
+
+        Args:
+            email (string): token identifier
+        """
+        try:
+            payload = {
+                'exp': datetime.datetime.utcnow() \
+                    + datetime.timedelta(hours=12),
+                'iat': datetime.datetime.utcnow(),
+                'sub': email
+            }
+            return jwt.encode(
+                payload,
+                key,
+                algorithm='HS256'
+            )
+        except Exception as e:
+            return e
+
+    @staticmethod
+    def decode_auth_token(auth_token):
+        """Decode auth token
+
+        Args:
+            auth_token (bytes): encoded auth token
+        """
+        try:
+            # decode the token return the email used for enccoding
+            payload = jwt.decode(auth_token, key, algorithms='HS256')
+            return payload['sub']
+        except jwt.ExpiredSignatureError:
+            return "Signature expired. PLease login again."
+        except jwt.InvalidTokenError:
+            return "Invalid token. PLease login again."
 

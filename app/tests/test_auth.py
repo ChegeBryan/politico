@@ -25,6 +25,7 @@ class UserAuthTesCases(BaseTestData):
         json_body = user_login.get_json()
         self.assertEqual(json_body["status"], 200)
         self.assertEqual(json_body["message"], "Successfully logged in.")
+        self.assertTrue(json_body["data"][0]["token"])
         self.assertEqual(user_login.status_code, 200)
 
     def test_unregistered_user_login(self):
