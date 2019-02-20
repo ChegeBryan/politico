@@ -24,7 +24,28 @@ class OfficeSchema(Schema):
     isOccupied = fields.Boolean(missing=False)
 
 
+class UserSchema(Schema):
+    """
+    User schema mapped on User class attributes
+    """
+    firstname = fields.String(required=True, validate=[validate.Length(
+        min=2, error="{input} is not a valid person's name."), validate.Regexp(r'^[a-zA-Z]*$', error="Person name cannot contain number(s).")])
+    lastname = fields.String(required=True, validate=[validate.Length(
+        min=2, error="{input} is not a valid person's name."), validate.Regexp(r'^[a-zA-Z]*$', error="Person name cannot contain number(s).")])
+    othername = fields.String(required=True, validate=[validate.Length(
+        min=2, error="{input} is not a valid person's name."), validate.Regexp(r'^[a-zA-Z]*$', error="Person name cannot contain number(s).")])
+    email = fields.Email(required=True)
+    phonenumber = fields.String(required=True, validate=[validate.Length(
+        min=10, error="{input} is not a valid phonename.")])
+    password = fields.String(required=True)
+    passportUrl = fields.Url(required=True)
+    isAdmin = fields.Boolean(missing=False)
+    isPolitician = fields.Boolean(missing=False)
+
+
+
 party_schema = PartySchema()
 parties_schema = PartySchema(many=True)
 office_schema = OfficeSchema()
 offices_schema = OfficeSchema(many=True)
+user_schema = UserSchema()
