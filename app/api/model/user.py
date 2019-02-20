@@ -86,4 +86,12 @@ class User:
         Args:
             auth_token (bytes): encoded auth token
         """
+        try:
+            # decode the token return the email used for enccoding
+            payload = jwt.decode(auth_token, key, algorithms='HS256')
+            return payload['sub']
+        except jwt.ExpiredSignatureError:
+            return "Signature expired. PLease login again."
+        except jwt.InvalidTokenError:
+            return "Invalid token. PLease login again."
 
