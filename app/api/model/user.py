@@ -58,7 +58,8 @@ class User:
         query = sql, (passportUrl,)
         return query
 
-    def encode_auth_token(self, email):
+    @staticmethod
+    def encode_auth_token(email):
         """Generate auth token
 
         Args:
