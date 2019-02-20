@@ -17,6 +17,7 @@ class UserRegistrationTestCases(BaseTestData):
         response = self.user_data
         json_body = response.get_json()
         self.assertEqual(json_body["status"], 201)
+        self.assertTrue(json_body["data"][0]["token"])
         self.assertEqual(response.status_code, 201)
 
     def test_zero_length_fields(self):
