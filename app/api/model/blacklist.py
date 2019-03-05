@@ -18,4 +18,9 @@ class BlacklistToken:
 
         return query, values
 
-
+    @staticmethod
+    def check_blacklist(auth_token):
+        """ Check if the provided token is already in blacklisted """
+        sql = """SELECT * FROM blacklist WHERE token=%s;"""
+        query = sql, (auth_token)
+        return query
