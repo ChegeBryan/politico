@@ -6,7 +6,7 @@ from app.api.db.user_test_data import (
 from .base_test import BaseTestData
 
 
-class UserAuthTesCases(BaseTestData):
+class UserAuthTestCases(BaseTestData):
     """
     Test cases class for testing user login and authentication
     """
@@ -120,3 +120,30 @@ class UserAuthTesCases(BaseTestData):
             'email': ['Missing data for required field.'],
             'password': ['Missing data for required field.']})
         self.assertEqual(response.status_code, 400)
+
+    def test_blacklisted_token_valid_logout(self):
+        """ Test valid user logout
+        : return STATUS CODE: 200 Ok
+        """
+        # register a user
+        signup = self.user_data
+        self.assertEqual(signup.status_code, 201)
+
+        # login registered user
+        signin = self.login_data
+        json_body = signin.get_json()
+        auth_token = json_body["data"][0]["token"]
+        self.assertTrue(signin.status_code, 200)
+
+        signout = self.client.post(
+            '/api/v2/auth/signout', headers={
+                "Authorization": "Bearer {}".format(auth_token)}
+        )
+        json_body = signout.get_json()
+        self.assertEqual(json_body["status"], 200)
+        self.assertEqual(json_body["message"], "Successfully logged out.")
+        self.assertEqual(signout.status_code, 200)
+
+
+
+
