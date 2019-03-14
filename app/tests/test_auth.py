@@ -166,6 +166,24 @@ class UserAuthTestCases(BaseTestData):
                          "Invalid token. PLease login again.")
         self.assertEqual(signout.status_code, 400)
 
+    def test_missing_auth_token_logout(self):
+        """ Test user user cannot logout without providing a token
+        in the header
+        :return: STATUS CODE: 400 Bad Request
+        """
+        # register user
+        signup = self.user_data
+        self.assertEqual(signup.status_code, 201)
 
+        # login registered user
+        signin = self.login_data
+        self.assertTrue(signin.status_code, 200)
 
-
+        # signout without providing an Authorization header
+        signout = self.client.post(
+            '/api/v2/auth/signout'
+        )
+        json_body = signout.get_json()
+        self.assertEqual(json_body["status"], 403)
+        self.assertEqual(json_body["message"], "Please provide a valid token.")
+        self.assertEqual(signout.status_code, 403)
