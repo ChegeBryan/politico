@@ -187,3 +187,37 @@ class UserAuthTestCases(BaseTestData):
         self.assertEqual(json_body["status"], 403)
         self.assertEqual(json_body["message"], "Please provide a valid token.")
         self.assertEqual(signout.status_code, 403)
+
+    def test_blacklisted_token_invalid_logout(self):
+        """ Test user user cannot logout using a blacklisted token
+        :return: STATUS CODE: 401 Unauthorized
+        """
+        # register user
+        signup = self.user_data
+        self.assertEqual(signup.status_code, 201)
+
+        # login registered user
+        signin = self.login_data
+        json_body = signin.get_json()
+        auth_token = json_body["data"][0]["token"]
+        self.assertTrue(signin.status_code, 200)
+
+        # signout without providing an Authorization header
+        signout = self.client.post(
+            '/api/v2/auth/signout', headers={
+                "Authorization": "Bearer {}".format(auth_token)}
+        )
+        json_body = signout.get_json()
+        self.assertEqual(json_body["status"], 200)
+        self.assertEqual(json_body["message"], "Successfully logged out.")
+        self.assertEqual(signout.status_code, 200)
+
+        # signout again with a blacklisted token
+        signout = self.client.post(
+            '/api/v2/auth/signout', headers={
+                "Authorization": "Bearer {}".format(auth_token)}
+        )
+        json_body = signout.get_json()
+        self.assertEqual(json_body["status"], 401)
+        self.assertEqual(json_body["error"], "User is logged out, Please log in again.")
+        self.assertEqual(signout.status_code, 401)
