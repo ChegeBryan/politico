@@ -144,6 +144,28 @@ class UserAuthTestCases(BaseTestData):
         self.assertEqual(json_body["message"], "Successfully logged out.")
         self.assertEqual(signout.status_code, 200)
 
+    def test_invalid_token_logout(self):
+        """ Test user cannot logout with invalid token
+        :return: STATUS CODE: 403 Forbidden
+        """
+        # register user
+        signup = self.user_data
+        self.assertEqual(signup.status_code, 201)
+
+        # login registered user
+        signin = self.login_data
+        self.assertTrue(signin.status_code, 200)
+
+        signout = self.client.post(
+            '/api/v2/auth/signout', headers={
+                "Authorization": "Bearer {}".format('eyJ0.eXAi.OiJ4')}
+        )
+        json_body = signout.get_json()
+        self.assertEqual(json_body["status"], 400)
+        self.assertEqual(json_body["error"],
+                         "Invalid token. PLease login again.")
+        self.assertEqual(signout.status_code, 400)
+
 
 
 
