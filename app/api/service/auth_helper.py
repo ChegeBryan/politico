@@ -5,6 +5,7 @@ from marshmallow import ValidationError
 from app.api.model.user import User
 from app.api.db.database import AppDatabase as db
 from app.api.util.dto import auth_schema, user_schema
+from app.api.service.blacklist import save_token
 
 
 def login_user(json_data):
@@ -53,8 +54,42 @@ def login_user(json_data):
         }), 404
 
 
+def logout_user(data):
+    """Method to logout a user
 
-
-
-
-
+    Args:
+        data str: jwt token
+    """
+    if data:
+        # get the token value from the "bearer and token" authorization string
+        auth_token = data.split(" ")[1]
+    else:
+        """ if auth token is not available assign auth_token variable to \
+            an empty string
+        """
+        auth_token = ''
+    if auth_token:
+        """ decode the auth token if the result is not a valid email jump \
+            to the except section and return the error returned during \
+            token decoding
+        """
+        response = User.decode_auth_token(auth_token)
+        try:
+            auth_schema.load({'email': response}, partial=True)
+            return save_token(auth_token)
+        except ValidationError:
+            """ expected response value:
+            Expired token: "Signature expired. PLease login again."
+            Invalid token: "Invalid token. PLease login again."
+            """
+            response_object = jsonify({
+                "status": 400,
+                "error": response
+            })
+            return response_object, 400
+    else:
+        response_object = jsonify({
+            "status": 403,
+            "message": "Please provide a valid token."
+        })
+        return response_object, 403

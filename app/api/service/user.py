@@ -1,5 +1,5 @@
 """ Methods that involve data manipulation in the database """
-from flask import jsonify, g
+from flask import jsonify
 from marshmallow import ValidationError
 
 from app.api.model.user import User
