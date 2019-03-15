@@ -3,7 +3,8 @@
 def drop_tables():
     """  Removes tables form the database (TDD) """
     users = """ DROP TABLE IF EXISTS users """
-    return [users]
+    blacklist = """ DROP TABLE IF EXISTS blacklist """
+    return [users, blacklist]
 
 
 
@@ -23,7 +24,14 @@ def create_tables():
         isPolitician BOOLEAN DEFAULT FALSE
     );
     """
-    return [users]
+    blacklist = """
+    CREATE TABLE IF NOT EXISTS blacklist (
+        id SERIAL PRIMARY KEY,
+        token TEXT NOT NULL,
+        blacklisted_on TIMESTAMPTZ NOT NULL
+    );
+    """
+    return [users, blacklist]
 
 def add_admin(conn):
     """ Adds an admin user to the table """
