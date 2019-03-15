@@ -1,6 +1,7 @@
 """ Blacklist_token class method and model """
 
 import datetime
+from app.api.db.database import AppDatabase as db
 
 
 class BlacklistToken:
@@ -22,5 +23,5 @@ class BlacklistToken:
     def check_blacklist(auth_token):
         """ Check if the provided token is already in blacklisted """
         sql = """SELECT * FROM blacklist WHERE token=%s;"""
-        query = sql, (auth_token)
+        query = sql, (auth_token,)
         return query
