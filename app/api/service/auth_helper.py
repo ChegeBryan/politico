@@ -65,13 +65,13 @@ def logout_user(data):
         # get the token value from the "bearer and token" authorization string
         auth_token = data.split(" ")[1]
     else:
-        """ if auth token is not available assign auth_token variable to \
+        """ if auth token is not available assign auth_token variable to
             an empty string
         """
         auth_token = ''
     if auth_token:
-        """ decode the auth token if the result is not a valid email jump \
-            to the except section and return the error returned during \
+        """ decode the auth token if the result is not a valid email jump
+            to the except section and return the error returned during
             token decoding
         """
         blacklisted_query = BlacklistToken.check_blacklist(auth_token)
@@ -103,3 +103,56 @@ def logout_user(data):
             "message": "Please provide a valid token."
         })
         return response_object, 403
+
+
+def get_logged_in_user(request_header):
+    # from the request get the authorization header
+    auth_header = request_header.headers.get('Authorization')
+
+    if auth_header:
+        try:
+            # check if the Authorization follows the format 'Bearer token-value'
+            auth_token = auth_header.split(" ")[1]
+        except IndexError:
+            # when no token value can be established from the Authorization
+            # value
+            response_object = jsonify({
+                'status': 401,
+                'message': 'Malformed token. Check the token format.'
+            })
+            return response_object, 401
+    else:
+        auth_token = ''
+
+    if auth_token:
+        response = User.decode_auth_token(auth_token)
+        try:
+            # validate the response is an email
+            auth_schema.load({'email': response}, partial=True)
+            # get user with the response email from the database
+            user_by_email = User.get_user_by_email(response)
+            user = db().get_single_row(*user_by_email)
+            response_object = jsonify({
+                'status': 200,
+                'user': {
+                    'user_email': user['email'],
+                    'is_admin': user['isadmin']
+                }
+            })
+            return response_object, 200
+        except ValidationError:
+            """ expected response value:
+            Expired token: "Signature expired. PLease login again."
+            Invalid token: "Invalid token. PLease login again."
+            """
+            response_object = jsonify({
+                "status": 401,
+                "error": response
+            })
+            return response_object, 401
+    else:
+        response_object = jsonify({
+            'status': 401,
+            'message': 'Provide a valid auth token.'
+        })
+        return response_object, 401
