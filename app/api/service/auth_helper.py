@@ -74,11 +74,12 @@ def logout_user(data):
             to the except section and return the error returned during
             token decoding
         """
-        blacklisted_query = BlacklistToken.check_blacklist(auth_token)
-        is_blacklisted = db().get_single_row(*blacklisted_query)
+        # check if token is blacklisted before decoding it
+        is_blacklisted = verify_blacklist(auth_token)
         if is_blacklisted is None:
             response = User.decode_auth_token(auth_token)
             try:
+                # check if response is email and blacklist the token
                 auth_schema.load({'email': response}, partial=True)
                 return save_token(auth_token)
             except ValidationError:
@@ -106,6 +107,12 @@ def logout_user(data):
 
 
 def get_logged_in_user(request_header):
+    """return the details of the logged in user
+
+    Args:
+        request_header (Response Object): flask request
+    """
+
     # from the request get the authorization header
     auth_header = request_header.headers.get('Authorization')
 
@@ -125,34 +132,59 @@ def get_logged_in_user(request_header):
         auth_token = ''
 
     if auth_token:
-        response = User.decode_auth_token(auth_token)
-        try:
-            # validate the response is an email
-            auth_schema.load({'email': response}, partial=True)
-            # get user with the response email from the database
-            user_by_email = User.get_user_by_email(response)
-            user = db().get_single_row(*user_by_email)
-            response_object = jsonify({
-                'status': 200,
-                'user': {
-                    'user_email': user['email'],
-                    'is_admin': user['isadmin']
-                }
-            })
-            return response_object, 200
-        except ValidationError:
-            """ expected response value:
-            Expired token: "Signature expired. PLease login again."
-            Invalid token: "Invalid token. PLease login again."
-            """
+        # check if token is blacklisted
+        # prevents unauthorized access of resource when the user is logged out
+        is_blacklisted = verify_blacklist(auth_token)
+        if is_blacklisted is None:
+            response = User.decode_auth_token(auth_token)
+            try:
+                # validate the response is an email
+                auth_schema.load({'email': response}, partial=True)
+                # get user with the response email from the database
+                user_by_email = User.get_user_by_email(response)
+                user = db().get_single_row(*user_by_email)
+                response_object = jsonify({
+                    'status': 200,
+                    'user': {
+                        'user_email': user['email'],
+                        'is_admin': user['isadmin']
+                    }
+                })
+                return response_object, 200
+            except ValidationError:
+                """ expected response value:
+                Expired token: "Signature expired. PLease login again."
+                Invalid token: "Invalid token. PLease login again."
+                """
+                response_object = jsonify({
+                    "status": 401,
+                    "error": response
+                })
+                return response_object, 401
+        else:
+            # if the user token is in blacklist list
             response_object = jsonify({
                 "status": 401,
-                "error": response
+                "error": "User is logged out, Please log in again."
             })
-            return response_object, 401
+        return response_object, 401
     else:
         response_object = jsonify({
             'status': 401,
             'message': 'Provide a valid auth token.'
         })
         return response_object, 401
+
+
+def verify_blacklist(token):
+    """verify provided token is not blacklisted.
+
+    Get the query to run and check if the token provided is in
+    blacklist list
+    Args:
+        token (bytes): user token
+    """
+
+    blacklisted_query = BlacklistToken.check_blacklist(token)
+    is_blacklisted = db().get_single_row(*blacklisted_query)
+    return is_blacklisted
