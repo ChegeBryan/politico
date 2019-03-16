@@ -1,7 +1,6 @@
 """ Blacklist_token class method and model """
 
 import datetime
-from app.api.db.database import AppDatabase as db
 
 
 class BlacklistToken:

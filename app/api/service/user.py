@@ -4,7 +4,6 @@ from marshmallow import ValidationError
 
 from app.api.model.user import User
 from app.api.util.dto import user_schema
-from app.api.model.user import User
 from app.api.db.database import AppDatabase as db
 
 

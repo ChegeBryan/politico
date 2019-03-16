@@ -1,6 +1,4 @@
 """ Test user login and authentication """
-import unittest
-
 from app.api.db.user_test_data import (
     user_malformed_login_email, user_no_email, user_no_password, user_no_fields)
 from .base_test import BaseTestData
