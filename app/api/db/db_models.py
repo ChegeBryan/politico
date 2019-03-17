@@ -7,7 +7,6 @@ def drop_tables():
     return [users, blacklist]
 
 
-
 def create_tables():
     """Create relations in the database"""
     users = """
@@ -32,6 +31,7 @@ def create_tables():
     );
     """
     return [users, blacklist]
+
 
 def add_admin(conn):
     """ Adds an admin user to the table """

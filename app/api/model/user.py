@@ -98,4 +98,3 @@ class User:
             return "Signature expired. PLease login again."
         except jwt.InvalidTokenError:
             return "Invalid token. PLease login again."
-

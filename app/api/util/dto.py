@@ -33,17 +33,17 @@ class OfficeSchema(Schema):
         validate=[
             validate.OneOf(
                 ('president', 'governor', 'senator',
-                'house of representatives'),
-                error =
+                 'house of representatives'),
+                error=
                 "{input} not a valid office name. Try one of these {choices}.")
                 ]
         )
-    officeType=fields.Str(
+    officeType = fields.Str(
         required=True,
         validate=[
             validate.OneOf(
                 ('federal', 'congress', 'state'),
-                error =
+                error=
                 "{input} not a valid office type. Try one of these {choices}.")
                 ]
         )
@@ -108,4 +108,3 @@ office_schema = OfficeSchema()
 offices_schema = OfficeSchema(many=True)
 user_schema = UserSchema()
 auth_schema = AuthSchema()
-

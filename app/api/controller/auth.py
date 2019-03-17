@@ -17,6 +17,8 @@ class UserLoginAPI(MethodView):
         """
         json_input = request.get_json()
         return login_user(json_data=json_input)
+
+
 class UserLogoutAPI(MethodView):
     """ User logout """
     def post(self):

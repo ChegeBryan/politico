@@ -61,13 +61,16 @@ def save_new_user(json_data):
             "error": "User with that email or passport exists."
         }), 409
 
+
 def get_user():
     """ Method to get the one single record from users relations. """
     pass
 
+
 def get_all_users():
     """ Method to get all users in the users relations """
     pass
+
 
 def save_changes(data):
     """ Write to the database """
