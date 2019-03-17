@@ -25,6 +25,7 @@ class ProductionConfig(Config):
     TESTING = False
     DATABASE_DSN = os.getenv("PRODUCTION_DB_DSN")
 
+
 class TestingConfig(Config):
     """ Modify environment variables for testing """
     DEBUG = True

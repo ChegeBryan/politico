@@ -12,7 +12,6 @@ Status](https://coveralls.io/repos/github/ChegeBryan/politico/badge.svg?branch=d
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1eeb18d72ffe4309812fd2ee5f9d0437)](https://www.codacy.com/app/ChegeBryan/politico?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ChegeBryan/politico&amp;utm_campaign=Badge_Grade)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3315f3314f723a7c6136/maintainability)](https://codeclimate.com/github/ChegeBryan/politico/maintainability)
 <br><br>
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/19e7782e3b958da0d0a0)
 
 # Politico
 <p align=center>
@@ -50,6 +49,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 - python 3.6
 - pip3
+- Postgres database
 
 If you wish to clone the repo please satisfy the requirements in the requirements.txt
 
@@ -68,19 +68,19 @@ pip3 install virtualenv
 - activate the virtualenv by `source venv/bin/activate`
 - `pip3 install -r requirements.txt` to install app requirements on your virtual environment
 
-### Starting the server
+### Starting the server (development enviroment)
 while still at the terminal:
+- set enviroment variables from your platform specific dotenv file `source {your dotenv}`
 - set APP_SETTING variable `export APP_SETTING=development`
-- Set application entry point by `export FLASK_APP=run`
-- Start the app by running `flask run`
+- Start the app by running `python run`
 
 ### Running the tests
 To run the application unit_tests
 - run `pytest` at the app root directory
-- run with coverage `pytest --cov=app app/tests`
+- run with coverage `pytest --cov=app/api app/tests`
 
 ### Api endpoints (Non-Persistent)
-This are the currently available endpoints. The data is written into python data
+This are the currently available v1 endpoints. The data is written into python data
 strucutures.
 
 | HTTP Method   | URL Endpoint  | Description  |
@@ -93,6 +93,17 @@ strucutures.
 | `GET`    | `/api/v1/parties/<uuid:party_id>`      | Fetch specific party |
 | `PATCH`  | `/api/v1/parties/<uuid:party_id>/name` | Update a party name |
 | `DELETE` | `/api/v1/parties/<uuid:party_id>`      | Delete a party |
+
+### Api endpoints (Persistent)
+This are the currently available v2 endpoints. The data is written into a database.
+
+| HTTP Method   | URL Endpoint  | Description  |
+| -------- | ----------------------------------- | ---------------- |
+| `POST`   | `/api/v2/auth/signup`               | Create new users |
+| `POST`   | `/api/v2/auth/signin`               | Sign in existing user |
+| `POST`   | `/api/v2/auth/signout`              | Sign out logged in user |
+
+
 
 ### API hosting
 [![](https://img.shields.io/badge/Heroku-v1-blue.svg)](https://politico-cb.herokuapp.com)
@@ -116,5 +127,5 @@ software together.
 see [Changelog](./CHANGELOG.md)
 
 ### Authors
-[Chege Brian](https://github.com/ChegeBryan)
+[Chege Bryan](https://github.com/ChegeBryan)
 

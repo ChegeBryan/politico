@@ -118,7 +118,8 @@ def get_logged_in_user(request_header):
 
     if auth_header:
         try:
-            # check if the Authorization follows the format 'Bearer token-value'
+            # check if the Authorization follows the format:
+            # 'Bearer token-value'
             auth_token = auth_header.split(" ")[1]
         except IndexError:
             # when no token value can be established from the Authorization

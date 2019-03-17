@@ -4,7 +4,6 @@ from marshmallow import ValidationError
 
 from app.api.model.user import User
 from app.api.util.dto import user_schema
-from app.api.model.user import User
 from app.api.db.database import AppDatabase as db
 
 
@@ -37,7 +36,11 @@ def save_new_user(json_data):
     user_email = db().get_single_row(*user_by_email)
     user_passport = db().get_single_row(*user_by_passport)
     if user_email is None and user_passport is None:
-        new_user = User(firstname=firstname, lastname=lastname, othername=othername,email=email, phonenumber=phonenumber, password=password, passportUrl=passportUrl, isAdmin=isAdmin, isPolitician=isPolitician)
+        new_user = User(firstname=firstname, lastname=lastname,
+                        othername=othername, email=email,
+                        phonenumber=phonenumber,
+                        password=password, passportUrl=passportUrl,
+                        isAdmin=isAdmin, isPolitician=isPolitician)
 
         save_changes(new_user)
         # 1. Serialize the input for response
@@ -58,13 +61,16 @@ def save_new_user(json_data):
             "error": "User with that email or passport exists."
         }), 409
 
+
 def get_user():
     """ Method to get the one single record from users relations. """
     pass
 
+
 def get_all_users():
     """ Method to get all users in the users relations """
     pass
+
 
 def save_changes(data):
     """ Write to the database """

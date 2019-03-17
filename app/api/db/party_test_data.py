@@ -19,4 +19,3 @@ null_party_entries_holder = null_party_entries.party_jsonified()
 int_party_name = Party(
     party_name='12233', hq_address='example location')
 int_party_name_holder = int_party_name.party_jsonified()
-

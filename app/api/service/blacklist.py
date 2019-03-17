@@ -17,8 +17,3 @@ def save_token(token):
         "message": "Successfully logged out."
     })
     return response_object, 200
-
-
-
-
-

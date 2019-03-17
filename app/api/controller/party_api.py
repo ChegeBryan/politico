@@ -1,7 +1,8 @@
 from flask import request, Blueprint
 from flask.views import MethodView
 
-from app.api.service.party import save_new_party, get_party, get_parties, edit_party, delete_party
+from app.api.service.party import (
+    save_new_party, get_party, get_parties, edit_party, delete_party)
 
 parties = Blueprint('parties', __name__)
 
@@ -41,7 +42,7 @@ parties_view = PartiesAPI.as_view('parties')
 parties.add_url_rule('/parties', view_func=parties_view, methods=["POST"])
 parties.add_url_rule('/parties/<uuid:_id>',
                      view_func=parties_view, methods=["GET", "DELETE"])
-parties.add_url_rule(
-    '/parties', defaults={'_id': None}, view_func=parties_view, methods=["GET"])
+parties.add_url_rule('/parties', defaults={'_id': None},
+                     view_func=parties_view, methods=["GET"])
 parties.add_url_rule('/parties/<uuid:_id>/name',
                      view_func=parties_view, methods=["PATCH"])

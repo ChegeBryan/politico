@@ -16,8 +16,8 @@ def token_required(func):
         func (function): reference to a endpoint method
 
     Returns:
-        [json]: the decorator will return the decorated function return value or
-        the errors encountered during token decoding
+        [json]: the decorator will return the decorated function return
+         value or the errors encountered during token decoding
     """
 
     @wraps(func)
@@ -46,8 +46,8 @@ def admin_token_required(func):
         func (function): reference to a endpoint method
 
     Returns:
-        [json]: the decorator will return the decorated function return value or
-        the errors encountered during token decoding
+        [json]: the decorator will return the decorated function return
+         value or the errors encountered during token decoding
     """
     @wraps(func)
     def decorated(*args, **kwargs):

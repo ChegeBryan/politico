@@ -22,4 +22,3 @@ users_view = UserRegistrationAPI.as_view('users')
 
 # api endpoints rules
 users.add_url_rule('/auth/signup', view_func=users_view, methods=['POST'])
-

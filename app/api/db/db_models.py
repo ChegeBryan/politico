@@ -7,7 +7,6 @@ def drop_tables():
     return [users, blacklist]
 
 
-
 def create_tables():
     """Create relations in the database"""
     users = """
@@ -33,10 +32,14 @@ def create_tables():
     """
     return [users, blacklist]
 
+
 def add_admin(conn):
     """ Adds an admin user to the table """
-    query = """
-    INSERT INTO users(firstname, lastname, email, phonenumber, password, passportUrl, isAdmin) VALUES ('admin', 'user', 'admin@politico.org', '2019nbo37', 'True')"""
+    query = """INSERT INTO
+      users(firstname, lastname, email, phonenumber, password,
+        passportUrl, isAdmin)
+      VALUES ('admin', 'user', 'admin@politico.org', '2019nbo37', 'True')
+      """
 
     cur = conn.cursor()
     cur.execute(query)

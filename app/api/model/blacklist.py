@@ -1,7 +1,6 @@
 """ Blacklist_token class method and model """
 
 import datetime
-from app.api.db.database import AppDatabase as db
 
 
 class BlacklistToken:
@@ -14,7 +13,9 @@ class BlacklistToken:
         self.blacklisted_on = datetime.datetime.now()
 
     def add_blacklist_token(self):
-        query = """INSERT INTO blacklist(token, blacklisted_on) VALUES (%s, %s);"""
+        query = """
+          INSERT INTO blacklist(token, blacklisted_on) VALUES (%s, %s);
+          """
         values = (self.token, self.blacklisted_on)
 
         return query, values
