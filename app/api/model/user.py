@@ -24,9 +24,11 @@ class User:
         self.isPolitician = isPolitician
 
     def add_user(self):
-        query = """INSERT INTO users(firstname, lastname, othername, email,
-        phonenumber, password, passportUrl, isAdmin, isPolitician) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);
-        """
+        query = """INSERT INTO
+          users(firstname, lastname, othername, email, phonenumber, password,
+            passportUrl, isAdmin, isPolitician)
+          VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);
+          """
         values = (self.firstname, self.lastname, self.othername, self.email,
         self.phonenumber, self.password, self.passportUrl, self.isAdmin,
         self.isPolitician)
@@ -52,8 +54,9 @@ class User:
 
     @staticmethod
     def get_user_by_passport(passportUrl):
-        """Return user SQL query to a user from database with a certain passport
-        url """
+        """Return user SQL query to a user from database with a certain
+        passport url
+        """
         sql = """SELECT passportUrl from users WHERE passportUrl=%s"""
         query = sql, (passportUrl,)
         return query
@@ -67,8 +70,8 @@ class User:
         """
         try:
             payload = {
-                'exp': datetime.datetime.utcnow() \
-                    + datetime.timedelta(hours=12),
+                'exp': datetime.datetime.utcnow()
+                   + datetime.timedelta(hours=12),
                 'iat': datetime.datetime.utcnow(),
                 'sub': email
             }
