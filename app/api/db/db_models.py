@@ -4,7 +4,8 @@ def drop_tables():
     """  Removes tables form the database (TDD) """
     users = """ DROP TABLE IF EXISTS users """
     blacklist = """ DROP TABLE IF EXISTS blacklist """
-    return [users, blacklist]
+    parties = """ DROP TABLE IF EXISTS parties """
+    return [users, blacklist, parties]
 
 
 def create_tables():
@@ -30,7 +31,16 @@ def create_tables():
         blacklisted_on TIMESTAMPTZ NOT NULL
     );
     """
-    return [users, blacklist]
+    parties = """
+    CREATE TABLE IF NOT EXISTS parties (
+      id SERIAL PRIMARY KEY,
+      party_name VARCHAR(50) NOT NULL,
+      hq_address VARCHAR(100) NOT NULL,
+      logo_url VARCHAR(256) NOT NULL
+    );
+    """
+
+    return [users, blacklist, parties]
 
 
 def add_admin(conn):
