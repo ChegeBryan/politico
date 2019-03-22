@@ -18,7 +18,8 @@ class Party:
         """ add a party object to the parties table
 
         Returns:
-            tuple : insert sql query, values(the object initialization attributes)
+            tuple : insert sql query, values(the object initialization
+                    attributes)
         """
         query = """INSERT INTO
           parties(party_name, hq_address, logo_url)
@@ -30,10 +31,17 @@ class Party:
 
     @staticmethod
     def get_party_by_name(name):
-        """Method to get a party in the PARTIES list by its name"""
-        for party in MockDB.PARTIES:
-            if party.party_name == name:
-                return party
+        """ SQL query to return a party found in the database
+
+        Args:
+            name : party name to search for
+
+        Returns:
+            tuple : select party sql query
+        """
+        sql = """SELECT * FROM parties WHERE party_name=%s;"""
+        query = sql, (name,)
+        return query
 
     @staticmethod
     def get_party_by_id(identifier):

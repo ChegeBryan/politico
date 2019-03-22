@@ -22,8 +22,9 @@ def save_new_party(json_data):
     hq_address = data['hq_address']
     logo_url = data['logo_url']
 
-    # Query database for party name
-    party = Party.get_party_by_name(party_name)
+    # Query database for party by name
+    party_by_name = Party.get_party_by_name(party_name)
+    party = db().get_single_row(*party_by_name)
     if party is None:
         # if name is not taken
         new_party = Party(
