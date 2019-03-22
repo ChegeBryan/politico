@@ -123,3 +123,5 @@ def delete_party(_id):
 def save_changes(data):
     """ Write to the mock db """
     MockDB.PARTIES.append(data)
+    query, values = Party.add_party(data)
+    db().commit_changes(query, values)
