@@ -3,7 +3,8 @@ import uuid
 
 from .base_test import BaseTestData
 from app.api.db.party_test_data import (
-    null_party_entries_holder, null_party_hq_holder, int_party_name_holder, null_party_name_holder, party_holder)
+    null_party_entries_holder, null_party_hq_holder,
+    int_party_name_holder, null_party_name_holder, party_holder)
 
 
 class PartyAPITestCase(BaseTestData):
@@ -30,7 +31,7 @@ class PartyAPITestCase(BaseTestData):
         : return STATUS CODE 400 Bad Request
         """
         response = self.client.post(
-            '/api/v1/parties',
+            '/api/v2/parties',
             json=null_party_name_holder
         )
         json_data = response.get_json()
@@ -45,7 +46,7 @@ class PartyAPITestCase(BaseTestData):
         : return STATUS CODE 400 Bad Request
         """
         response = self.client.post(
-            '/api/v1/parties',
+            '/api/v2/parties',
             json=null_party_hq_holder
         )
         json_data = response.get_json()
@@ -60,7 +61,7 @@ class PartyAPITestCase(BaseTestData):
         : return STATUS CODE 400 Bad Request
         """
         response = self.client.post(
-            '/api/v1/parties',
+            '/api/v2/parties',
             json=null_party_entries_holder
         )
         json_data = response.get_json()
@@ -77,7 +78,7 @@ class PartyAPITestCase(BaseTestData):
         : return STATUS CODE 400 Bad Request
         """
         response = self.client.post(
-            '/api/v1/parties',
+            '/api/v2/parties',
             json=int_party_name_holder
         )
         json_data = response.get_json()
@@ -94,7 +95,7 @@ class PartyAPITestCase(BaseTestData):
         response = self.post_data
         self.assertEqual(response.status_code, 201)
         response_2 = self.client.post(
-            'api/v1/parties', json=party_holder
+            'api/v2/parties', json=party_holder
         )
         json_data = response_2.get_json()
         self.assertTrue(

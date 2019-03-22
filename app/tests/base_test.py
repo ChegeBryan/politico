@@ -23,7 +23,7 @@ class BaseTestData(unittest.TestCase):
 
         # for all posts use this variable
         self.post_data = self.client.post(
-            "/api/v1/parties", json=party_holder)
+            "/api/v2/parties", json=party_holder)
 
         # office post client
         self.office_data = self.client.post(
