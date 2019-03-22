@@ -1,5 +1,8 @@
 # database relations.
 
+from passlib.hash import pbkdf2_sha256 as sha256
+
+
 def drop_tables():
     """  Removes tables form the database (TDD) """
     users = """ DROP TABLE IF EXISTS users """
@@ -43,15 +46,17 @@ def create_tables():
     return [users, blacklist, parties]
 
 
-def add_admin(conn):
-    """ Adds an admin user to the table """
-    query = """INSERT INTO
-      users(firstname, lastname, email, phonenumber, password,
-        passportUrl, isAdmin)
-      VALUES ('admin', 'user', 'admin@politico.org', '2019nbo37', 'True')
-      """
-
-    cur = conn.cursor()
-    cur.execute(query)
-    conn.commit()
+def add_admin():
+    """ Adds an admin user to the table if admin user does not exist """
+    hashed_password = sha256.hash('2019NBO37')
+    sql = """
+    INSERT INTO
+     users (firstname, lastname, email, phonenumber, password, passportUrl,
+      isadmin)
+    SELECT 'admin', 'user', 'admin@politico.org', '11223-123112',
+     %s, 'http://admin.url.com', 'True'
+    WHERE NOT EXISTS (SELECT isadmin FROM users WHERE isadmin='TRUE');
+    """
+    query = sql, (hashed_password,)
+    return query
 

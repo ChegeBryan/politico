@@ -27,6 +27,7 @@ def create_app(config_name):
     with app.app_context():
         db = AppDatabase()
         db.add_tables()
+        db.add_default_admin()
 
     # register error handlers
     app.register_error_handler(400, bad_request)
