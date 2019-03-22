@@ -11,10 +11,11 @@ class Party:
     Party model class
     """
 
-    def __init__(self, party_name, hq_address):
+    def __init__(self, party_name, hq_address, logo_url):
         self._id = uuid.uuid4()
         self.party_name = party_name
         self.hq_address = hq_address
+        self.logo_url = logo_url
 
     def party_jsonified(self):
         """ Return a party object on json like format """
