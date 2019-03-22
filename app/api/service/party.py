@@ -5,6 +5,7 @@ from marshmallow import ValidationError
 from app.api.db.mock_db import MockDB
 from app.api.model.party import Party
 from app.api.util.dto import party_schema, parties_schema
+from app.api.db.database import AppDatabase as db
 
 
 def save_new_party(json_data):
@@ -19,6 +20,7 @@ def save_new_party(json_data):
         }), 400
     party_name = data['party_name']
     hq_address = data['hq_address']
+    logo_url = data['logo_url']
 
     # Query database for party name
     party = Party.get_party_by_name(party_name)
@@ -26,7 +28,8 @@ def save_new_party(json_data):
         # if name is not taken
         new_party = Party(
             party_name=party_name,
-            hq_address=hq_address
+            hq_address=hq_address,
+            logo_url=logo_url
         )
         save_changes(new_party)
         # 1. serialize the input for response

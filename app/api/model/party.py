@@ -17,6 +17,20 @@ class Party:
         self.hq_address = hq_address
         self.logo_url = logo_url
 
+    def add_party(self):
+        """ add a party object to the parties table
+
+        Returns:
+            tuple : insert sql query, values(the object initialization attributes)
+        """
+        query = """INSERT INTO
+          parties(party_name, hq_address, logo_url)
+          VALUES (%s,%s,%s);
+          """
+        values = (self.party_name, self.hq_address, self.logo_url)
+
+        return query, values
+
     def party_jsonified(self):
         """ Return a party object on json like format """
         return {
