@@ -21,7 +21,8 @@ class TestPartyModel(unittest.TestCase):
         __id = str(uuid.uuid4())
         self.new_party = Party(
             'party name',
-            'party location'
+            'party location',
+            'http://some.logo.url'
         )
 
     def test_party_object_creation(self):
@@ -31,6 +32,7 @@ class TestPartyModel(unittest.TestCase):
         self.assertTrue(self.new_party._id)
         self.assertEqual(self.new_party.party_name, 'party name')
         self.assertEqual(self.new_party.hq_address, 'party location')
+        self.assertEqual(self.new_party.logo_url, 'http://some.logo.url')
 
     def test_party_is_saved(self):
         """ Test party is saved on PARTIES list """
@@ -40,7 +42,10 @@ class TestPartyModel(unittest.TestCase):
     def test_multiple_parties_are_saved(self):
         """ Test PARTIES list has the saved parties """
         save_changes(self.new_party)
-        add_party = Party('another party', 'another location')
+        add_party = Party('another party',
+                          'another location',
+                          'http://some.logo.url'
+                        )
         save_changes(add_party)
         self.assertEqual(len(MockDB.PARTIES), 2)
 
