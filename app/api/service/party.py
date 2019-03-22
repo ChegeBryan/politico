@@ -2,7 +2,6 @@
 from flask import jsonify
 from marshmallow import ValidationError
 
-from app.api.db.mock_db import MockDB
 from app.api.model.party import Party
 from app.api.util.dto import party_schema, parties_schema
 from app.api.db.database import AppDatabase as db
@@ -123,6 +122,5 @@ def delete_party(_id):
 
 def save_changes(data):
     """ Write to the mock db """
-    MockDB.PARTIES.append(data)
     query, values = Party.add_party(data)
     db().commit_changes(query, values)

@@ -42,7 +42,6 @@ class BaseTestData(unittest.TestCase):
 
     def tearDown(self):
         """ Empty party list for each test """
-        MockDB.PARTIES[:] = []
         MockDB.OFFICES[:] = []
         with self.app.app_context():
             db = AppDatabase()
