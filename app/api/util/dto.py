@@ -21,6 +21,7 @@ class PartySchema(Schema):
             validate.Length(
                 min=1,
                 error="Please provide party Headquarters address.")])
+    logo_url = fields.URL(required=True)
 
 
 class OfficeSchema(Schema):
