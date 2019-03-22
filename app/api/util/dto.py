@@ -5,7 +5,6 @@ class PartySchema(Schema):
     """
     Party schema mapped onto Party() class attributes
     """
-    party_id = fields.UUID(attribute='_id')
     party_name = fields.String(
         required=True,
         validate=[

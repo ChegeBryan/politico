@@ -1,7 +1,5 @@
 """ Party model """
 
-import uuid
-
 from app.api.db.mock_db import MockDB
 from app.api.model.helper import get_item
 
@@ -12,7 +10,6 @@ class Party:
     """
 
     def __init__(self, party_name, hq_address, logo_url):
-        self._id = uuid.uuid4()
         self.party_name = party_name
         self.hq_address = hq_address
         self.logo_url = logo_url
@@ -34,7 +31,6 @@ class Party:
     def party_jsonified(self):
         """ Return a party object on json like format """
         return {
-            "party_id": self._id,
             "party_name": self.party_name,
             "hq_address": self.hq_address
         }
