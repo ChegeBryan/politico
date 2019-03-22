@@ -28,13 +28,6 @@ class Party:
 
         return query, values
 
-    def party_jsonified(self):
-        """ Return a party object on json like format """
-        return {
-            "party_name": self.party_name,
-            "hq_address": self.hq_address
-        }
-
     @staticmethod
     def get_party_by_name(name):
         """Method to get a party in the PARTIES list by its name"""
