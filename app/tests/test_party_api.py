@@ -78,6 +78,32 @@ class PartyAPITestCase(BaseTestData):
             )
         self.assertEqual(response.status_code, 401)
 
+    def test_party_route_protection_admin_logged_out(self):
+        """
+        Test API return authorization error when authorization header
+        provided is the is blacklisted. admin is logged out
+        : return STATUS CODE 401 Unauthorized
+        """
+        admin_signin = self.admin_signin
+        auth_token = self.admin_token
+        admin_signout = self.client.post(
+            '/api/v2/auth/signout', headers={
+                "Authorization": "Bearer {}".format(self.admin_token)}
+        )
+        json_body = admin_signout.get_json()
+        self.assertEqual(json_body["status"], 200)
+
+        response = self.client.post(
+            '/api/v2/parties', json=party_holder, headers={
+                "Authorization": "Bearer {}".format(auth_token)}
+        )
+        json_data = response.get_json()
+        self.assertEqual(
+            json_data["error"], "User is logged out, Please log in again."
+        )
+        self.assertEqual(response.status_code, 401)
+
+
     def test_zero_length_party_name(self):
         """
         Test api returns correct error code and response message on attempt to
