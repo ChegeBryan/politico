@@ -101,3 +101,8 @@ user_no_password = {
 user_no_fields = {
 
 }
+
+admin_login = {
+    "email": "admin@politico.org",
+    "password": "2019NBO37"
+}
