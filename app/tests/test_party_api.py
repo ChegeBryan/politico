@@ -24,6 +24,19 @@ class PartyAPITestCase(BaseTestData):
         self.assertIsInstance(json_body["data"], list)
         self.assertEqual(response.status_code, 201)
 
+    def test_party_route_protection_no_authorization_header(self):
+        """
+        Test API return authorization error when no header is provided when
+        accessing parties route for with post method
+        : return STATUS CODE 401 Unauthorized
+        """
+        response = self.client.post(
+            '/api/v2/parties', json=party_holder
+        )
+        json_data = response.get_json()
+        self.assertEqual(json_data["message"], "Provide a valid auth token.")
+        self.assertEqual(response.status_code, 401)
+
     def test_zero_length_party_name(self):
         """
         Test api returns correct error code and response message on attempt to
