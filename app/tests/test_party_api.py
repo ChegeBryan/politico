@@ -62,6 +62,22 @@ class PartyAPITestCase(BaseTestData):
         self.assertEqual(json_data["message"], "Admin token required.")
         self.assertEqual(response.status_code, 401)
 
+    def test_party_route_protection_malformed_authorization_header(self):
+        """
+        Test API return authorization error when authorization header
+        provided is malformed
+        : return STATUS CODE 401 Unauthorized
+        """
+        response = self.client.post(
+            '/api/v2/parties', json=party_holder, headers={
+                "Authorization": "Bearer qwwme.amsms.wnsm"}
+        )
+        json_data = response.get_json()
+        self.assertEqual(
+            json_data["error"], "Invalid token. PLease login again."
+            )
+        self.assertEqual(response.status_code, 401)
+
     def test_zero_length_party_name(self):
         """
         Test api returns correct error code and response message on attempt to
