@@ -37,6 +37,31 @@ class PartyAPITestCase(BaseTestData):
         self.assertEqual(json_data["message"], "Provide a valid auth token.")
         self.assertEqual(response.status_code, 401)
 
+    def test_party_route_protection_normal_user_authorization_header(self):
+        """
+        Test API return authorization error when authorization header
+        provided is a normal user token when accessing parties route for with
+        post method
+        : return STATUS CODE 401 Unauthorized
+        """
+        # register a user
+        signup = self.user_data
+        self.assertEqual(signup.status_code, 201)
+
+        # login registered user
+        signin = self.login_data
+        json_body = signin.get_json()
+        auth_token = json_body["data"][0]["token"]
+        self.assertTrue(signin.status_code, 200)
+
+        response = self.client.post(
+            '/api/v2/parties', json=party_holder, headers={
+                "Authorization": "Bearer {}".format(auth_token)}
+        )
+        json_data = response.get_json()
+        self.assertEqual(json_data["message"], "Admin token required.")
+        self.assertEqual(response.status_code, 401)
+
     def test_zero_length_party_name(self):
         """
         Test api returns correct error code and response message on attempt to
