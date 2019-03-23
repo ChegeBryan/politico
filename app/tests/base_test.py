@@ -29,8 +29,11 @@ class BaseTestData(unittest.TestCase):
         self.admin_token = self.admin_signin.get_json()["data"][0]["token"]
 
         # for all posts use this variable
+        # admin authorization header token
         self.post_data = self.client.post(
-            "/api/v2/parties", json=party_holder)
+            "/api/v2/parties", json=party_holder, headers={
+                "Authorization": "Bearer {}".format(self.admin_token)}
+        )
 
         # office post client
         self.office_data = self.client.post(
