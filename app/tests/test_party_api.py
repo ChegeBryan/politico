@@ -110,9 +110,16 @@ class PartyAPITestCase(BaseTestData):
         register a party with no party name
         : return STATUS CODE 400 Bad Request
         """
+        # signin admin
+        admin_signin = self.admin_signin
+        auth_token = self.admin_token
+
         response = self.client.post(
             '/api/v2/parties',
-            json=null_party_name_holder
+            json=null_party_name_holder,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         json_data = response.get_json()
         self.assertIn("Party name does not meet minimum length of 4 letters.",
@@ -125,9 +132,16 @@ class PartyAPITestCase(BaseTestData):
         register a party with no Headquarters details
         : return STATUS CODE 400 Bad Request
         """
+        # signin admin
+        admin_signin = self.admin_signin
+        auth_token = self.admin_token
+
         response = self.client.post(
             '/api/v2/parties',
-            json=null_party_hq_holder
+            json=null_party_hq_holder,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         json_data = response.get_json()
         self.assertIn("Please provide party Headquarters address.",
@@ -140,9 +154,16 @@ class PartyAPITestCase(BaseTestData):
         register a party with no Headquarters details and party name
         : return STATUS CODE 400 Bad Request
         """
+        # signin admin
+        admin_signin = self.admin_signin
+        auth_token = self.admin_token
+
         response = self.client.post(
             '/api/v2/parties',
-            json=null_party_entries_holder
+            json=null_party_entries_holder,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         json_data = response.get_json()
         self.assertEqual(json_data["error"]["hq_address"], [
@@ -157,9 +178,16 @@ class PartyAPITestCase(BaseTestData):
         register a party with no party name
         : return STATUS CODE 400 Bad Request
         """
+        # signin admin
+        admin_signin = self.admin_signin
+        auth_token = self.admin_token
+
         response = self.client.post(
             '/api/v2/parties',
-            json=int_party_name_holder
+            json=int_party_name_holder,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         json_data = response.get_json()
         self.assertEqual(json_data["error"], {
@@ -174,8 +202,17 @@ class PartyAPITestCase(BaseTestData):
         """
         response = self.post_data
         self.assertEqual(response.status_code, 201)
+
+        # signin admin
+        admin_signin = self.admin_signin
+        auth_token = self.admin_token
+
         response_2 = self.client.post(
-            'api/v2/parties', json=party_holder
+            '/api/v2/parties',
+            json=party_holder,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         json_data = response_2.get_json()
         self.assertTrue(
