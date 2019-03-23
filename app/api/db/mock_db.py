@@ -5,5 +5,4 @@ class MockDB:
     """
     Party list
     """
-    PARTIES = []
     OFFICES = []

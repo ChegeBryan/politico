@@ -27,6 +27,7 @@ def create_app(config_name):
     with app.app_context():
         db = AppDatabase()
         db.add_tables()
+        db.add_default_admin()
 
     # register error handlers
     app.register_error_handler(400, bad_request)
@@ -35,7 +36,7 @@ def create_app(config_name):
     app.register_error_handler(405, method_not_allowed)
 
     # register blueprints to app
-    app.register_blueprint(parties_bp, url_prefix='/api/v1')
+    app.register_blueprint(parties_bp, url_prefix='/api/v2')
     app.register_blueprint(offices_bp, url_prefix='/api/v1')
     app.register_blueprint(users_bp, url_prefix='/api/v2')
     app.register_blueprint(auth_bp, url_prefix='/api/v2')

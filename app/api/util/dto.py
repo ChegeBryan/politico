@@ -5,7 +5,6 @@ class PartySchema(Schema):
     """
     Party schema mapped onto Party() class attributes
     """
-    party_id = fields.UUID(attribute='_id')
     party_name = fields.String(
         required=True,
         validate=[
@@ -21,6 +20,7 @@ class PartySchema(Schema):
             validate.Length(
                 min=1,
                 error="Please provide party Headquarters address.")])
+    logo_url = fields.URL(required=True)
 
 
 class OfficeSchema(Schema):

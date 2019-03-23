@@ -1,21 +1,37 @@
-from app.api.model.party import Party
+# dummy party data for the tests
 
+party_holder = {
+    "party_name": "example name",
+    "hq_address": "example location",
+    "logo_url": "http://some.logo.url"
+}
 
-# dummy data for the tests
-party = Party(party_name='example name',
-              hq_address='example location')
-party_holder = party.party_jsonified()
+null_party_name_holder = {
+    "party_name": "",
+    "hq_address": "example location",
+    "logo_url": "http://some.logo.url"
+}
 
-null_party_name = Party(
-    party_name='', hq_address='example location')
-null_party_name_holder = null_party_name.party_jsonified()
+null_party_hq_holder = {
+    "party_name": "example name",
+    "hq_address": "",
+    "logo_url": "http://some.logo.url"
+}
 
-null_party_hq = Party(party_name='example name', hq_address='')
-null_party_hq_holder = null_party_hq.party_jsonified()
+null_party_logo_url_holder = {
+    "party_name": "example name",
+    "hq_address": "example location",
+    "logo_url": ""
+}
 
-null_party_entries = Party(party_name='', hq_address='')
-null_party_entries_holder = null_party_entries.party_jsonified()
+null_party_entries_holder = {
+    "party_name": "",
+    "hq_address": "",
+    "logo_url": ""
+}
 
-int_party_name = Party(
-    party_name='12233', hq_address='example location')
-int_party_name_holder = int_party_name.party_jsonified()
+int_party_name_holder = {
+    "party_name": "122332",
+    "hq_address": "example location",
+    "logo_url": "http://some.logo.url"
+}

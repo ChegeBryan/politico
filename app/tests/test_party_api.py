@@ -3,7 +3,8 @@ import uuid
 
 from .base_test import BaseTestData
 from app.api.db.party_test_data import (
-    null_party_entries_holder, null_party_hq_holder, int_party_name_holder, null_party_name_holder, party_holder)
+    null_party_entries_holder, null_party_hq_holder,
+    int_party_name_holder, null_party_name_holder, party_holder)
 
 
 class PartyAPITestCase(BaseTestData):
@@ -23,15 +24,102 @@ class PartyAPITestCase(BaseTestData):
         self.assertIsInstance(json_body["data"], list)
         self.assertEqual(response.status_code, 201)
 
+    def test_party_route_protection_no_authorization_header(self):
+        """
+        Test API return authorization error when no header is provided when
+        accessing parties route for with post method
+        : return STATUS CODE 401 Unauthorized
+        """
+        response = self.client.post(
+            '/api/v2/parties', json=party_holder
+        )
+        json_data = response.get_json()
+        self.assertEqual(json_data["message"], "Provide a valid auth token.")
+        self.assertEqual(response.status_code, 401)
+
+    def test_party_route_protection_normal_user_authorization_header(self):
+        """
+        Test API return authorization error when authorization header
+        provided is a normal user token when accessing parties route for with
+        post method
+        : return STATUS CODE 401 Unauthorized
+        """
+        # register a user
+        signup = self.user_data
+        self.assertEqual(signup.status_code, 201)
+
+        # login registered user
+        signin = self.login_data
+        json_body = signin.get_json()
+        auth_token = json_body["data"][0]["token"]
+        self.assertTrue(signin.status_code, 200)
+
+        response = self.client.post(
+            '/api/v2/parties', json=party_holder, headers={
+                "Authorization": "Bearer {}".format(auth_token)}
+        )
+        json_data = response.get_json()
+        self.assertEqual(json_data["message"], "Admin token required.")
+        self.assertEqual(response.status_code, 401)
+
+    def test_party_route_protection_malformed_authorization_header(self):
+        """
+        Test API return authorization error when authorization header
+        provided is malformed
+        : return STATUS CODE 401 Unauthorized
+        """
+        response = self.client.post(
+            '/api/v2/parties', json=party_holder, headers={
+                "Authorization": "Bearer qwwme.amsms.wnsm"}
+        )
+        json_data = response.get_json()
+        self.assertEqual(
+            json_data["error"], "Invalid token. PLease login again."
+            )
+        self.assertEqual(response.status_code, 401)
+
+    def test_party_route_protection_admin_logged_out(self):
+        """
+        Test API return authorization error when authorization header
+        provided is the is blacklisted. admin is logged out
+        : return STATUS CODE 401 Unauthorized
+        """
+        admin_signin = self.admin_signin
+        auth_token = self.admin_token
+        admin_signout = self.client.post(
+            '/api/v2/auth/signout', headers={
+                "Authorization": "Bearer {}".format(self.admin_token)}
+        )
+        json_body = admin_signout.get_json()
+        self.assertEqual(json_body["status"], 200)
+
+        response = self.client.post(
+            '/api/v2/parties', json=party_holder, headers={
+                "Authorization": "Bearer {}".format(auth_token)}
+        )
+        json_data = response.get_json()
+        self.assertEqual(
+            json_data["error"], "User is logged out, Please log in again."
+        )
+        self.assertEqual(response.status_code, 401)
+
+
     def test_zero_length_party_name(self):
         """
         Test api returns correct error code and response message on attempt to
         register a party with no party name
         : return STATUS CODE 400 Bad Request
         """
+        # signin admin
+        admin_signin = self.admin_signin
+        auth_token = self.admin_token
+
         response = self.client.post(
-            '/api/v1/parties',
-            json=null_party_name_holder
+            '/api/v2/parties',
+            json=null_party_name_holder,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         json_data = response.get_json()
         self.assertIn("Party name does not meet minimum length of 4 letters.",
@@ -44,9 +132,16 @@ class PartyAPITestCase(BaseTestData):
         register a party with no Headquarters details
         : return STATUS CODE 400 Bad Request
         """
+        # signin admin
+        admin_signin = self.admin_signin
+        auth_token = self.admin_token
+
         response = self.client.post(
-            '/api/v1/parties',
-            json=null_party_hq_holder
+            '/api/v2/parties',
+            json=null_party_hq_holder,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         json_data = response.get_json()
         self.assertIn("Please provide party Headquarters address.",
@@ -59,9 +154,16 @@ class PartyAPITestCase(BaseTestData):
         register a party with no Headquarters details and party name
         : return STATUS CODE 400 Bad Request
         """
+        # signin admin
+        admin_signin = self.admin_signin
+        auth_token = self.admin_token
+
         response = self.client.post(
-            '/api/v1/parties',
-            json=null_party_entries_holder
+            '/api/v2/parties',
+            json=null_party_entries_holder,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         json_data = response.get_json()
         self.assertEqual(json_data["error"]["hq_address"], [
@@ -76,9 +178,16 @@ class PartyAPITestCase(BaseTestData):
         register a party with no party name
         : return STATUS CODE 400 Bad Request
         """
+        # signin admin
+        admin_signin = self.admin_signin
+        auth_token = self.admin_token
+
         response = self.client.post(
-            '/api/v1/parties',
-            json=int_party_name_holder
+            '/api/v2/parties',
+            json=int_party_name_holder,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         json_data = response.get_json()
         self.assertEqual(json_data["error"], {
@@ -93,8 +202,17 @@ class PartyAPITestCase(BaseTestData):
         """
         response = self.post_data
         self.assertEqual(response.status_code, 201)
+
+        # signin admin
+        admin_signin = self.admin_signin
+        auth_token = self.admin_token
+
         response_2 = self.client.post(
-            'api/v1/parties', json=party_holder
+            '/api/v2/parties',
+            json=party_holder,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         json_data = response_2.get_json()
         self.assertTrue(

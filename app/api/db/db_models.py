@@ -1,10 +1,14 @@
 # database relations.
 
+from passlib.hash import pbkdf2_sha256 as sha256
+
+
 def drop_tables():
     """  Removes tables form the database (TDD) """
     users = """ DROP TABLE IF EXISTS users """
     blacklist = """ DROP TABLE IF EXISTS blacklist """
-    return [users, blacklist]
+    parties = """ DROP TABLE IF EXISTS parties """
+    return [users, blacklist, parties]
 
 
 def create_tables():
@@ -30,18 +34,29 @@ def create_tables():
         blacklisted_on TIMESTAMPTZ NOT NULL
     );
     """
-    return [users, blacklist]
+    parties = """
+    CREATE TABLE IF NOT EXISTS parties (
+      id SERIAL PRIMARY KEY,
+      party_name VARCHAR(50) NOT NULL,
+      hq_address VARCHAR(100) NOT NULL,
+      logo_url VARCHAR(256) NOT NULL
+    );
+    """
+
+    return [users, blacklist, parties]
 
 
-def add_admin(conn):
-    """ Adds an admin user to the table """
-    query = """INSERT INTO
-      users(firstname, lastname, email, phonenumber, password,
-        passportUrl, isAdmin)
-      VALUES ('admin', 'user', 'admin@politico.org', '2019nbo37', 'True')
-      """
-
-    cur = conn.cursor()
-    cur.execute(query)
-    conn.commit()
+def add_admin():
+    """ Adds an admin user to the table if admin user does not exist """
+    hashed_password = sha256.hash('2019NBO37')
+    sql = """
+    INSERT INTO
+     users (firstname, lastname, email, phonenumber, password, passportUrl,
+      isadmin)
+    SELECT 'admin', 'user', 'admin@politico.org', '11223-123112',
+     %s, 'http://admin.url.com', 'True'
+    WHERE NOT EXISTS (SELECT isadmin FROM users WHERE isadmin='TRUE');
+    """
+    query = sql, (hashed_password,)
+    return query
 

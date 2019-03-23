@@ -6,7 +6,7 @@ import psycopg2
 from flask import current_app
 
 from psycopg2.extras import RealDictCursor as dict_cursor
-from app.api.db.db_models import create_tables, drop_tables
+from app.api.db.db_models import create_tables, drop_tables, add_admin
 
 
 class AppDatabase:
@@ -39,6 +39,12 @@ class AppDatabase:
         for query in queries:
             self.cur.execute(query)
 
+        self.conn.commit()
+
+    def add_default_admin(self):
+        """Register a default admin user for the app"""
+        query = add_admin()
+        self.cur.execute(*query)
         self.conn.commit()
 
     def get_single_row(self, query, value):

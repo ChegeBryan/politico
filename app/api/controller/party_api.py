@@ -3,6 +3,7 @@ from flask.views import MethodView
 
 from app.api.service.party import (
     save_new_party, get_party, get_parties, edit_party, delete_party)
+from app.api.util.decorator import admin_token_required
 
 parties = Blueprint('parties', __name__)
 
@@ -12,6 +13,7 @@ class PartiesAPI(MethodView):
     Party API endpoints
     """
 
+    @admin_token_required
     def post(self):
         # Create a new user
         json_input = request.get_json()
