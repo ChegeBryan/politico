@@ -43,7 +43,7 @@ parties_view = PartiesAPI.as_view('parties')
 
 # api endpoints rules
 parties.add_url_rule('/parties', view_func=parties_view, methods=["POST"])
-parties.add_url_rule('/parties/<uuid:_id>',
+parties.add_url_rule('/parties/<int:_id>',
                      view_func=parties_view, methods=["GET", "DELETE"])
 parties.add_url_rule('/parties', defaults={'_id': None},
                      view_func=parties_view, methods=["GET"])
