@@ -3,7 +3,7 @@ from flask.views import MethodView
 
 from app.api.service.party import (
     save_new_party, get_party, get_parties, edit_party, delete_party)
-from app.api.util.decorator import admin_token_required
+from app.api.util.decorator import admin_token_required, token_required
 
 parties = Blueprint('parties', __name__)
 
@@ -19,6 +19,7 @@ class PartiesAPI(MethodView):
         json_input = request.get_json()
         return save_new_party(json_data=json_input)
 
+    @token_required
     def get(self, _id):
         if _id is None:
             # return list of all parties
