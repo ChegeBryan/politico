@@ -250,15 +250,23 @@ class PartyAPITestCase(BaseTestData):
     def test_party_not_found(self):
         """
         Test api returns correct status code and message when party with an id
-        is not found from the PARTIES list.
+        is not found from the database
         :return: STATUS CODE 404
         """
-        # do a post first
-        response = self.post_data
-        self.assertEqual(response.status_code, 201)
-        _id = uuid.uuid4()
+        # signup normal user
+        user_signup = self.user_data
+        self.assertEqual(user_signup.status_code, 201)
+
+        # signin the user
+        user_signin = self.login_data
+        json_body = user_signin.get_json()
+        auth_token = json_body["data"][0]["token"]
+        self.assertTrue(user_signin.status_code, 200)
+
         get_response = self.client.get(
-            'api/v1/parties/{}'.format(_id)
+            'api/v2/parties/3', headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         self.assertEqual(get_response.status_code, 404)
 
