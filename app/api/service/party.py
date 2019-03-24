@@ -49,8 +49,17 @@ def save_new_party(json_data):
 
 
 def get_party(_id):
-    """Method to display out the party to the get /parties/<uuid:id>"""
-    party = Party.get_party_by_id(_id)
+    """Method to return the party from the database with the provided id
+
+    Args:
+        _id (integer): the party unique identifier
+
+    Returns:
+        1. json : the party found details in json format
+        2. json : error if the party is not found
+    """
+    party_query = Party.get_party_by_id(_id)
+    party = db().get_single_row(*party_query)
     if party:
         # response when party exists
         return jsonify({
