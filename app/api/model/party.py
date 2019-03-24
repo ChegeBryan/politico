@@ -45,8 +45,17 @@ class Party:
 
     @staticmethod
     def get_party_by_id(identifier):
-        """Method to get a Party in the PARTIES list by its ID"""
-        return get_item(identifier, MockDB.PARTIES)
+        """ SQL query to return a party found in the database
+
+        Args:
+            identifier : party id
+
+        Returns:
+            tuple : select party sql query
+        """
+        sql = """SELECT * FROM parties WHERE id=%s;"""
+        query = sql, (identifier,)
+        return query
 
     @staticmethod
     def update_party(_id, name):
