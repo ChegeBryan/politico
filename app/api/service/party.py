@@ -75,11 +75,17 @@ def get_party(_id):
 
 
 def get_parties():
-    """Method to get all parties from list"""
-    parties = parties_schema.dump(MockDB.PARTIES)
+    """Method to return all the parties from the database
+
+    Returns:
+        1. json : the parties found details in json format
+    """
+    parties_query = Party.get_parties_query()
+    parties = db().get_all_rows(parties_query)
+
     return jsonify({
         "status": 200,
-        "data": parties,
+        "data": parties
     }), 200
 
 
