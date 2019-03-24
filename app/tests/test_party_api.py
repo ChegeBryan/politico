@@ -222,16 +222,28 @@ class PartyAPITestCase(BaseTestData):
     def test_get_single_party(self):
         """
         Test api can get a specific party with the provided party id
-        from the PARTIES list.
+        from the parties table provided the user is logged in.
         :return: STATUS CODE 200
         """
-        # do a post first
+        # do a post first done by admin user.
         response = self.post_data
         self.assertEqual(response.status_code, 201)
-        json_data = response.get_json()
-        _id = json_data["data"][0]["party_id"]
+
+        # signup normal user
+        user_signup = self.user_data
+        self.assertEqual(user_signup.status_code, 201)
+
+        # signin the user
+        user_signin = self.login_data
+        json_body = user_signin.get_json()
+        auth_token = json_body["data"][0]["token"]
+        self.assertTrue(user_signin.status_code, 200)
+
+        # request party with the user logged in token
         get_response = self.client.get(
-            'api/v1/parties/{}'.format(_id)
+            'api/v2/parties/1', headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         self.assertEqual(get_response.status_code, 200)
 
