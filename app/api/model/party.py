@@ -58,6 +58,16 @@ class Party:
         return query
 
     @staticmethod
+    def get_parties_query():
+        """ SQL query to return a parties in the database
+
+        Returns:
+            tuple : select party sql query
+        """
+        sql = """SELECT * FROM parties;"""
+        return sql
+
+    @staticmethod
     def update_party(_id, name):
         """ Method to update the name and address of called party """
         party = get_item(_id, MockDB.PARTIES)
