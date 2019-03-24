@@ -272,23 +272,30 @@ class PartyAPITestCase(BaseTestData):
 
     def test_get_all_parties(self):
         """
-        Test api can all parties from the PARTIES list.
-        :return: STATUS CODE 200
+        Test api can all parties from the database when a provided user
+        is logged in
+        :return: STATUS CODE 200 Ok
         """
-        # do a post first
+        # post a party first
         response = self.post_data
         self.assertEqual(response.status_code, 201)
-        # add another entry
-        response = self.client.post(
-            '/api/v1/parties',
-            json={
-                "party_name": "second party",
-                "hq_address": "somewhere"
-            }
-        )
-        self.assertEqual(response.status_code, 201)
+
+        # signup normal user
+        user_signup = self.user_data
+        self.assertEqual(user_signup.status_code, 201)
+
+        # signin the user
+        user_signin = self.login_data
+        json_body = user_signin.get_json()
+        auth_token = json_body["data"][0]["token"]
+        self.assertTrue(user_signin.status_code, 200)
+
+        # self.assertEqual(response.status_code, 201)
+
         get_response = self.client.get(
-            'api/v1/parties'
+            'api/v2/parties', headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         self.assertEqual(get_response.status_code, 200)
 
