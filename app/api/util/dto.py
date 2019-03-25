@@ -33,7 +33,7 @@ class OfficeSchema(Schema):
     """
     Office schema mapped onto Office() class attributes
     """
-    officeId = fields.UUID(attribute='_id')
+    officeId = fields.Integer(dump_only=True, attribute='id')
     officeName = fields.Str(
         required=True,
         validate=[
