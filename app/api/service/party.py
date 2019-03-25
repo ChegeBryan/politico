@@ -100,9 +100,15 @@ def edit_party(_id, json_data):
             "status": 400,
             "error": e.messages
         }), 400
-    party = Party.get_party_by_id(_id)
-    if party:
+    party_to_edit_query = Party.get_party_by_id(_id)
+    party_to_edit = db().get_single_row(*party_to_edit_query)
+    if party_to_edit:
         new_name = data["party_name"]
+        # construct update party name query
+        query, values = Party.update_party(_id, new_name)
+        # persist changes to the database
+        db().commit_changes(query, values)
+
         party_edit = party.update_party(_id, new_name)
         return jsonify({
             "status": 200,
