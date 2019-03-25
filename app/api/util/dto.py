@@ -23,6 +23,11 @@ class PartySchema(Schema):
                 error="Please provide party Headquarters address.")])
     logo_url = fields.URL(required=True)
 
+    class Meta:
+        """Schema options"""
+        # maintains the field ordering on output
+        ordered = True
+
 
 class OfficeSchema(Schema):
     """
