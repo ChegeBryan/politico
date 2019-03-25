@@ -14,14 +14,6 @@ class Office:
         self.office_type = office_type
         self.is_occupied = False
 
-    def office_jsonified(self):
-        """ Return a office object as json """
-        return {
-            "officeName": self.officeName,
-            "officeType": self.officeType,
-            "isOccupied": self.isOccupied
-        }
-
     @staticmethod
     def get_office_by_id(identifier):
         """Method to get office in the OFFICES list by its ID"""
