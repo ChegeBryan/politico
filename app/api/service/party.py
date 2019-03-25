@@ -34,7 +34,8 @@ def save_new_party(json_data):
         save_changes(new_party)
         # 1. serialize the input for response
         # 2. return serialized and proper format json to api endpoint
-        response = party_schema.dump(new_party)
+        party_saved = db().get_single_row(*party_by_name)
+        response = party_schema.dump(party_saved)
         response_object = jsonify({
             "status": 201,
             "data": [response]
@@ -75,11 +76,18 @@ def get_party(_id):
 
 
 def get_parties():
-    """Method to get all parties from list"""
-    parties = parties_schema.dump(MockDB.PARTIES)
+    """Method to return all the parties from the database
+
+    Returns:
+        1. json : the parties found details in json format
+    """
+    parties_query = Party.get_parties_query()
+    parties = db().get_all_rows(parties_query)
+    response = parties_schema.dump(parties)
+
     return jsonify({
         "status": 200,
-        "data": parties,
+        "data": response
     }), 200
 
 
