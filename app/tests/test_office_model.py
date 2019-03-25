@@ -31,17 +31,3 @@ class TestOfficeModel(unittest.TestCase):
         self.assertEqual(self.new_office.office_type, 'Congress')
         self.assertFalse(self.new_office.is_occupied, False)
 
-    def test_office_is_saved(self):
-        """ Test party is saved on PARTIES list """
-        save_changes(self.new_office)
-        self.assertEqual(len(MockDB.OFFICES), 1)
-
-    def test_multiple_offices_are_saved(self):
-        """ Test PARTIES list has the saved parties """
-        save_changes(self.new_office)
-        add_office = Office('House of Respresentatives', 'Congress', False)
-        save_changes(add_office)
-        self.assertEqual(len(MockDB.OFFICES), 2)
-
-    def tearDown(self):
-        MockDB.OFFICES[:] = []
