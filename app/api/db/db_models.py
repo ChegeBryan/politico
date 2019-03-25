@@ -5,10 +5,11 @@ from passlib.hash import pbkdf2_sha256 as sha256
 
 def drop_tables():
     """  Removes tables form the database (TDD) """
-    users = """ DROP TABLE IF EXISTS users """
-    blacklist = """ DROP TABLE IF EXISTS blacklist """
-    parties = """ DROP TABLE IF EXISTS parties """
-    return [users, blacklist, parties]
+    users = """ DROP TABLE IF EXISTS users; """
+    blacklist = """ DROP TABLE IF EXISTS blacklist; """
+    parties = """ DROP TABLE IF EXISTS parties; """
+    offices = """ DROP TABLE IF EXISTS offices; """
+    return [users, blacklist, parties, offices]
 
 
 def create_tables():
