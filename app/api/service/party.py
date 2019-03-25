@@ -34,7 +34,8 @@ def save_new_party(json_data):
         save_changes(new_party)
         # 1. serialize the input for response
         # 2. return serialized and proper format json to api endpoint
-        response = party_schema.dump(new_party)
+        party_saved = db().get_single_row(*party_by_name)
+        response = party_schema.dump(party_saved)
         response_object = jsonify({
             "status": 201,
             "data": [response]
