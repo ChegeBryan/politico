@@ -366,8 +366,14 @@ class PartyAPITestCase(BaseTestData):
         self.assertEqual(response.status_code, 201)
         json_data = response.get_json()
         _id = json_data["data"][0]["party_id"]
+
+        # get admin token
+        auth_token = self.admin_token
+
         response = self.client.delete(
-            'api/v1/parties/{}'.format(_id)
+            'api/v2/parties/{}'.format(_id), headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         res = response.get_json()
         self.assertEqual(res["data"][0]["message"],
