@@ -55,6 +55,11 @@ class OfficeSchema(Schema):
         )
     isOccupied = fields.Boolean(missing=False)
 
+    class Meta:
+        """Schema options"""
+        # maintains the field ordering on output
+        ordered = True
+
 
 class UserSchema(Schema):
     """
