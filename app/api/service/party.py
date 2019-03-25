@@ -133,6 +133,9 @@ def delete_party(_id):
     party_to_delete_query = Party.get_party_by_id(_id)
     party_to_delete = db().get_single_row(*party_to_delete_query)
     if party_to_delete:
+        # delete found party
+        query, value = Party.delete_party(_id)
+        db().commit_changes(query, value)
 
         return jsonify({
             "status": 200,
