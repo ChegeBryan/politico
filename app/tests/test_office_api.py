@@ -31,11 +31,17 @@ class OfficeAPITestCase(BaseTestData):
         """
         # do a post first
         response = self.office_data
+
+        # auth token
+        auth_token = self.admin_token
+
         self.assertEqual(response.status_code, 201)
         json_data = response.get_json()
-        _id = json_data["data"][0]["officeId"]
+        _id = json_data["data"][0]["office_id"]
         get_response = self.client.get(
-            'api/v1/offices/{}'.format(_id)
+            'api/v2/offices/{}'.format(_id), headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         self.assertEqual(get_response.status_code, 200)
 
