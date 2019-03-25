@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields, validate
+from marshmallow import Schema, fields, validate, pre_load
 
 
 class PartySchema(Schema):
@@ -33,8 +33,8 @@ class OfficeSchema(Schema):
     """
     Office schema mapped onto Office() class attributes
     """
-    officeId = fields.UUID(attribute='_id')
-    officeName = fields.Str(
+    office_id = fields.Integer(dump_only=True, attribute='id')
+    office_name = fields.Str(
         required=True,
         validate=[
             validate.OneOf(
@@ -44,7 +44,7 @@ class OfficeSchema(Schema):
                 "{input} not a valid office name. Try one of these {choices}.")
                 ]
         )
-    officeType = fields.Str(
+    office_type = fields.Str(
         required=True,
         validate=[
             validate.OneOf(
@@ -53,7 +53,18 @@ class OfficeSchema(Schema):
                 "{input} not a valid office type. Try one of these {choices}.")
                 ]
         )
-    isOccupied = fields.Boolean(missing=False)
+    is_occupied = fields.Boolean(missing=False)
+
+    @pre_load(pass_many=True)
+    def lower_cased(self, data, many):
+        data["office_name"] = data["office_name"].lower()
+        data["office_type"] = data["office_type"].lower()
+        return data
+
+    class Meta:
+        """Schema options"""
+        # maintains the field ordering on output
+        ordered = True
 
 
 class UserSchema(Schema):

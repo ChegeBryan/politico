@@ -1,7 +1,5 @@
 """ Office model """
 
-import uuid
-
 from app.api.db.mock_db import MockDB
 from app.api.model.helper import get_item
 
@@ -11,20 +9,25 @@ class Office:
     Office model
     """
 
-    def __init__(self, officeName, officeType, isOccupied):
-        self._id = uuid.uuid4()
-        self.officeName = officeName
-        self.officeType = officeType
-        self.isOccupied = False
+    def __init__(self, office_name, office_type, is_occupied):
+        self.office_name = office_name
+        self.office_type = office_type
+        self.is_occupied = False
 
-    def office_jsonified(self):
-        """ Return a office object as json """
-        return {
-            "officeId": self._id,
-            "officeName": self.officeName,
-            "officeType": self.officeType,
-            "isOccupied": self.isOccupied
-        }
+    def add_office(self):
+        """ add an office object to the parties table
+
+        Returns:
+            tuple : insert sql query, values(the object initialization
+                    attributes)
+        """
+        query = """INSERT INTO
+          offices(office_name, office_type, is_occupied)
+          VALUES (%s,%s,%s);
+          """
+        values = (self.office_name, self.office_type, self.is_occupied)
+
+        return query, values
 
     @staticmethod
     def get_office_by_id(identifier):

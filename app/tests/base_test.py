@@ -32,12 +32,16 @@ class BaseTestData(unittest.TestCase):
         # admin authorization header token
         self.post_data = self.client.post(
             "/api/v2/parties", json=party_holder, headers={
-                "Authorization": "Bearer {}".format(self.admin_token)}
+                "Authorization": "Bearer {}".format(self.admin_token)
+            }
         )
 
         # office post client
+        # admin authorization header token
         self.office_data = self.client.post(
-            '/api/v1/offices', json=office_holder
+            '/api/v2/offices', json=office_holder, headers={
+                "Authorization": "Bearer {}".format(self.admin_token)
+            }
         )
 
         # post a user

@@ -3,6 +3,7 @@ from flask import request, Blueprint
 from flask.views import MethodView
 
 from app.api.service.office import save_new_office, get_office, get_offices
+from app.api.util.decorator import admin_token_required
 
 offices = Blueprint('offices', __name__)
 
@@ -12,6 +13,7 @@ class OfficeAPI(MethodView):
     Office POST, GET endpoints
     """
 
+    @admin_token_required
     def post(self):
         # create new office
         json_input = request.get_json()

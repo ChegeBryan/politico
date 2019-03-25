@@ -37,7 +37,7 @@ def create_app(config_name):
 
     # register blueprints to app
     app.register_blueprint(parties_bp, url_prefix='/api/v2')
-    app.register_blueprint(offices_bp, url_prefix='/api/v1')
+    app.register_blueprint(offices_bp, url_prefix='/api/v2')
     app.register_blueprint(users_bp, url_prefix='/api/v2')
     app.register_blueprint(auth_bp, url_prefix='/api/v2')
 

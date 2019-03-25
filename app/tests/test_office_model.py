@@ -1,7 +1,6 @@
 # tests for office model
 
 import unittest
-import uuid
 
 
 from app.api.model.office import Office
@@ -15,10 +14,9 @@ class TestOfficeModel(unittest.TestCase):
     def setUp(self):
         """
         Creation of office object
-        :arg: officeId, officeName, officeType, isOccupied
+        :arg: officeName, officeType, isOccupied
         :return: office object
         """
-        _id = uuid.uuid4()
         self.new_office = Office(
             'Senate',
             'Congress',
@@ -29,22 +27,7 @@ class TestOfficeModel(unittest.TestCase):
         """
         Test office object is initialized properly
         """
-        self.assertTrue(self.new_office._id)
-        self.assertEqual(self.new_office.officeName, 'Senate')
-        self.assertEqual(self.new_office.officeType, 'Congress')
-        self.assertFalse(self.new_office.isOccupied, False)
+        self.assertEqual(self.new_office.office_name, 'Senate')
+        self.assertEqual(self.new_office.office_type, 'Congress')
+        self.assertFalse(self.new_office.is_occupied, False)
 
-    def test_office_is_saved(self):
-        """ Test party is saved on PARTIES list """
-        save_changes(self.new_office)
-        self.assertEqual(len(MockDB.OFFICES), 1)
-
-    def test_multiple_offices_are_saved(self):
-        """ Test PARTIES list has the saved parties """
-        save_changes(self.new_office)
-        add_office = Office('House of Respresentatives', 'Congress', False)
-        save_changes(add_office)
-        self.assertEqual(len(MockDB.OFFICES), 2)
-
-    def tearDown(self):
-        MockDB.OFFICES[:] = []
