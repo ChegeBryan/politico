@@ -308,15 +308,25 @@ class PartyAPITestCase(BaseTestData):
         self.assertEqual(response.status_code, 201)
         json_data = response.get_json()
         _id = json_data["data"][0]["party_id"]
+
+        # admin token
+        auth_token = self.admin_token
+
         # edit party details (party name)
         response_edit = self.client.patch(
-            'api/v1/parties/{}/name'.format(_id),
+            'api/v2/parties/{}/name'.format(_id),
             json={
                 "party_name": "Changed this"
+            },
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
             }
         )
         edited_data = self.client.get(
-            'api/v1/parties/{}'.format(_id)
+            'api/v2/parties/{}'.format(_id),
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         new_data = edited_data.get_json()
         self.assertEqual(new_data["data"][0]["party_name"], "Changed this")
@@ -327,12 +337,19 @@ class PartyAPITestCase(BaseTestData):
         Test error returned when the party to edit is not found.
         :return: STATUS CODE 404
         """
-        _id = uuid.uuid4()  # generate random id
+        _id = 234  # random id
+
+        # admin token
+        auth_token = self.admin_token
+
         # edit party details (party name)
         response_edit = self.client.patch(
-            'api/v1/parties/{}/name'.format(_id),
+            'api/v2/parties/{}/name'.format(_id),
             json={
                 "party_name": "Changed this"
+            },
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
             }
         )
         new_data = response_edit.get_json()

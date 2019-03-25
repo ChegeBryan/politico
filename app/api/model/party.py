@@ -69,11 +69,18 @@ class Party:
 
     @staticmethod
     def update_party(_id, name):
-        """ Method to update the name and address of called party """
-        party = get_item(_id, MockDB.PARTIES)
-        if party:
-            party.party_name = name
-            return party
+        """ SQL query to update the name of the selected party
+
+        Args:
+            _id  : id of the party to edit
+            name : party name to change to
+
+        Returns:
+            tuple : update party sql query
+        """
+        sql = """UPDATE parties SET party_name=%s WHERE id=%s;"""
+        query = sql, (name, _id)
+        return query
 
     @staticmethod
     def delete_party(_id):
