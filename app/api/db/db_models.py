@@ -42,8 +42,16 @@ def create_tables():
       logo_url VARCHAR(256) NOT NULL
     );
     """
+    offices = """
+    CREATE TABLE IF NOT EXISTS offices (
+      id SERIAL PRIMARY KEY,
+      office_name VARCHAR(50) NOT NULL,
+      office_type VARCHAR(50) NOT NULL,
+      is_occupied BOOLEAN DEFAULT FALSE
+    );
+    """
 
-    return [users, blacklist, parties]
+    return [users, blacklist, parties, offices]
 
 
 def add_admin():
