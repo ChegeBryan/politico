@@ -109,13 +109,14 @@ def edit_party(_id, json_data):
         # persist changes to the database
         db().commit_changes(query, values)
 
-        party_edit = party.update_party(_id, new_name)
+        # query back the database for the edited party.
+        party_edited = db().get_single_row(*party_to_edit_query)
         return jsonify({
             "status": 200,
-            "data": [party_schema.dump(party_edit)]
+            "data": [party_schema.dump(party_edited)]
         })
-    else:
         # response when party not found
+    else:
         return jsonify({
             "status": 404,
             "error": "Resource requested for edit not found."
