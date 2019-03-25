@@ -84,10 +84,14 @@ class Party:
 
     @staticmethod
     def delete_party(_id):
-        """ Method to delete party from parties list """
-        party = get_item(_id, MockDB.PARTIES)
-        if party:
-            MockDB.PARTIES.remove(party)
-            return True
-        else:
-            return False
+        """ SQL query to delete selected party from the database
+
+        Args:
+            _id : party id
+
+        Returns:
+            tuple : delete party sql query
+        """
+        sql = """DELETE FROM parties WHERE id=%s;"""
+        query = sql, (_id,)
+        return query
