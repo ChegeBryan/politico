@@ -8,6 +8,7 @@ from marshmallow import ValidationError
 from app.api.db.mock_db import MockDB
 from app.api.model.office import Office
 from app.api.util.dto import office_schema, offices_schema
+from app.api.db.database import AppDatabase as db
 
 
 def save_new_office(json_data):
@@ -26,8 +27,11 @@ def save_new_office(json_data):
     is_occupied = data["is_occupied"]
 
     # create office object
-    new_office = Office(office_name=office_name,
-                        office_type=office_type, is_occupied=is_occupied)
+    new_office = Office(
+        office_name=office_name,
+        office_type=office_type,
+        is_occupied=is_occupied
+    )
 
     save_changes(new_office)
     # 1. serialize the input for response
@@ -69,3 +73,5 @@ def get_offices():
 def save_changes(data):
     """ Write to the mock db """
     MockDB.OFFICES.append(data)
+    query, values = Office.add_office(data)
+    db().commit_changes(query, values)
