@@ -28,6 +28,7 @@ class PartiesAPI(MethodView):
             # return single party
             return get_party(_id=_id)
 
+    @admin_token_required
     def patch(self, _id):
         # edit party details
         json_input = request.get_json()
