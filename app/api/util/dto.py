@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields, validate
+from marshmallow import Schema, fields, validate, pre_load
 
 
 class PartySchema(Schema):
@@ -54,6 +54,12 @@ class OfficeSchema(Schema):
                 ]
         )
     is_occupied = fields.Boolean(missing=False)
+
+    @pre_load(pass_many=True)
+    def lower_cased(self, data, many):
+        data["office_name"] = data["office_name"].lower()
+        data["office_type"] = data["office_type"].lower()
+        return data
 
     class Meta:
         """Schema options"""
