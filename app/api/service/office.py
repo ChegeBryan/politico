@@ -21,13 +21,13 @@ def save_new_office(json_data):
             "status": 400,
             "error": e.messages
         }), 400
-    officeName = data["officeName"]
-    officeType = data["officeType"]
-    isOccupied = data["isOccupied"]
+    office_name = data["office_name"]
+    office_type = data["office_type"]
+    is_occupied = data["is_occupied"]
 
     # create office object
-    new_office = Office(officeName=officeName,
-                        officeType=officeType, isOccupied=isOccupied)
+    new_office = Office(office_name=office_name,
+                        office_type=office_type, is_occupied=is_occupied)
 
     save_changes(new_office)
     # 1. serialize the input for response

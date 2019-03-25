@@ -27,9 +27,9 @@ class TestOfficeModel(unittest.TestCase):
         """
         Test office object is initialized properly
         """
-        self.assertEqual(self.new_office.officeName, 'Senate')
-        self.assertEqual(self.new_office.officeType, 'Congress')
-        self.assertFalse(self.new_office.isOccupied, False)
+        self.assertEqual(self.new_office.office_name, 'Senate')
+        self.assertEqual(self.new_office.office_type, 'Congress')
+        self.assertFalse(self.new_office.is_occupied, False)
 
     def test_office_is_saved(self):
         """ Test party is saved on PARTIES list """

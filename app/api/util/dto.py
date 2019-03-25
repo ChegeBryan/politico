@@ -33,8 +33,8 @@ class OfficeSchema(Schema):
     """
     Office schema mapped onto Office() class attributes
     """
-    officeId = fields.Integer(dump_only=True, attribute='id')
-    officeName = fields.Str(
+    office_id = fields.Integer(dump_only=True, attribute='id')
+    office_name = fields.Str(
         required=True,
         validate=[
             validate.OneOf(
@@ -44,7 +44,7 @@ class OfficeSchema(Schema):
                 "{input} not a valid office name. Try one of these {choices}.")
                 ]
         )
-    officeType = fields.Str(
+    office_type = fields.Str(
         required=True,
         validate=[
             validate.OneOf(
@@ -53,7 +53,7 @@ class OfficeSchema(Schema):
                 "{input} not a valid office type. Try one of these {choices}.")
                 ]
         )
-    isOccupied = fields.Boolean(missing=False)
+    is_occupied = fields.Boolean(missing=False)
 
     class Meta:
         """Schema options"""
