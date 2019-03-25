@@ -34,6 +34,7 @@ class PartiesAPI(MethodView):
         json_input = request.get_json()
         return edit_party(_id=_id, json_data=json_input)
 
+    @admin_token_required
     def delete(self, _id):
         # delete a political party
         return delete_party(_id=_id)
