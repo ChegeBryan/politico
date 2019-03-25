@@ -337,12 +337,19 @@ class PartyAPITestCase(BaseTestData):
         Test error returned when the party to edit is not found.
         :return: STATUS CODE 404
         """
-        _id = uuid.uuid4()  # generate random id
+        _id = 234  # random id
+
+        # admin token
+        auth_token = self.admin_token
+
         # edit party details (party name)
         response_edit = self.client.patch(
-            'api/v1/parties/{}/name'.format(_id),
+            'api/v2/parties/{}/name'.format(_id),
             json={
                 "party_name": "Changed this"
+            },
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
             }
         )
         new_data = response_edit.get_json()
