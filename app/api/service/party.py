@@ -82,10 +82,11 @@ def get_parties():
     """
     parties_query = Party.get_parties_query()
     parties = db().get_all_rows(parties_query)
+    response = parties_schema.dump(parties)
 
     return jsonify({
         "status": 200,
-        "data": parties
+        "data": response
     }), 200
 
 
