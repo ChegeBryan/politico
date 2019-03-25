@@ -385,9 +385,15 @@ class PartyAPITestCase(BaseTestData):
         Test error message for for non existing party deletion.
         :return: STATUS CODE 404
         """
-        _id = uuid.uuid4()
+        _id = 233  # random id
+
+        #admin token
+        auth_token = self.admin_token
+
         response = self.client.delete(
-            'api/v1/parties/{}'.format(_id)
+            'api/v2/parties/{}'.format(_id), headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
         )
         res = response.get_json()
         self.assertEqual(res["data"][0]["message"],
