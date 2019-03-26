@@ -73,9 +73,6 @@ class OfficeAPITestCase(BaseTestData):
         # do a post first
         response = self.office_data
         self.assertEqual(response.status_code, 201)
-        # add another entry
-        response = self.office_data
-        self.assertEqual(response.status_code, 201)
 
         #admin token
         auth_token = self.admin_token

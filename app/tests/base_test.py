@@ -6,7 +6,6 @@ from app import create_app
 from app.api.db.party_test_data import party_holder
 from app.api.db.office_test_data import office_holder
 from app.api.db.user_test_data import user, user_logins, admin_login
-from app.api.db.mock_db import MockDB
 from app.api.db.database import AppDatabase
 
 
@@ -55,8 +54,7 @@ class BaseTestData(unittest.TestCase):
         )
 
     def tearDown(self):
-        """ Empty party list for each test """
-        MockDB.OFFICES[:] = []
+        """ destroy the database """
         with self.app.app_context():
             db = AppDatabase()
             db.drop_all()

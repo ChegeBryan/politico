@@ -84,11 +84,10 @@ class PartyAPITestCase(BaseTestData):
         provided is the is blacklisted. admin is logged out
         : return STATUS CODE 401 Unauthorized
         """
-        admin_signin = self.admin_signin
         auth_token = self.admin_token
         admin_signout = self.client.post(
             '/api/v2/auth/signout', headers={
-                "Authorization": "Bearer {}".format(self.admin_token)}
+                "Authorization": "Bearer {}".format(auth_token)}
         )
         json_body = admin_signout.get_json()
         self.assertEqual(json_body["status"], 200)
@@ -110,8 +109,7 @@ class PartyAPITestCase(BaseTestData):
         register a party with no party name
         : return STATUS CODE 400 Bad Request
         """
-        # signin admin
-        admin_signin = self.admin_signin
+        # get token of signed in admin user
         auth_token = self.admin_token
 
         response = self.client.post(
@@ -132,8 +130,7 @@ class PartyAPITestCase(BaseTestData):
         register a party with no Headquarters details
         : return STATUS CODE 400 Bad Request
         """
-        # signin admin
-        admin_signin = self.admin_signin
+        # get auth token of signed in admin user
         auth_token = self.admin_token
 
         response = self.client.post(
@@ -154,8 +151,7 @@ class PartyAPITestCase(BaseTestData):
         register a party with no Headquarters details and party name
         : return STATUS CODE 400 Bad Request
         """
-        # signin admin
-        admin_signin = self.admin_signin
+        # get auth token of signed in admin user
         auth_token = self.admin_token
 
         response = self.client.post(
@@ -178,8 +174,7 @@ class PartyAPITestCase(BaseTestData):
         register a party with no party name
         : return STATUS CODE 400 Bad Request
         """
-        # signin admin
-        admin_signin = self.admin_signin
+        # get auth token of signed in admin user
         auth_token = self.admin_token
 
         response = self.client.post(
@@ -203,8 +198,7 @@ class PartyAPITestCase(BaseTestData):
         response = self.post_data
         self.assertEqual(response.status_code, 201)
 
-        # signin admin
-        admin_signin = self.admin_signin
+        # get auth token of signed in admin user
         auth_token = self.admin_token
 
         response_2 = self.client.post(
