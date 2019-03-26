@@ -23,7 +23,7 @@ class Office:
         """
         query = """INSERT INTO
           offices(office_name, office_type, is_occupied)
-          VALUES (%s,%s,%s);
+          VALUES (%s,%s,%s) RETURNING id;
           """
         values = (self.office_name, self.office_type, self.is_occupied)
 
@@ -31,5 +31,14 @@ class Office:
 
     @staticmethod
     def get_office_by_id(identifier):
-        """Method to get office in the OFFICES list by its ID"""
-        return get_item(identifier, MockDB.OFFICES)
+        """ SQL query to return a office found in the database
+
+        Args:
+            identifier : office id
+
+        Returns:
+            tuple : select office sql query
+        """
+        sql = """SELECT * FROM offices WHERE id=%s;"""
+        query = sql, (identifier,)
+        return query
