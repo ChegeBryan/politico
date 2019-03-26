@@ -34,7 +34,7 @@ offices_view = OfficeAPI.as_view('offices')
 
 # office endpoints rules
 offices.add_url_rule('/offices', view_func=offices_view, methods=["POST"])
-offices.add_url_rule('/offices/<uuid:_id>',
+offices.add_url_rule('/offices/<int:_id>',
                      view_func=offices_view, methods=["GET"])
 offices.add_url_rule('/offices', defaults={'_id': None},
                      view_func=offices_view, methods=["GET"])
