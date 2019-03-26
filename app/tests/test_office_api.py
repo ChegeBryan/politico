@@ -1,7 +1,5 @@
 """Tests for the office api endpoints"""
 
-import uuid
-
 from .base_test import BaseTestData
 from app.api.db.office_test_data import (invalid_office_name_holder,
                                          invalid_office_type_holder)

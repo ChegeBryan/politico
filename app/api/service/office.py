@@ -5,7 +5,6 @@ in the mock db
 from flask import jsonify
 from marshmallow import ValidationError
 
-from app.api.db.mock_db import MockDB
 from app.api.model.office import Office
 from app.api.util.dto import office_schema, offices_schema
 from app.api.db.database import AppDatabase as db
@@ -89,7 +88,6 @@ def get_offices():
 
 def save_changes(data):
     """ Write to the mock db """
-    MockDB.OFFICES.append(data)
     query, values = Office.add_office(data)
     identifier = db().commit_changes_returning_id(query, values)
     return identifier
