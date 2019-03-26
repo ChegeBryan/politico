@@ -74,4 +74,5 @@ def save_changes(data):
     """ Write to the mock db """
     MockDB.OFFICES.append(data)
     query, values = Office.add_office(data)
-    db().commit_changes(query, values)
+    identifier = db().commit_changes_returning_id(query, values)
+    return identifier
