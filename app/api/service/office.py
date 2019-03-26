@@ -33,10 +33,12 @@ def save_new_office(json_data):
         is_occupied=is_occupied
     )
 
-    save_changes(new_office)
+    return_id = save_changes(new_office)
     # 1. serialize the input for response
     # 2. return serialized and proper format json to api endpoint
-    response = office_schema.dump(new_office)
+    saved_office_query = Office.get_office_by_id(return_id)
+    saved_office = db().get_single_row(*saved_office_query)
+    response = office_schema.dump(saved_office)
     response_object = jsonify({
         "status": 201,
         "data": [response]
