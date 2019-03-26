@@ -33,10 +33,12 @@ def save_new_office(json_data):
         is_occupied=is_occupied
     )
 
-    save_changes(new_office)
+    return_id = save_changes(new_office)
     # 1. serialize the input for response
     # 2. return serialized and proper format json to api endpoint
-    response = office_schema.dump(new_office)
+    saved_office_query = Office.get_office_by_id(return_id)
+    saved_office = db().get_single_row(*saved_office_query)
+    response = office_schema.dump(saved_office)
     response_object = jsonify({
         "status": 201,
         "data": [response]
@@ -45,8 +47,17 @@ def save_new_office(json_data):
 
 
 def get_office(_id):
-    """Method to display out the office to the get /offices/<uuid:id>"""
-    office = Office.get_office_by_id(_id)
+    """Method to return the office from the database with the provided id
+
+    Args:
+        _id (integer): the office unique identifier
+
+    Returns:
+        1. json : the office found details in json format
+        2. json : error if the office is not found
+    """
+    office_query = Office.get_office_by_id(_id)
+    office = db().get_single_row(*office_query)
     if office:
         # response when office exists
         return jsonify({
@@ -74,4 +85,5 @@ def save_changes(data):
     """ Write to the mock db """
     MockDB.OFFICES.append(data)
     query, values = Office.add_office(data)
-    db().commit_changes(query, values)
+    identifier = db().commit_changes_returning_id(query, values)
+    return identifier

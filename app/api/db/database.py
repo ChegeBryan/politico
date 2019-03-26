@@ -64,6 +64,15 @@ class AppDatabase:
         self.cur.execute(query, values)
         self.conn.commit()
 
+    def commit_changes_returning_id(self, query, values):
+        """ saves the data to database and
+        return primary key of saved data
+        """
+        self.cur.execute(query, values)
+        identifier = self.cur.fetchone()['id']
+        self.conn.commit()
+        return identifier
+
     def drop_all(self):
         """ Drop all the relations """
         queries = drop_tables()
