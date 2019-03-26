@@ -42,3 +42,13 @@ class Office:
         sql = """SELECT * FROM offices WHERE id=%s;"""
         query = sql, (identifier,)
         return query
+
+    @staticmethod
+    def get_offices_query():
+        """ SQL query to return a parties in the database
+
+        Returns:
+            tuple : select party sql query
+        """
+        sql = """SELECT * FROM offices;"""
+        return sql

@@ -73,11 +73,17 @@ def get_office(_id):
 
 
 def get_offices():
-    """Method to get all offices from list"""
-    offices = offices_schema.dump(MockDB.OFFICES)
+    """Method to return all the offices from the database
+
+    Returns:
+        1. json : the offices found details in json format
+    """
+    offices_query = Office.get_offices_query()
+    offices = db().get_all_rows(offices_query)
+    response = offices_schema.dump(offices)
     return jsonify({
         "status": 200,
-        "data": offices,
+        "data": response,
     }), 200
 
 
