@@ -47,8 +47,17 @@ def save_new_office(json_data):
 
 
 def get_office(_id):
-    """Method to display out the office to the get /offices/<uuid:id>"""
-    office = Office.get_office_by_id(_id)
+    """Method to return the office from the database with the provided id
+
+    Args:
+        _id (integer): the office unique identifier
+
+    Returns:
+        1. json : the office found details in json format
+        2. json : error if the office is not found
+    """
+    office_query = Office.get_office_by_id(_id)
+    office = db().get_single_row(*office_query)
     if office:
         # response when office exists
         return jsonify({
