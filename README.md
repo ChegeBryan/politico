@@ -97,19 +97,36 @@ strucutures.
 ### Api endpoints (Persistent)
 This are the currently available v2 endpoints. The data is written into a database.
 
+- #### Open endpoints
+
 | HTTP Method   | URL Endpoint  | Description  |
 | -------- | ----------------------------------- | ---------------- |
-| `POST`   | `/api/v2/auth/signup`               | Create new users |
+| `POST`   | `/api/v2/auth/signup`               | Create new user |
 | `POST`   | `/api/v2/auth/signin`               | Sign in existing user |
 | `POST`   | `/api/v2/auth/signout`              | Sign out logged in user |
 
+- #### Open to Admin only endpoints
+
+| HTTP Method   | URL Endpoint  | Description  |
+| -------- | -------------------- | ---------------- |
+| `POST`   | `/api/v2/parties`                     | Create a new party |
+| `POST`   | `/api/v2/offices`                     | Create a new office |
+| `PATCH`  | `/api/v2/parties/<int:party_id>/name` | Update a party name |
+| `DELETE` | `/api/v2/parties/<int:party_id>`      | Delete a party |
+
+
+- #### Open to logged in user
+
+| HTTP Method   | URL Endpoint  | Description  |
+| -------- | ----------------------------------- | ---------------- |
+| `GET`    | `/api/v2/offices`                    | Fetch offices records |
+| `GET`    | `/api/v2/offices/<int:office_id>`    | Fetch a specific office |
+| `GET`    | `/api/v2/parties`                    | Fetch all parties created |
+| `GET`    | `/api/v1/parties/<int:party_id>`    | Fetch specific party |
 
 
 ### API hosting
 [![](https://img.shields.io/badge/Heroku-v1-blue.svg)](https://politico-cb.herokuapp.com)
-
-### Postman Documentation
-[Postman Docs](https://documenter.getpostman.com/view/4869820/RztoM8mV)
 
 ### Powered by
 
