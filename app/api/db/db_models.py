@@ -9,7 +9,8 @@ def drop_tables():
     blacklist = """ DROP TABLE IF EXISTS blacklist; """
     parties = """ DROP TABLE IF EXISTS parties; """
     offices = """ DROP TABLE IF EXISTS offices; """
-    return [users, blacklist, parties, offices]
+    candidates = """ DROP TABLE IF EXISTS candidates; """
+    return [candidates, users, blacklist, parties, offices]
 
 
 def create_tables():
