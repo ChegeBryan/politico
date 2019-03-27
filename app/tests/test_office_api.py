@@ -1,7 +1,5 @@
 """Tests for the office api endpoints"""
 
-import uuid
-
 from .base_test import BaseTestData
 from app.api.db.office_test_data import (invalid_office_name_holder,
                                          invalid_office_type_holder)
@@ -73,9 +71,6 @@ class OfficeAPITestCase(BaseTestData):
         :return: STATUS CODE 200
         """
         # do a post first
-        response = self.office_data
-        self.assertEqual(response.status_code, 201)
-        # add another entry
         response = self.office_data
         self.assertEqual(response.status_code, 201)
 

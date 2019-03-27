@@ -1,8 +1,5 @@
 """ Office model """
 
-from app.api.db.mock_db import MockDB
-from app.api.model.helper import get_item
-
 
 class Office:
     """

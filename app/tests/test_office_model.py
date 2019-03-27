@@ -2,10 +2,7 @@
 
 import unittest
 
-
 from app.api.model.office import Office
-from app.api.db.mock_db import MockDB
-from app.api.service.office import save_changes
 
 
 class TestOfficeModel(unittest.TestCase):

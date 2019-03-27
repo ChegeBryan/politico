@@ -185,7 +185,6 @@ def verify_blacklist(token):
     Args:
         token (bytes): user token
     """
-
     blacklisted_query = BlacklistToken.check_blacklist(token)
     is_blacklisted = db().get_single_row(*blacklisted_query)
     return is_blacklisted
