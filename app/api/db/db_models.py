@@ -51,8 +51,26 @@ def create_tables():
       is_occupied BOOLEAN DEFAULT FALSE
     );
     """
+    candidates = """
+    CREATE TABLE IF NOT EXISTS candidates (
+      office_id INTEGER NOT NULL,
+      candidate_id INTEGER NOT NULL,
+      party_id INTEGER NOT NULL,
+      created_on TIMESTAMPTZ NOT NULL,
 
-    return [users, blacklist, parties, offices]
+      -- define the FK constraints - to ensure the candidate is a a registered
+      -- user and the office also exists
+      FOREIGN KEY (office_id) REFERENCES offices (id) ON DELETE CASCADE,
+      FOREIGN KEY (candidate_id) REFERENCES users (id) ON DELETE CASCADE,
+      FOREIGN KEY (party_id) REFERENCES parties (id) ON DELETE CASCADE,
+
+      -- define a composite primary key based on 2 FK to ensure a candidate is
+      -- not registered twice
+      CONSTRAINT id PRIMARY KEY (office_id, candidate_id)
+    );
+    """
+
+    return [users, blacklist, parties, offices, candidates]
 
 
 def add_admin():
@@ -68,4 +86,3 @@ def add_admin():
     """
     query = sql, (hashed_password,)
     return query
-
