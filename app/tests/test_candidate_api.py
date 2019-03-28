@@ -6,7 +6,8 @@ from app.api.db.candidate_test_data import (null_party_id, null_candidate_id,
                                             candidate_string_value,
                                             party_string_value,
                                             missing_party_field,
-                                            missing_candidate_field)
+                                            missing_candidate_field,
+                                            candidate)
 
 
 class CandidateAPITestCases(BaseTestData):
@@ -157,3 +158,28 @@ class CandidateAPITestCases(BaseTestData):
         self.assertEqual(json_data["error"]["candidate"][0],
                          "Missing data for required field.")
         self.assertEqual(response.status_code, 400)
+
+    def test_candidate_double_registration_on_same_office(self):
+        """
+        Test api returns correct error code and response message on attempt to
+        register a candidate again on the same office
+        : return STATUS CODE 409 Conflict
+        """
+
+        response = self.register_candidate
+        self.assertEqual(response.status_code, 201)
+
+        # get token of signed in admin user
+        auth_token = self.admin_token
+
+        response_2 = self.client.post(
+            '/api/v2/office/1/register',
+            json=candidate,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
+        )
+        json_data = response_2.get_json()
+        self.assertEqual(json_data["status"], 409)
+        self.assertEqual(json_data["error"], "Data conflicts encountered.")
+        self.assertEqual(response_2.status_code, 409)
