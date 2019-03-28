@@ -14,3 +14,7 @@ class CandidateAPI(MethodView):
         # register candidate for office
         json_input = request.get_json()
         return save_new_candidate(office_id=_id, json_data=json_input)
+
+
+# register the class as view
+candidates_view = CandidateAPI.as_view('candidates')
