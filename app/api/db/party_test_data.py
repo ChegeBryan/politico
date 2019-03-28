@@ -35,3 +35,10 @@ int_party_name_holder = {
     "hq_address": "example location",
     "logo_url": "http://some.logo.url"
 }
+
+
+party_2 = {
+    "party_name": "another name",
+    "hq_address": "example location",
+    "logo_url": "http://so.logo.url"
+}

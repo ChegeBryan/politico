@@ -2,13 +2,15 @@
 
 from .base_test import BaseTestData
 
+from app.api.db.party_test_data import party_2
 from app.api.db.user_test_data import user_2
 from app.api.db.candidate_test_data import (null_party_id, null_candidate_id,
                                             candidate_string_value,
                                             party_string_value,
                                             missing_party_field,
                                             missing_candidate_field,
-                                            candidate, duplicate_party_office)
+                                            candidate, duplicate_party_office,
+                                            duplicate_candidate)
 
 
 class CandidateAPITestCases(BaseTestData):
@@ -173,9 +175,17 @@ class CandidateAPITestCases(BaseTestData):
         # get token of signed in admin user
         auth_token = self.admin_token
 
+        register_party = self.client.post(
+            '/api/v2/parties', json=party_2,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
+        )
+        self.assertEqual(register_party.status_code, 201)
+
         response_2 = self.client.post(
             '/api/v2/office/1/register',
-            json=candidate,
+            json=duplicate_candidate,
             headers={
                 "Authorization": "Bearer {}".format(auth_token)
             }

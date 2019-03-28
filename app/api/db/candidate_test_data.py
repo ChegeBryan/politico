@@ -37,3 +37,8 @@ duplicate_party_office = {
     "party": 1,
     "candidate": 3
 }
+
+duplicate_candidate = {
+    "party": 2,
+    "candidate": 2
+}
