@@ -4,6 +4,7 @@
 
 from flask import jsonify
 from marshmallow import ValidationError
+from psycopg2 import IntegrityError
 
 
 from app.api.model.candidate import Candidate
@@ -36,7 +37,17 @@ def save_new_candidate(office_id, json_data):
         candidate=candidate,
         party=party,
     )
-    save_changes(office_id, new_candidate)
+
+    try:
+        save_changes(office_id, new_candidate)
+    except IntegrityError as e:
+        # catch the integrity database error when there is user
+        # already registered under the office
+        response_object = jsonify({
+            "status": 409,
+            "error": "Data conflicts encountered."
+        })
+        return response_object, 409
 
     # query database for the candidate
     candidate_by_id = Candidate.get_candidate_by_id(candidate)
