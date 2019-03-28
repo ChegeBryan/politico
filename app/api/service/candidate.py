@@ -7,7 +7,7 @@ from marshmallow import ValidationError
 
 
 from app.api.model.candidate import Candidate
-from app.api.util.dto import candidate_schema
+from app.api.util.dto import candidate_load_schema, candidate_dump_schema
 from app.api.db.database import AppDatabase as db
 
 
@@ -22,7 +22,7 @@ def save_new_candidate(office_id, json_data):
     # Deserialize the data input against the candidate schema
     # check if input values throw validation errors
     try:
-        data = candidate_schema.load(json_data)
+        data = candidate_load_schema.load(json_data)
     except ValidationError as e:
         return jsonify({
             "status": 400,
@@ -41,14 +41,13 @@ def save_new_candidate(office_id, json_data):
     # query database for the candidate
     candidate_by_id = Candidate.get_candidate_by_id(candidate)
     candidate_registered = db().get_single_row(*candidate_by_id)
-    response = candidate_schema.dump(candidate_registered)
+    response = candidate_dump_schema.dump(candidate_registered)
 
     response_object = jsonify({
         "status": 201,
         "data": [response]
     })
     return response_object, 201
-
 
 
 def save_changes(_id, data):
