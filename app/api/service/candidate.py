@@ -8,6 +8,7 @@ from marshmallow import ValidationError
 
 from app.api.model.candidate import Candidate
 from app.api.util.dto import candidate_schema
+from app.api.db.database import AppDatabase as db
 
 
 def save_new_candidate(office_id, json_data):
@@ -35,3 +36,15 @@ def save_new_candidate(office_id, json_data):
         candidate=candidate,
         party=party,
     )
+    save_changes(office_id, new_candidate)
+
+
+def save_changes(_id, data):
+    """commit the candidate details to the database
+
+    Args:
+        _id (integer): office id from the endpoint url
+        data ([object]): candidate instance
+    """
+    query, values = Candidate.add_candidate(data, office_id=_id)
+    db().commit_changes(query, values)
