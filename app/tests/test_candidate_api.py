@@ -4,13 +4,14 @@ from .base_test import BaseTestData
 
 from app.api.db.party_test_data import party_2
 from app.api.db.user_test_data import user_2
+from app.api.db.office_test_data import office_holder
 from app.api.db.candidate_test_data import (null_party_id, null_candidate_id,
                                             candidate_string_value,
                                             party_string_value,
                                             missing_party_field,
                                             missing_candidate_field,
                                             candidate, duplicate_party_office,
-                                            duplicate_candidate)
+                                            duplicate_candidate, candidate)
 
 
 class CandidateAPITestCases(BaseTestData):
@@ -202,11 +203,12 @@ class CandidateAPITestCases(BaseTestData):
         party registered
         : return STATUS CODE 409 Conflict
         """
-
+        # verify user is registered on setUp()
         res_reg_candidate = self.register_candidate
         self.assertEqual(res_reg_candidate.status_code, 201)
 
-        # register a new user
+        # register a new user whose id now becomes 3 on account the admin user
+        # was registered before therefore user_2 has an id of 3
         res_signup_user = self.client.post(
             '/api/v2/auth/signup', json=user_2
         )
@@ -215,7 +217,8 @@ class CandidateAPITestCases(BaseTestData):
         # get token of signed in admin user
         auth_token = self.admin_token
 
-        # register a new candidate to the same office under the same party
+        # register a the user_2 to the same office and party as user_1 only
+        # difference been the use id
         res_reg_same_party = self.client.post(
             '/api/v2/office/1/register',
             json=duplicate_party_office,
@@ -227,3 +230,47 @@ class CandidateAPITestCases(BaseTestData):
         self.assertEqual(json_data["status"], 409)
         self.assertEqual(json_data["error"], "Party already represented.")
         self.assertEqual(res_reg_same_party.status_code, 409)
+
+    def test_candidate_registers_once(self):
+        """
+        Test api returns correct error code and response message on attempt to
+        register a candidate to another office
+        : return STATUS CODE 409 Conflict
+        """
+        # verify user s created
+        res_reg_candidate = self.register_candidate
+        self.assertEqual(res_reg_candidate.status_code, 201)
+
+        # get token of signed in admin user
+        auth_token = self.admin_token
+
+        # create another office which will have an id of 2
+        res_reg_office = self.client.post(
+            '/api/v2/offices', json=office_holder,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
+        )
+        self.assertEqual(res_reg_office.status_code, 201)
+
+        # create another party which will have an id of 2
+        res_reg_party = self.client.post(
+            '/api/v2/parties', json=party_2,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
+        )
+        self.assertEqual(res_reg_party.status_code, 201)
+
+        # register same candidate as the first to a different office
+        res_reg_same_user = self.client.post(
+            '/api/v2/office/2/register',
+            json=duplicate_candidate,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
+        )
+        json_data = res_reg_same_user.get_json()
+        self.assertEqual(json_data["status"], 409)
+        self.assertEqual(json_data["error"], "User already registered.")
+        self.assertEqual(res_reg_same_user.status_code, 409)
