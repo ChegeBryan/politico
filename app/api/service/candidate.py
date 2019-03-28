@@ -32,20 +32,27 @@ def save_new_candidate(office_id, json_data):
     candidate = data['candidate']
     party = data['party']
 
-    # create candidate object
-    new_candidate = Candidate(
-        candidate=candidate,
-        party=party,
-    )
-
-    try:
-        save_changes(office_id, new_candidate)
-    except IntegrityError as e:
-        # catch the integrity database error when there is user
-        # already registered under the office
+    party_represented = check_party_is_registered(office_id, party)
+    if party_represented is None:
+        # create candidate object
+        new_candidate = Candidate(
+            candidate=candidate,
+            party=party
+        )
+        try:
+            save_changes(office_id, new_candidate)
+        except IntegrityError as e:
+            # catch the integrity database error when there is user
+            # already registered under the office
+            response_object = jsonify({
+                "status": 409,
+                "error": "Data conflicts encountered."
+            })
+            return response_object, 409
+    else:
         response_object = jsonify({
             "status": 409,
-            "error": "Data conflicts encountered."
+            "error": "Party already represented."
         })
         return response_object, 409
 
@@ -59,6 +66,19 @@ def save_new_candidate(office_id, json_data):
         "data": [response]
     })
     return response_object, 201
+
+
+def check_party_is_registered(office_id, party_id):
+    """check from the database if a party is already registered for an office
+
+    Args:
+        office_id (integer): office to check
+        party_id (integer): party to check
+    """
+    office_party_query = Candidate.get_office_party_by_id(office_id, party_id)
+    office_party = db().get_single_row(*office_party_query)
+    if office_party:
+        return True
 
 
 def save_changes(_id, data):
