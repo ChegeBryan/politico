@@ -120,8 +120,8 @@ class CandidateSchemaLoad(Schema):
     """
     Candidate schema mapped onto Candidate class attributes
     """
-    candidate = fields.Integer()
-    party = fields.Integer()
+    candidate = fields.Integer(required=True)
+    party = fields.Integer(required=True)
 
 
 class CandidateSchemaDump(BaseSchema):
