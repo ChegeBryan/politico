@@ -6,6 +6,7 @@ from app import create_app
 from app.api.db.party_test_data import party_holder
 from app.api.db.office_test_data import office_holder
 from app.api.db.user_test_data import user, user_logins, admin_login
+from app.api.db.candidate_test_data import candidate
 from app.api.db.database import AppDatabase
 
 
@@ -51,6 +52,13 @@ class BaseTestData(unittest.TestCase):
         # login user
         self.login_data = self.client.post(
             '/api/v2/auth/signin', json=user_logins
+        )
+
+        # register a candidate
+        self.register_candidate = self.client.post(
+            '/api/v2/office/1/register', json=candidate, headers={
+                "Authorization": "Bearer {}".format(self.admin_token)
+            }
         )
 
     def tearDown(self):
