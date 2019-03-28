@@ -2,6 +2,5 @@
 
 candidate = {
     "candidate": 2,
-    "office": 1,
     "party": 1
 }

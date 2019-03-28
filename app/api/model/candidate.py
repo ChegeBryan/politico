@@ -7,9 +7,8 @@ class Candidate:
     """Candidate class and methods for database manipulation
     """
 
-    def __init__(self, candidate, office=None, party=None):
+    def __init__(self, candidate, party):
         self.candidate = candidate
-        self.office = office
         self.party = party
         self.created_on = datetime.datetime.now()
 

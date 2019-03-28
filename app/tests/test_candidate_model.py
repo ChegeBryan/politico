@@ -13,7 +13,6 @@ class CandidateModelTestCases(unittest.TestCase):
         """create a candidate object instance """
         self.new_candidate = Candidate(
             candidate=1,
-            office=2,
             party=2
         )
 
@@ -22,4 +21,3 @@ class CandidateModelTestCases(unittest.TestCase):
         self.assertTrue(self.new_candidate.created_on)
         self.assertEqual(self.new_candidate.candidate, 1)
         self.assertEqual(self.new_candidate.party, 2)
-        self.assertEqual(self.new_candidate.office, 2)
