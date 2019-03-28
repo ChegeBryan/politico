@@ -38,6 +38,18 @@ def save_new_candidate(office_id, json_data):
     )
     save_changes(office_id, new_candidate)
 
+    # query database for the candidate
+    candidate_by_id = Candidate.get_candidate_by_id(candidate)
+    candidate_registered = db().get_single_row(*candidate_by_id)
+    response = candidate_schema.dump(candidate_registered)
+
+    response_object = jsonify({
+        "status": 201,
+        "data": [response]
+    })
+    return response_object, 201
+
+
 
 def save_changes(_id, data):
     """commit the candidate details to the database
