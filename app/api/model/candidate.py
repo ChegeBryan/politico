@@ -40,3 +40,18 @@ class Candidate:
         sql = """SELECT * FROM candidates WHERE candidate_id=%s;"""
         query = sql, (identifier,)
         return query
+
+    @staticmethod
+    def get_office_party_by_id(office_id, party_id):
+        """SQL query to get a office from the database
+
+        Args:
+            office_id (integer): office id
+            party_id (integer): party id
+
+        returns:
+            query (string): select SQL for office and party with ids
+        """
+        sql = """SELECT * FROM candidates WHERE office_id=%s AND party_id=%s;"""
+        query = sql, (office_id, party_id)
+        return query

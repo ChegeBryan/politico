@@ -2,12 +2,13 @@
 
 from .base_test import BaseTestData
 
+from app.api.db.user_test_data import user_2
 from app.api.db.candidate_test_data import (null_party_id, null_candidate_id,
                                             candidate_string_value,
                                             party_string_value,
                                             missing_party_field,
                                             missing_candidate_field,
-                                            candidate)
+                                            candidate, duplicate_party_office)
 
 
 class CandidateAPITestCases(BaseTestData):
@@ -183,3 +184,36 @@ class CandidateAPITestCases(BaseTestData):
         self.assertEqual(json_data["status"], 409)
         self.assertEqual(json_data["error"], "Data conflicts encountered.")
         self.assertEqual(response_2.status_code, 409)
+
+    def test_party_only_registers_once_for_an_office(self):
+        """
+        Test api returns correct error code and response message on attempt to
+        register a candidate to an office that has a candidate from the same
+        party registered
+        : return STATUS CODE 409 Conflict
+        """
+
+        res_reg_candidate = self.register_candidate
+        self.assertEqual(res_reg_candidate.status_code, 201)
+
+        # register a new user
+        res_signup_user = self.client.post(
+            '/api/v2/auth/signup', json=user_2
+        )
+        self.assertEqual(res_signup_user.status_code, 201)
+
+        # get token of signed in admin user
+        auth_token = self.admin_token
+
+        # register a new candidate to the same office under the same party
+        res_reg_same_party = self.client.post(
+            '/api/v2/office/1/register',
+            json=duplicate_party_office,
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
+        )
+        json_data = res_reg_same_party.get_json()
+        self.assertEqual(json_data["status"], 409)
+        self.assertEqual(json_data["error"], "Party already represented.")
+        self.assertEqual(res_reg_same_party.status_code, 409)

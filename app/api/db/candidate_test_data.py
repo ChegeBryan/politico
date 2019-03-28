@@ -32,3 +32,8 @@ missing_party_field = {
 missing_candidate_field = {
     "party": 2
 }
+
+duplicate_party_office = {
+    "party": 1,
+    "candidate": 3
+}
