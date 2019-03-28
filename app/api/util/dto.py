@@ -116,9 +116,29 @@ class AuthSchema(BaseSchema):
     password = fields.String(required=True)
 
 
+class CandidateSchemaLoad(Schema):
+    """
+    Candidate schema mapped onto Candidate class attributes
+    """
+    candidate = fields.Integer()
+    party = fields.Integer()
+
+
+class CandidateSchemaDump(BaseSchema):
+    """
+    Candidate schema dump mapped onto database attributes
+    """
+    candidate = fields.Integer(attribute='candidate_id')
+    office = fields.Integer(attribute='office_id')
+    party = fields.Integer(attribute='party_id')
+    registered_on = fields.DateTime(attribute='created_on')
+
+
 party_schema = PartySchema()
 parties_schema = PartySchema(many=True)
 office_schema = OfficeSchema()
 offices_schema = OfficeSchema(many=True)
 user_schema = UserSchema()
 auth_schema = AuthSchema()
+candidate_load_schema = CandidateSchemaLoad()
+candidate_dump_schema = CandidateSchemaDump()
