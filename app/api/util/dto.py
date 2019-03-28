@@ -1,7 +1,16 @@
 from marshmallow import Schema, fields, validate, pre_load
 
 
-class PartySchema(Schema):
+class BaseSchema(Schema):
+    """ Schema options that are universal to all schema classes """
+
+    class Meta:
+        """Schema options"""
+        # maintains the field ordering on output
+        ordered = True
+
+
+class PartySchema(BaseSchema):
     """
     Party schema mapped onto Party() class attributes
     """
@@ -23,13 +32,8 @@ class PartySchema(Schema):
                 error="Please provide party Headquarters address.")])
     logo_url = fields.URL(required=True)
 
-    class Meta:
-        """Schema options"""
-        # maintains the field ordering on output
-        ordered = True
 
-
-class OfficeSchema(Schema):
+class OfficeSchema(BaseSchema):
     """
     Office schema mapped onto Office() class attributes
     """
@@ -40,19 +44,17 @@ class OfficeSchema(Schema):
             validate.OneOf(
                 ('president', 'governor', 'senator',
                  'house of representatives'),
-                error=
-                "{input} not a valid office name. Try one of these {choices}.")
-                ]
-        )
+                error="{input} not a valid office name. Try one of these {choices}.")
+        ]
+    )
     office_type = fields.Str(
         required=True,
         validate=[
             validate.OneOf(
                 ('federal', 'congress', 'state'),
-                error=
-                "{input} not a valid office type. Try one of these {choices}.")
-                ]
-        )
+                error="{input} not a valid office type. Try one of these {choices}.")
+        ]
+    )
     is_occupied = fields.Boolean(missing=False)
 
     @pre_load(pass_many=True)
@@ -61,13 +63,8 @@ class OfficeSchema(Schema):
         data["office_type"] = data["office_type"].lower()
         return data
 
-    class Meta:
-        """Schema options"""
-        # maintains the field ordering on output
-        ordered = True
 
-
-class UserSchema(Schema):
+class UserSchema(BaseSchema):
     """
     User schema mapped on User class attributes
     """
@@ -111,7 +108,7 @@ class UserSchema(Schema):
     isPolitician = fields.Boolean(missing=False)
 
 
-class AuthSchema(Schema):
+class AuthSchema(BaseSchema):
     """
     User login data schema
     """
