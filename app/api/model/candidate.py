@@ -27,3 +27,17 @@ class Candidate:
         values = (office_id, self.candidate, self.party, self.created_on)
 
         return query, values
+
+    @staticmethod
+    def get_candidate_by_id(identifier):
+        """SQL query to get a candidate from the database
+
+        Args:
+            identifier (integer): candidate id
+
+        returns:
+            query (string): select SQL for candidate with provided identifier
+        """
+        sql = """SELECT * FROM candidates WHERE candidate_id=%s;"""
+        query = sql, (identifier,)
+        return query
