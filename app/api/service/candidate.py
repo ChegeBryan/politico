@@ -27,3 +27,11 @@ def save_new_candidate(office_id, json_data):
             "status": 400,
             "error": e.messages
         }), 400
+    candidate = data['candidate']
+    party = data['party']
+
+    # create candidate object
+    new_candidate = Candidate(
+        candidate=candidate,
+        party=party,
+    )
