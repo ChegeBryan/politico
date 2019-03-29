@@ -131,7 +131,7 @@ class CandidateSchemaDump(BaseSchema):
     candidate = fields.Integer(attribute='candidate_id')
     office = fields.Integer(attribute='office_id')
     party = fields.Integer(attribute='party_id')
-    registered_on = fields.DateTime(attribute='created_on')
+    registered_on = fields.LocalDateTime(attribute='created_on')
 
 
 party_schema = PartySchema()

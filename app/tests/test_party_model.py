@@ -4,7 +4,6 @@ import unittest
 
 
 from app.api.model.party import Party
-from app.api.service.party import save_changes
 
 
 class TestPartyModel(unittest.TestCase):

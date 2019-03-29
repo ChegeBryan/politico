@@ -49,10 +49,13 @@ def save_new_candidate(office_id, json_data):
         try:
             save_changes(_id=office_id, data=new_candidate)
         except IntegrityError:
+            # json when integrityError in the database is raised caused by
+            # foreign key referencing
             response_object = jsonify({
                 "status": 409,
-                "error": "Data conflict encountered"
+                "error": "Party, office or user referenced does not exists."
             })
+            return response_object, 409
     else:
         response_object = jsonify({
             "status": 409,
