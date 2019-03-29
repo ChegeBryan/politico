@@ -31,32 +31,36 @@ def save_new_candidate(office_id, json_data):
         }), 400
     candidate = data['candidate']
     party = data['party']
+    office = office_id
 
-    party_represented = check_party_is_registered(office_id, party)
-    if party_represented is None:
-        # create candidate object
+    # check if the office and part provied are have a candidate under a certain
+    # party
+    party_represented = check_party_is_registered(office_id=office,
+                                                  party_id=party)
+    # check if the candidate provided is already registered
+    # in another office
+    registered_candidate = check_user_is_registered(candidate)
+    if party_represented is None and registered_candidate is None:
+
         new_candidate = Candidate(
             candidate=candidate,
             party=party
         )
         try:
-            save_changes(office_id, new_candidate)
-        except IntegrityError as e:
-            # catch the integrity database error when there is user
-            # already registered under the office
+            save_changes(_id=office_id, data=new_candidate)
+        except IntegrityError:
             response_object = jsonify({
                 "status": 409,
-                "error": "Data conflicts encountered."
+                "error": "Data conflict encountered"
             })
-            return response_object, 409
     else:
         response_object = jsonify({
             "status": 409,
-            "error": "Party already represented."
+            "error": "Party or user exists under an office."
         })
         return response_object, 409
 
-    # query database for the candidate
+    # query serialize the results from the database
     candidate_by_id = Candidate.get_candidate_by_id(candidate)
     candidate_registered = db().get_single_row(*candidate_by_id)
     response = candidate_dump_schema.dump(candidate_registered)
@@ -78,6 +82,20 @@ def check_party_is_registered(office_id, party_id):
     office_party_query = Candidate.get_office_party_by_id(office_id, party_id)
     office_party = db().get_single_row(*office_party_query)
     if office_party:
+        return True
+
+
+def check_user_is_registered(candidate_id):
+    """Check if a candidate is already registered as a candidate
+
+    Args:
+        candidate_id (integer): the candidate unique identifier
+    """
+    # query database for the candidate
+    candidate_by_id = Candidate.get_candidate_by_id(candidate_id)
+    candidate_registered = db().get_single_row(*candidate_by_id)
+
+    if candidate_registered:
         return True
 
 
