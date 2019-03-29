@@ -332,10 +332,45 @@ class CandidateAPITestCases(BaseTestData):
         # get token of signed in admin user
         auth_token = self.admin_token
 
-        # register non existing office for an office
+        # register non existing party for an office
         # party with a an id 2 does not exist
         response_office = self.client.post(
             '/api/v2/office/1/register',
+            json={
+                "party": 2,
+                "candidate": 3
+            },
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
+        )
+        json_data = response_office.get_json()
+        self.assertEqual(json_data["status"], 409)
+        self.assertEqual(json_data["error"],
+                         "Party, office or user referenced does not exists.")
+        self.assertEqual(response_office.status_code, 409)
+
+    def test_office_referenced(self):
+        """
+        Test api returns correct error code and response message on attempt to
+        register a candidate on a non exist office
+        : return STATUS CODE 409 Conflict
+        """
+
+        # register a new user whose id now becomes 3 on account the admin user
+        # was registered before therefore user_2 has an id of 3
+        res_signup_user = self.client.post(
+            '/api/v2/auth/signup', json=user_2
+        )
+        self.assertEqual(res_signup_user.status_code, 201)
+
+        # get token of signed in admin user
+        auth_token = self.admin_token
+
+        # register non existing office for an office
+        # party with a an id 2 does not exist
+        response_office = self.client.post(
+            '/api/v2/office/67/register',
             json={
                 "party": 2,
                 "candidate": 3
