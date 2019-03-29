@@ -36,7 +36,6 @@ int_party_name_holder = {
     "logo_url": "http://some.logo.url"
 }
 
-
 party_2 = {
     "party_name": "another name",
     "hq_address": "example location",

@@ -11,7 +11,7 @@ from app.api.db.candidate_test_data import (null_party_id, null_candidate_id,
                                             missing_party_field,
                                             missing_candidate_field,
                                             candidate, duplicate_party_office,
-                                            duplicate_candidate, candidate)
+                                            duplicate_candidate)
 
 
 class CandidateAPITestCases(BaseTestData):
@@ -193,7 +193,8 @@ class CandidateAPITestCases(BaseTestData):
         )
         json_data = response_2.get_json()
         self.assertEqual(json_data["status"], 409)
-        self.assertEqual(json_data["error"], "Data conflicts encountered.")
+        self.assertEqual(json_data["error"],
+                         "Party or user exists under an office.")
         self.assertEqual(response_2.status_code, 409)
 
     def test_party_only_registers_once_for_an_office(self):
@@ -228,7 +229,8 @@ class CandidateAPITestCases(BaseTestData):
         )
         json_data = res_reg_same_party.get_json()
         self.assertEqual(json_data["status"], 409)
-        self.assertEqual(json_data["error"], "Party already represented.")
+        self.assertEqual(json_data["error"],
+                         "Party or user exists under an office.")
         self.assertEqual(res_reg_same_party.status_code, 409)
 
     def test_candidate_registers_once(self):
@@ -272,5 +274,6 @@ class CandidateAPITestCases(BaseTestData):
         )
         json_data = res_reg_same_user.get_json()
         self.assertEqual(json_data["status"], 409)
-        self.assertEqual(json_data["error"], "User already registered.")
+        self.assertEqual(json_data["error"],
+                         "Party or user exists under an office.")
         self.assertEqual(res_reg_same_user.status_code, 409)
