@@ -4,7 +4,7 @@ user = {
     "lastname": "john",
     "othername": "simon",
     "email": "email@exampl.com",
-    "phonenumber":"23903-39920-221",
+    "phonenumber": "23903-39920-221",
     "password": "some_passowrd",
     "passportUrl": "https://apps.cn.com",
     "isAdmin": "False",
@@ -105,4 +105,16 @@ user_no_fields = {
 admin_login = {
     "email": "admin@politico.org",
     "password": "2019NBO37"
+}
+
+user_2 = {
+    "firstname": "another",
+    "lastname": "user",
+    "othername": "test",
+    "email": "user@test.com",
+    "phonenumber": "23903-39920-221",
+    "password": "some_passowrd",
+    "passportUrl": "https://test.cn.com",
+    "isAdmin": "False",
+    "isPolitician": "False"
 }

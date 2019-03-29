@@ -12,6 +12,8 @@ from app.api.controller.party_api import parties as parties_bp
 from app.api.controller.office_api import offices as offices_bp
 from app.api.controller.user_api import users as users_bp
 from app.api.controller.auth import auth as auth_bp
+from app.api.controller.candidate_api import candidates as candidates_bp
+
 
 def create_app(config_name):
     """App creation function
@@ -40,5 +42,6 @@ def create_app(config_name):
     app.register_blueprint(offices_bp, url_prefix='/api/v2')
     app.register_blueprint(users_bp, url_prefix='/api/v2')
     app.register_blueprint(auth_bp, url_prefix='/api/v2')
+    app.register_blueprint(candidates_bp, url_prefix='/api/v2')
 
     return app

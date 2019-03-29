@@ -1,5 +1,4 @@
 """ Tests for party api endpoints """
-import uuid
 
 from .base_test import BaseTestData
 from app.api.db.party_test_data import (
@@ -17,8 +16,6 @@ class PartyAPITestCase(BaseTestData):
         Test api return correct status code on success
         : return STATUS CODE 201 Ok Created
         """
-
-        #  app testing client
         response = self.post_data
         json_body = response.get_json()
         self.assertIsInstance(json_body["data"], list)
@@ -75,7 +72,7 @@ class PartyAPITestCase(BaseTestData):
         json_data = response.get_json()
         self.assertEqual(
             json_data["error"], "Invalid token. PLease login again."
-            )
+        )
         self.assertEqual(response.status_code, 401)
 
     def test_party_route_protection_admin_logged_out(self):
@@ -101,7 +98,6 @@ class PartyAPITestCase(BaseTestData):
             json_data["error"], "User is logged out, Please log in again."
         )
         self.assertEqual(response.status_code, 401)
-
 
     def test_zero_length_party_name(self):
         """
@@ -381,7 +377,7 @@ class PartyAPITestCase(BaseTestData):
         """
         _id = 233  # random id
 
-        #admin token
+        # admin token
         auth_token = self.admin_token
 
         response = self.client.delete(
