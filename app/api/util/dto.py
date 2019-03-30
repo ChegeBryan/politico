@@ -134,6 +134,12 @@ class CandidateSchemaDump(BaseSchema):
     registered_on = fields.LocalDateTime(attribute='created_on')
 
 
+class VoteSchemaLoad(BaseSchema):
+    """Vote schema for de-serializing vote schema """
+    office = fields.Integer()
+    candidate = fields.Integer()
+
+
 party_schema = PartySchema()
 parties_schema = PartySchema(many=True)
 office_schema = OfficeSchema()
