@@ -5,7 +5,10 @@ from marshmallow import ValidationError
 
 
 from app.api.util.dto import vote_load_schema
-from app.api.model import vote
+from app.api.model.vote import Vote
+from app.api.model.user import User
+from app.api.service.auth_helper import get_logged_in_user
+from app.api.model import user
 
 
 def save_new_vote(token, json_data):
@@ -25,3 +28,9 @@ def save_new_vote(token, json_data):
     office = data['office']
     candidate = data['candidate']
 
+    data, status = get_logged_in_user(token)
+
+    if status == 200:
+        user_id = data.get_json()['user'].get('id')
+    else:
+        return data, status
