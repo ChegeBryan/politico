@@ -1,6 +1,6 @@
 """ Methods for vote data manipulation between controller and the database """
 
-from flask import jsonify
+from flask import request, jsonify
 from marshmallow import ValidationError
 
 
@@ -9,6 +9,7 @@ from app.api.model.vote import Vote
 from app.api.model.user import User
 from app.api.service.auth_helper import get_logged_in_user
 from app.api.model import user
+from app.api.db.database import AppDatabase as db
 
 
 def save_new_vote(token, json_data):
@@ -28,9 +29,27 @@ def save_new_vote(token, json_data):
     office = data['office']
     candidate = data['candidate']
 
-    data, status = get_logged_in_user(token)
+    data, status = get_logged_in_user(request)
 
     if status == 200:
-        user_id = data.get_json()['user'].get('id')
+        # get the user id from the decoded token
+        user_id = data.get_json()['user'].get('user_id')
+        new_vote = Vote(
+            office=office,
+            candidate=candidate
+        )
+        save_changes(user_id, new_vote)
     else:
         return data, status
+
+
+def save_changes(_id, data):
+    """commit the vote details to the database
+
+    Args:
+        _id (integer): user id
+        data ([object]): vote instance
+    """
+
+    query, values = Vote.add_vote(data, user=_id)
+    db().commit_changes(query, values)
