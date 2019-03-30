@@ -144,6 +144,7 @@ def get_logged_in_user(request_header):
                 response_object = jsonify({
                     'status': 200,
                     'user': {
+                        'user_id': user['id'],
                         'user_email': user['email'],
                         'is_admin': user['isadmin']
                     }
