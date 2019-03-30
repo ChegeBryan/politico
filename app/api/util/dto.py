@@ -135,9 +135,17 @@ class CandidateSchemaDump(BaseSchema):
 
 
 class VoteSchemaLoad(BaseSchema):
-    """Vote schema for de-serializing vote schema """
+    """Vote schema for de-serializing vote data input """
     office = fields.Integer()
     candidate = fields.Integer()
+
+
+class VoteSchemaDump(BaseSchema):
+    """ Vote schema for serializing vote data output """
+    office = fields.Integer(attribute='office_id')
+    candidate = fields.Integer(attribute='candidate_id')
+    created_on = fields.LocalDateTime()
+    created_by = fields.Integer()
 
 
 party_schema = PartySchema()
@@ -148,3 +156,6 @@ user_schema = UserSchema()
 auth_schema = AuthSchema()
 candidate_load_schema = CandidateSchemaLoad()
 candidate_dump_schema = CandidateSchemaDump()
+vote_load_schema = VoteSchemaLoad()
+vote_dump_schema = VoteSchemaDump()
+
