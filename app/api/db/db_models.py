@@ -65,13 +65,31 @@ def create_tables():
       FOREIGN KEY (candidate_id) REFERENCES users (id) ON DELETE CASCADE,
       FOREIGN KEY (party_id) REFERENCES parties (id) ON DELETE CASCADE,
 
-      -- define a composite primary key based on 2 FK to ensure a candidate is
-      -- not registered twice
+      -- define a composite primary key based on 2 Fields to ensure a candidate
+      -- is not registered twice
       CONSTRAINT id PRIMARY KEY (office_id, candidate_id)
     );
     """
+    votes = """
+    CREATE TABLE IF NOT EXISTS votes(
+      office_id INTEGER NOT NULL,
+      candidate_id INTEGER NOT NULL,
+      created_on TIMESTAMPTZ NOT NULL,
+      created_by INTEGER NOT NULL,
 
-    return [users, blacklist, parties, offices, candidates]
+      -- define the FK constraints - to ensure the candidate referenced and
+      -- office exists in the candidates table
+      FOREIGN KEY (office_id, candidate_id) REFERENCES
+        candidates (office_id, candidate_id) ON DELETE CASCADE,
+      FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE CASCADE,
+
+      -- composite primary key made up 2 fields ensuring a voters vote is not
+      -- registered twice
+      CONSTRAINT vote_id PRIMARY KEY (office_id, created_by)
+    );
+    """
+
+    return [users, blacklist, parties, offices, candidates, votes]
 
 
 def add_admin():
