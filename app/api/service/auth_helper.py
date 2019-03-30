@@ -32,7 +32,9 @@ def login_user(json_data):
         password_candidate = data['password']
         user_password = user_email['password']
         if User.verify_hash_password(password_candidate, user_password):
-            access_token = User.encode_auth_token(email)
+            # get the user id to use for token generation
+            identifier = user_email['id']
+            access_token = User.encode_auth_token(identifier)
             response = user_schema.dump(user_email)
             return jsonify({
                 "status": 200,
@@ -65,34 +67,31 @@ def logout_user(data):
         # get the token value from the "bearer and token" authorization string
         auth_token = data.split(" ")[1]
     else:
-        """ if auth token is not available assign auth_token variable to
-            an empty string
-        """
+        # if auth token is not available assign auth_token variable to
+        # an empty string
         auth_token = ''
     if auth_token:
-        """ decode the auth token if the result is not a valid email jump
-            to the except section and return the error returned during
-            token decoding
-        """
+        # decode the auth token if the result is not a valid email jump
+        #  to the except section and return the error returned during
+        #  token decoding
+
         # check if token is blacklisted before decoding it
         is_blacklisted = verify_blacklist(auth_token)
         if is_blacklisted is None:
-            response = User.decode_auth_token(auth_token)
-            try:
-                # check if response is email and blacklist the token
-                auth_schema.load({'email': response}, partial=True)
+            token_verified, response = verify_auth_decode(auth_token)
+
+            if token_verified:
+                # successful logout message
                 return save_token(auth_token)
-            except ValidationError:
-                """ expected response value:
-                Expired token: "Signature expired. PLease login again."
-                Invalid token: "Invalid token. PLease login again."
-                """
+            else:
+                # one of the string response is returned
                 response_object = jsonify({
                     "status": 400,
                     "error": response
                 })
                 return response_object, 400
         else:
+            # for user is already logged out
             response_object = jsonify({
                 "status": 401,
                 "error": "User is logged out, Please log in again."
@@ -137,13 +136,12 @@ def get_logged_in_user(request_header):
         # prevents unauthorized access of resource when the user is logged out
         is_blacklisted = verify_blacklist(auth_token)
         if is_blacklisted is None:
-            response = User.decode_auth_token(auth_token)
-            try:
-                # validate the response is an email
-                auth_schema.load({'email': response}, partial=True)
-                # get user with the response email from the database
-                user_by_email = User.get_user_by_email(response)
-                user = db().get_single_row(*user_by_email)
+            token_verified, response = verify_auth_decode(auth_token)
+
+            if token_verified:
+                user_by_id = User.get_user_by_id(response)
+                user = db().get_single_row(*user_by_id)
+
                 response_object = jsonify({
                     'status': 200,
                     'user': {
@@ -152,11 +150,7 @@ def get_logged_in_user(request_header):
                     }
                 })
                 return response_object, 200
-            except ValidationError:
-                """ expected response value:
-                Expired token: "Signature expired. PLease login again."
-                Invalid token: "Invalid token. PLease login again."
-                """
+            else:
                 response_object = jsonify({
                     "status": 401,
                     "error": response
@@ -188,3 +182,24 @@ def verify_blacklist(token):
     blacklisted_query = BlacklistToken.check_blacklist(token)
     is_blacklisted = db().get_single_row(*blacklisted_query)
     return is_blacklisted
+
+
+def verify_auth_decode(token):
+    """ verify if auth decoding is successful
+
+    return:
+       True, False (boolean): True when decoding is successful, false otherwise
+       response (str/int): int when decoding is successful, str otherwise
+    """
+
+    # expected response value:
+    # Expired token (str) : "Signature expired. PLease login again."
+    # Invalid token (str) : "Invalid token. PLease login again."
+    # id (int) : when the decoding exited successfully without error
+
+    resp = User.decode_auth_token(token)
+
+    if not isinstance(resp, str):
+        return True, resp
+    else:
+        return False, resp
