@@ -2,8 +2,12 @@
 import datetime
 
 import jwt
-from instance.config import Config
+
 from passlib.hash import pbkdf2_sha256 as sha256
+
+from instance.config import Config
+from app.api.service.blacklist import verify_blacklist
+
 
 key = Config.SECRET
 
@@ -98,9 +102,13 @@ class User:
             auth_token (bytes): encoded auth token
         """
         try:
-            # decode the token return the email used for enccoding
-            payload = jwt.decode(auth_token, key, algorithms='HS256')
-            return payload['sub']
+            # decode the token return the id used for enccoding
+            is_blacklist = verify_blacklist(auth_token)
+            if is_blacklist:
+                return "Token is blacklisted. Login again."
+            else:
+                payload = jwt.decode(auth_token, key, algorithms='HS256')
+                return payload['sub']
         except jwt.ExpiredSignatureError:
             return "Signature expired. PLease login again."
         except jwt.InvalidTokenError:

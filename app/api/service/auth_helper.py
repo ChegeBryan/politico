@@ -6,7 +6,7 @@ from app.api.model.user import User
 from app.api.model.blacklist import BlacklistToken
 from app.api.db.database import AppDatabase as db
 from app.api.util.dto import auth_schema, user_schema
-from app.api.service.blacklist import save_token
+from app.api.service.blacklist import save_token, verify_blacklist
 
 
 def login_user(json_data):
@@ -71,13 +71,12 @@ def logout_user(data):
         # an empty string
         auth_token = ''
     if auth_token:
-        # decode the auth token if the result is not a valid email jump
-        #  to the except section and return the error returned during
-        #  token decoding
-
         # check if token is blacklisted before decoding it
         is_blacklisted = verify_blacklist(auth_token)
         if is_blacklisted is None:
+            # decode the auth token if the result jump
+            # to the except section and return the error returned during
+            # token decoding
             token_verified, response = verify_auth_decode(auth_token)
 
             if token_verified:
@@ -171,19 +170,6 @@ def get_logged_in_user(request_header):
         return response_object, 401
 
 
-def verify_blacklist(token):
-    """verify provided token is not blacklisted.
-
-    Get the query to run and check if the token provided is in
-    blacklist list
-    Args:
-        token (bytes): user token
-    """
-    blacklisted_query = BlacklistToken.check_blacklist(token)
-    is_blacklisted = db().get_single_row(*blacklisted_query)
-    return is_blacklisted
-
-
 def verify_auth_decode(token):
     """ verify if auth decoding is successful
 
@@ -195,6 +181,7 @@ def verify_auth_decode(token):
     # expected response value:
     # Expired token (str) : "Signature expired. PLease login again."
     # Invalid token (str) : "Invalid token. PLease login again."
+    # Blacklisted token (str): "Token is blacklisted. Login again."
     # id (int) : when the decoding exited successfully without error
 
     resp = User.decode_auth_token(token)

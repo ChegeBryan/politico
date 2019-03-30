@@ -47,10 +47,3 @@ class UserModelTestCases(unittest.TestCase):
         user = self.new_user
         auth_token = user.encode_auth_token(1)
         self.assertTrue(isinstance(auth_token, bytes))
-
-    def test_decode_auth_decode(self):
-        """ Test auth token decodes successfully """
-        user = self.new_user
-        auth_token = user.encode_auth_token(1)
-        self.assertTrue(isinstance(auth_token, bytes))
-        self.assertTrue(user.decode_auth_token(auth_token) == 1)
