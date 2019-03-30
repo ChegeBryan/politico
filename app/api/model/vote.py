@@ -11,3 +11,16 @@ class Vote:
         self.candidate = candidate
         self.created_on = dt.datetime.now()
 
+    def add_vote(self, user):
+        """SQL query to insert a vote to database
+
+        Args:
+            user (integer): user who made the vote
+        """
+        query = """INSERT INTO
+          votes(office_id, candidate_id, created_by, created_on)
+        VALUES(%s, %s, %s, %s);
+        """
+        values = (self.office, self.candidate, user, self.created_on)
+
+        return query, values
