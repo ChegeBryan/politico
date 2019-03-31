@@ -52,3 +52,27 @@ class VoteAPITestCases(BaseTestData):
         self.assertEqual(json_body["status"], 409)
         self.assertEqual(json_body["error"], "Vote already cast for office.")
         self.assertEqual(response.status_code, 409)
+
+    def test_office_candidate_referenced(self):
+        """Test api returns correct error response when office & candidate
+        combination referenced does not exists
+        Return: STATUS CODE 404 Bad Request
+        """
+        # get user logged in token
+        auth_token = self.user_token
+
+        # register same vote created at setup
+        response = self.client.post(
+            '/api/v2/votes', json={
+                "office": 234,
+                "candidate": 345
+            },
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 404)
+        self.assertEqual(json_body["error"],
+                         "Candidate and office referenced does not exist.")
+        self.assertEqual(response.status_code, 404)
