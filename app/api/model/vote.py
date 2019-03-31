@@ -24,3 +24,17 @@ class Vote:
         values = (self.office, self.candidate, user, self.created_on)
 
         return query, values
+
+    @staticmethod
+    def get_cast_vote(user_id, office_id):
+        """SQL query to return vote cast by user for particular office
+
+        Args:
+            user_id (integer): id of user who made the vote
+            office_id (integer): office user voted for
+        """
+        sql = """SELECT * FROM votes WHERE office_id=%s AND created_by=%s;"""
+        query = sql, (office_id, user_id)
+
+        return query
+
