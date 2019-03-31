@@ -10,6 +10,7 @@ class VoteAPITestCases(BaseTestData):
     def test_vote_registration(self):
         """ Test api return correct status code and message when vote
         is registered successfully
+        Returns: STATUS CODE 201 Created
         """
         response = self.cast_vote
         json_body = response.get_json()
@@ -23,6 +24,7 @@ class VoteAPITestCases(BaseTestData):
     def test_auth_token_error(self):
         """Test api returns correct error code when the provided
         and error is encountered during token decoding not provide a valid token.
+        Returns: STATUS CODE 401 Unauthorized
         """
         # register a vote
         response = self.client.post(
@@ -31,3 +33,22 @@ class VoteAPITestCases(BaseTestData):
             }
         )
         self.assertEqual(response.status_code, 401)
+
+    def test_vote_duplication(self):
+        """Test api returns correct error response when a user tries to vote
+        twice for the same office
+        Return: STATUS CODE 409 Conflict
+        """
+        # get user logged in token
+        auth_token = self.user_token
+
+        # register same vote created at setup
+        response = self.client.post(
+            '/api/v2/votes', json=vote, headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 409)
+        self.assertEqual(json_body["error"], "Vote already cast for office.")
+        self.assertEqual(response.status_code, 409)
