@@ -2,6 +2,7 @@
 
 from flask import request, jsonify
 from marshmallow import ValidationError
+from psycopg2 import IntegrityError
 
 
 from app.api.util.dto import vote_load_schema, vote_dump_schema
@@ -34,15 +35,27 @@ def save_new_vote(token, json_data):
     if status == 200:
         # get the user id from the decoded token
         user_id = data.get_json()['user'].get('user_id')
+        # create a new vote instance
         new_vote = Vote(
             office=office,
             candidate=candidate
         )
-        save_changes(user_id, new_vote)
-
-        cast_vote_query = Vote.get_cast_vote(user_id=user_id, office_id=office)
-        cast_vote = db().get_single_row(*cast_vote_query)
+        vote_exists = get_vote_cast(user_id=user_id, office_id=office)
+        try:
+            if vote_exists is None:
+                save_changes(_id=user_id, data=new_vote)
+            else:
+                return jsonify({
+                    "status": 409,
+                    "error": "Vote already cast for office."
+                }), 409
+        except IntegrityError:
+            return jsonify({
+                "status": 404,
+                "error": "Candidate and office referenced does not exist."
+            }), 404
         # serialize vote data
+        cast_vote = get_vote_cast(user_id=user_id, office_id=office)
         response = vote_dump_schema.dump(cast_vote)
         response_object = jsonify({
             "status": 201,
@@ -52,6 +65,21 @@ def save_new_vote(token, json_data):
     else:
         # json response for authentication error encountered
         return data, status
+
+
+def get_vote_cast(user_id, office_id):
+    """get the vote cast by a user on an office
+
+    Args:
+        user_id (integer): the user who cast the vote
+        office_id (integer): the office vote was cast
+    Returns:
+        vote (dictionary): vote user cast
+    """
+    cast_vote_query = Vote.get_cast_vote(user_id=user_id, office_id=office_id)
+    cast_vote = db().get_single_row(*cast_vote_query)
+    if cast_vote:
+        return cast_vote
 
 
 def save_changes(_id, data):
