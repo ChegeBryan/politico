@@ -7,6 +7,7 @@ from app.api.db.party_test_data import party_holder
 from app.api.db.office_test_data import office_holder
 from app.api.db.user_test_data import user, user_logins, admin_login
 from app.api.db.candidate_test_data import candidate
+from app.api.db.vote_test_data import vote
 from app.api.db.database import AppDatabase
 
 
@@ -58,6 +59,15 @@ class BaseTestData(unittest.TestCase):
         self.register_candidate = self.client.post(
             '/api/v2/office/1/register', json=candidate, headers={
                 "Authorization": "Bearer {}".format(self.admin_token)
+            }
+        )
+        # get the user_auth token
+        self.user_token = self.login_data.get_json()["data"][0]["token"]
+
+        # register a vote
+        self.cast_vote = self.client.post(
+            '/api/v2/votes', json=vote, headers={
+                "Authorization": "Bearer {}".format(self.user_token)
             }
         )
 

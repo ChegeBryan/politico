@@ -18,7 +18,7 @@ class BlacklistTokenTestCases(unittest.TestCase):
     def test_blacklist_object_creation(self):
         """ Test the blacklist token class creates the token passed properly """
         self.assertTrue(self.blacklist_token.blacklisted_on)
-        self.assertEqual(self.blacklist_token.token[0],
+        self.assertEqual(self.blacklist_token.token,
                          "gutgntogntggtgintgjrngernssd")
 
 

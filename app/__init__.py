@@ -7,12 +7,14 @@ from flask import Flask
 
 from instance.config import config_environment
 from app.api.db.database import AppDatabase
-from app.api.util.error_handlers import bad_request, internal_server_error, url_not_found, method_not_allowed
+from app.api.util.error_handlers import (bad_request, internal_server_error,
+                                         url_not_found, method_not_allowed)
 from app.api.controller.party_api import parties as parties_bp
 from app.api.controller.office_api import offices as offices_bp
 from app.api.controller.user_api import users as users_bp
 from app.api.controller.auth import auth as auth_bp
 from app.api.controller.candidate_api import candidates as candidates_bp
+from app.api.controller.vote_api import votes as votes_bp
 
 
 def create_app(config_name):
@@ -43,5 +45,6 @@ def create_app(config_name):
     app.register_blueprint(users_bp, url_prefix='/api/v2')
     app.register_blueprint(auth_bp, url_prefix='/api/v2')
     app.register_blueprint(candidates_bp, url_prefix='/api/v2')
+    app.register_blueprint(votes_bp, url_prefix='/api/v2')
 
     return app

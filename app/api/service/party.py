@@ -8,6 +8,15 @@ from app.api.db.database import AppDatabase as db
 
 
 def save_new_party(json_data):
+    """saves a new party in the database
+
+    Args:
+        json_data  (json) : party details
+
+    Returns:
+        json : api endpoint response
+    """
+
     # Deserialize the data input against the party schema
     # check if input values throw validation errors
     try:
@@ -41,12 +50,12 @@ def save_new_party(json_data):
             "data": [response]
         })
         return response_object, 201
-    else:
-        # When name is taken
-        return jsonify({
-            "status": 409,
-            "error": "Try a different Party name, Provided name is taken."
-        }), 409
+
+    # default response When name is taken
+    return jsonify({
+        "status": 409,
+        "error": "Try a different Party name, Provided name is taken."
+    }), 409
 
 
 def get_party(_id):
@@ -115,12 +124,12 @@ def edit_party(_id, json_data):
             "status": 200,
             "data": [party_schema.dump(party_edited)]
         })
-        # response when party not found
-    else:
-        return jsonify({
-            "status": 404,
-            "error": "Resource requested for edit not found."
-        }), 404
+
+    # response when party not found
+    return jsonify({
+        "status": 404,
+        "error": "Resource requested for edit not found."
+    }), 404
 
 
 def delete_party(_id):

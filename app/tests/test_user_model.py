@@ -45,12 +45,5 @@ class UserModelTestCases(unittest.TestCase):
     def test_encode_auth_token(self):
         """ Test a token is generated with the user email as identifier """
         user = self.new_user
-        auth_token = user.encode_auth_token(user.email)
+        auth_token = user.encode_auth_token(1)
         self.assertTrue(isinstance(auth_token, bytes))
-
-    def test_decode_auth_decode(self):
-        """ Test auth token decodes successfully """
-        user = self.new_user
-        auth_token = user.encode_auth_token(user.email)
-        self.assertTrue(isinstance(auth_token, bytes))
-        self.assertTrue(user.decode_auth_token(auth_token) == user.email)

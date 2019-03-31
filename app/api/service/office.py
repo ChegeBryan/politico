@@ -63,12 +63,12 @@ def get_office(_id):
             "status": 200,
             "data": [office_schema.dump(office)]
         }), 200
-    else:
-        # response when offices not found
-        return jsonify({
-            "status": 404,
-            "error": "Resource /offices/{} not found".format(_id)
-        }), 404
+
+    # response when offices not found
+    return jsonify({
+        "status": 404,
+        "error": "Resource /offices/{} not found".format(_id)
+    }), 404
 
 
 def get_offices():

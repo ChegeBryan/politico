@@ -24,9 +24,8 @@ class OfficeAPI(MethodView):
         if _id is None:
             # return list of all offices
             return get_offices()
-        else:
-            # return single offices
-            return get_office(_id=_id)
+        # return single offices
+        return get_office(_id=_id)
 
 
 # register officeAPI class as views

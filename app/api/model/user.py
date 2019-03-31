@@ -2,8 +2,12 @@
 import datetime
 
 import jwt
-from instance.config import Config
+
 from passlib.hash import pbkdf2_sha256 as sha256
+
+from instance.config import Config
+from app.api.service.blacklist import verify_blacklist
+
 
 key = Config.SECRET
 
@@ -27,7 +31,7 @@ class User:
         query = """INSERT INTO
           users(firstname, lastname, othername, email, phonenumber, password,
             passportUrl, isAdmin, isPolitician)
-          VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s);
+          VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING id;
           """
         values = (self.firstname, self.lastname, self.othername, self.email,
         self.phonenumber, self.password, self.passportUrl, self.isAdmin,
@@ -53,6 +57,13 @@ class User:
         return query
 
     @staticmethod
+    def get_user_by_id(_id):
+        """ Returns a user found from the database with specified email. """
+        sql = """SELECT * FROM users WHERE id=%s"""
+        query = sql, (_id,)
+        return query
+
+    @staticmethod
     def get_user_by_passport(passportUrl):
         """Return user SQL query to a user from database with a certain
         passport url
@@ -62,18 +73,18 @@ class User:
         return query
 
     @staticmethod
-    def encode_auth_token(email):
+    def encode_auth_token(_id):
         """Generate auth token
 
         Args:
-            email (string): token identifier
+            _id (integer): token identifier
         """
         try:
             payload = {
                 'exp': datetime.datetime.utcnow()
                    + datetime.timedelta(hours=12),
                 'iat': datetime.datetime.utcnow(),
-                'sub': email
+                'sub': _id
             }
             return jwt.encode(
                 payload,
@@ -91,7 +102,11 @@ class User:
             auth_token (bytes): encoded auth token
         """
         try:
-            # decode the token return the email used for enccoding
+            # decode the token return the id used for enccoding
+            is_blacklist = verify_blacklist(auth_token)
+            if is_blacklist:
+                return "Token is blacklisted. Login again."
+
             payload = jwt.decode(auth_token, key, algorithms='HS256')
             return payload['sub']
         except jwt.ExpiredSignatureError:

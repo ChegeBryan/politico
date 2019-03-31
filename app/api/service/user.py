@@ -40,12 +40,14 @@ def save_new_user(json_data):
                         othername=othername, email=email,
                         phonenumber=phonenumber,
                         password=password, passportUrl=passportUrl,
-                        isAdmin=isAdmin, isPolitician=isPolitician)
+                        isAdmin=isAdmin, isPolitician=isPolitician
+                        )
 
-        save_changes(new_user)
+        # save the user and return the id for that user
+        returned_id = save_changes(new_user)
         # 1. Serialize the input for response
         # 2. Return serialized and proper format json to api endpoint
-        access_token = new_user.encode_auth_token(email)
+        access_token = new_user.encode_auth_token(returned_id)
         response = user_schema.dump(new_user)
         response_object = jsonify({
             "status": 201,
@@ -55,11 +57,12 @@ def save_new_user(json_data):
             }]
         })
         return response_object, 201
-    else:
-        return jsonify({
-            "status": 409,
-            "error": "User with that email or passport exists."
-        }), 409
+
+    # when none of the conditions are satisfied
+    return jsonify({
+        "status": 409,
+        "error": "User with that email or passport exists."
+    }), 409
 
 
 def get_user():
@@ -75,4 +78,5 @@ def get_all_users():
 def save_changes(data):
     """ Write to the database """
     query, values = User.add_user(data)
-    db().commit_changes(query, values)
+    identifier = db().commit_changes_returning_id(query, values)
+    return identifier

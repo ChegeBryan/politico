@@ -17,3 +17,16 @@ def save_token(token):
         "message": "Successfully logged out."
     })
     return response_object, 200
+
+
+def verify_blacklist(token):
+    """verify provided token is not blacklisted.
+
+    Get the query to run and check if the token provided is in
+    blacklist
+    Args:
+        token (bytes): user token
+    """
+    blacklisted_query = BlacklistToken.check_blacklist(token)
+    is_blacklisted = db().get_single_row(*blacklisted_query)
+    return is_blacklisted

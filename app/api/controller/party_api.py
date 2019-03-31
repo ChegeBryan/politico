@@ -24,9 +24,8 @@ class PartiesAPI(MethodView):
         if _id is None:
             # return list of all parties
             return get_parties()
-        else:
-            # return single party
-            return get_party(_id=_id)
+        # return single party
+        return get_party(_id=_id)
 
     @admin_token_required
     def patch(self, _id):
