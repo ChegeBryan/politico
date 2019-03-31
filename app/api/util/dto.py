@@ -1,3 +1,5 @@
+""" Data schemas """
+
 from marshmallow import Schema, fields, validate, pre_load
 
 
@@ -59,6 +61,16 @@ class OfficeSchema(BaseSchema):
 
     @pre_load(pass_many=True)
     def lower_cased(self, data, many):
+        """return the input names as lower case
+
+        Args:
+            data (dict): data list with
+            many : instructs marshmallow to expect more than one input field
+
+        Returns:
+            dict: input fields in lower case
+        """
+
         data["office_name"] = data["office_name"].lower()
         data["office_type"] = data["office_type"].lower()
         return data
@@ -158,4 +170,3 @@ candidate_load_schema = CandidateSchemaLoad()
 candidate_dump_schema = CandidateSchemaDump()
 vote_load_schema = VoteSchemaLoad()
 vote_dump_schema = VoteSchemaDump()
-

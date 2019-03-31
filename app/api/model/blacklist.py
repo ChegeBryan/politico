@@ -9,7 +9,7 @@ class BlacklistToken:
     1. initializes the class with the user token and the time created
     """
     def __init__(self, token):
-        self.token = token,
+        self.token = token
         self.blacklisted_on = datetime.datetime.now()
 
     def add_blacklist_token(self):

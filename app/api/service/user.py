@@ -57,11 +57,12 @@ def save_new_user(json_data):
             }]
         })
         return response_object, 201
-    else:
-        return jsonify({
-            "status": 409,
-            "error": "User with that email or passport exists."
-        }), 409
+
+    # when none of the conditions are satisfied
+    return jsonify({
+        "status": 409,
+        "error": "User with that email or passport exists."
+    }), 409
 
 
 def get_user():

@@ -106,9 +106,9 @@ class User:
             is_blacklist = verify_blacklist(auth_token)
             if is_blacklist:
                 return "Token is blacklisted. Login again."
-            else:
-                payload = jwt.decode(auth_token, key, algorithms='HS256')
-                return payload['sub']
+
+            payload = jwt.decode(auth_token, key, algorithms='HS256')
+            return payload['sub']
         except jwt.ExpiredSignatureError:
             return "Signature expired. PLease login again."
         except jwt.InvalidTokenError:

@@ -15,9 +15,8 @@ class VoteAPI(MethodView):
 
     @token_required
     def post(self):
-        auth_header = request.headers.get('Authorization')
         json_input = request.get_json()
-        return save_new_vote(token=auth_header, json_data=json_input)
+        return save_new_vote(json_data=json_input)
 
 
 # register the class as view

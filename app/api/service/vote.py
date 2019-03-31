@@ -7,17 +7,14 @@ from psycopg2 import IntegrityError
 
 from app.api.util.dto import vote_load_schema, vote_dump_schema
 from app.api.model.vote import Vote
-from app.api.model.user import User
 from app.api.service.auth_helper import get_logged_in_user
-from app.api.model import user
 from app.api.db.database import AppDatabase as db
 
 
-def save_new_vote(token, json_data):
+def save_new_vote(json_data):
     """Saves a new vote created by the signed on user
 
     Args:
-        token (bytes): user signed in token
         json_data (json): candidate and office data
     """
     try:
@@ -30,6 +27,7 @@ def save_new_vote(token, json_data):
     office = data['office']
     candidate = data['candidate']
 
+    # get authorization header from the request
     data, status = get_logged_in_user(request)
 
     if status == 200:

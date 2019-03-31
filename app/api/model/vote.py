@@ -37,4 +37,3 @@ class Vote:
         query = sql, (office_id, user_id)
 
         return query
-

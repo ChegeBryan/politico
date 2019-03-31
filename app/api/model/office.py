@@ -6,7 +6,7 @@ class Office:
     Office model
     """
 
-    def __init__(self, office_name, office_type, is_occupied):
+    def __init__(self, office_name, office_type, is_occupied=False):
         self.office_name = office_name
         self.office_type = office_type
         self.is_occupied = False

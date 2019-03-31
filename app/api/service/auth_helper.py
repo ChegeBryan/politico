@@ -3,7 +3,6 @@ from flask import jsonify
 from marshmallow import ValidationError
 
 from app.api.model.user import User
-from app.api.model.blacklist import BlacklistToken
 from app.api.db.database import AppDatabase as db
 from app.api.util.dto import auth_schema, user_schema
 from app.api.service.blacklist import save_token, verify_blacklist
@@ -44,17 +43,17 @@ def login_user(json_data):
                     "user": [response]
                 }]
             }), 200
-        else:
-            return jsonify({
-                "status": 400,
-                "error": "Incorrect user email or password."
-            }), 400
-    else:
-        # when no user with particular email exists
+        # response for password and email missmatch
         return jsonify({
-            "status": 404,
-            "message": "User does not exists."
-        }), 404
+            "status": 400,
+            "error": "Incorrect user email or password."
+        }), 400
+
+    # when no user with particular email exists
+    return jsonify({
+        "status": 404,
+        "message": "User does not exists."
+    }), 404
 
 
 def logout_user(data):
@@ -82,26 +81,26 @@ def logout_user(data):
             if token_verified:
                 # successful logout message
                 return save_token(auth_token)
-            else:
-                # one of the string response is returned
-                response_object = jsonify({
-                    "status": 400,
-                    "error": response
-                })
-                return response_object, 400
-        else:
-            # for user is already logged out
+
+            # one of the string response is returned
             response_object = jsonify({
-                "status": 401,
-                "error": "User is logged out, Please log in again."
+                "status": 400,
+                "error": response
             })
-        return response_object, 401
-    else:
+            return response_object, 400
+
+        # for user is already logged out
         response_object = jsonify({
-            "status": 403,
-            "message": "Please provide a valid token."
+            "status": 401,
+            "error": "User is logged out, Please log in again."
         })
-        return response_object, 403
+        return response_object, 401
+
+    response_object = jsonify({
+        "status": 403,
+        "message": "Please provide a valid token."
+    })
+    return response_object, 403
 
 
 def get_logged_in_user(request_header):
@@ -150,25 +149,26 @@ def get_logged_in_user(request_header):
                     }
                 })
                 return response_object, 200
-            else:
-                response_object = jsonify({
-                    "status": 401,
-                    "error": response
-                })
-                return response_object, 401
-        else:
-            # if the user token is in blacklist list
+            # token verification error
             response_object = jsonify({
                 "status": 401,
-                "error": "User is logged out, Please log in again."
+                "error": response
             })
-        return response_object, 401
-    else:
+            return response_object, 401
+
+        # if the user token is in blacklist list
         response_object = jsonify({
-            'status': 401,
-            'message': 'Provide a valid auth token.'
+            "status": 401,
+            "error": "User is logged out, Please log in again."
         })
         return response_object, 401
+
+    # token provided is invalid
+    response_object = jsonify({
+        'status': 401,
+        'message': 'Provide a valid auth token.'
+    })
+    return response_object, 401
 
 
 def verify_auth_decode(token):
@@ -177,14 +177,13 @@ def verify_auth_decode(token):
     return:
        True, False (boolean): True when decoding is successful, false otherwise
        response (str/int): int when decoding is successful, str otherwise
+
+    Expected response value:
+    Expired token (str) : "Signature expired. PLease login again."
+    Invalid token (str) : "Invalid token. PLease login again."
+    Blacklisted token (str): "Token is blacklisted. Login again."
+    id (int) : when the decoding exited successfully without error
     """
-
-    # expected response value:
-    # Expired token (str) : "Signature expired. PLease login again."
-    # Invalid token (str) : "Invalid token. PLease login again."
-    # Blacklisted token (str): "Token is blacklisted. Login again."
-    # id (int) : when the decoding exited successfully without error
-
     resp = User.decode_auth_token(token)
 
     if not isinstance(resp, str):

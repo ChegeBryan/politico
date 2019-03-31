@@ -58,7 +58,7 @@ def admin_token_required(func):
             data.get_json()['user']
             admin = data.get_json()['user'].get('is_admin')
             if not admin:
-                """if the admin value is False"""
+                # if the admin value is False
                 response_object = jsonify({
                     'status': 401,
                     'message': 'Admin token required.'

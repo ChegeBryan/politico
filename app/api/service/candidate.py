@@ -85,7 +85,7 @@ def check_party_is_registered(office_id, party_id):
     office_party_query = Candidate.get_office_party_by_id(office_id, party_id)
     office_party = db().get_single_row(*office_party_query)
     if office_party:
-        return True
+        return office_party
 
 
 def check_user_is_registered(candidate_id):
@@ -99,7 +99,7 @@ def check_user_is_registered(candidate_id):
     candidate_registered = db().get_single_row(*candidate_by_id)
 
     if candidate_registered:
-        return True
+        return candidate_registered
 
 
 def save_changes(_id, data):
