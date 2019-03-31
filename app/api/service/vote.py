@@ -4,7 +4,7 @@ from flask import request, jsonify
 from marshmallow import ValidationError
 
 
-from app.api.util.dto import vote_load_schema
+from app.api.util.dto import vote_load_schema, vote_dump_schema
 from app.api.model.vote import Vote
 from app.api.model.user import User
 from app.api.service.auth_helper import get_logged_in_user
@@ -39,7 +39,18 @@ def save_new_vote(token, json_data):
             candidate=candidate
         )
         save_changes(user_id, new_vote)
+
+        cast_vote_query = Vote.get_cast_vote(user_id=user_id, office_id=office)
+        cast_vote = db().get_single_row(*cast_vote_query)
+        # serialize vote data
+        response = vote_dump_schema.dump(cast_vote)
+        response_object = jsonify({
+            "status": 201,
+            "data": [response]
+        })
+        return response_object, 201
     else:
+        # json response for authentication error encountered
         return data, status
 
 
