@@ -15,7 +15,7 @@ def office_result(office):
     """
     # sql query to get a user results
     results_query = get_office_result(office)
-    office_result = db().get_all_rows(results_query)
+    office_result = db().get_all_rows_of_value(*results_query)
 
     # serialize office results
     serialize_results = results_schema.dump(office_result)
