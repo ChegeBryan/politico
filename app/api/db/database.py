@@ -59,6 +59,12 @@ class AppDatabase:
         rows = self.cur.fetchall()
         return rows
 
+    def get_all_rows_of_value(self, query, values):
+        """ Returns the queried rows which have the specified """
+        self.cur.execute(query, values)
+        rows = self.cur.fetchall()
+        return rows
+
     def commit_changes(self, query, values):
         """ saves the data to database """
         self.cur.execute(query, values)

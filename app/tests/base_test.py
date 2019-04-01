@@ -71,6 +71,14 @@ class BaseTestData(unittest.TestCase):
             }
         )
 
+        # get office results api
+        self.office_results = self.client.get(
+            '/api/v2/office/1/result', headers={
+                "Authorization": "Bearer {}".format(self.user_token)
+            }
+        )
+
+
     def tearDown(self):
         """ destroy the database """
         with self.app.app_context():

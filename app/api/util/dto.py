@@ -160,6 +160,13 @@ class VoteSchemaDump(BaseSchema):
     created_by = fields.Integer()
 
 
+class ResultSchema(BaseSchema):
+    """ Office results schema for serializing office results set """
+    office = fields.Integer(attribute='office_id')
+    candidate = fields.Integer(attribute='candidate_id')
+    result = fields.Integer()
+
+
 party_schema = PartySchema()
 parties_schema = PartySchema(many=True)
 office_schema = OfficeSchema()
@@ -170,3 +177,4 @@ candidate_load_schema = CandidateSchemaLoad()
 candidate_dump_schema = CandidateSchemaDump()
 vote_load_schema = VoteSchemaLoad()
 vote_dump_schema = VoteSchemaDump()
+results_schema = ResultSchema(many=True)
