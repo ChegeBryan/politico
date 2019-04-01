@@ -7,7 +7,7 @@ from marshmallow import ValidationError
 
 
 from app.api.model.petition import Petition
-from app.api.util.dto import petition_load_schema
+from app.api.util.dto import petition_load_schema, petitions_dump_schema
 from app.api.service.auth_helper import get_logged_in_user
 from app.api.db.database import AppDatabase as db
 
@@ -43,7 +43,19 @@ def save_new_petition(json_data):
         evidence=evidence
     )
 
-    save_and_return_id = save_changes(new_petition)
+    # save the petition and return the id created thereafter
+    petition_id = save_changes(new_petition)
+
+    petition_query = Petition.get_petition_by_id(petition_id)
+    petition = db().get_single_row(*petition_query)
+
+    # serialize the petition details
+    serialized_petition = petitions_dump_schema.dump(petition)
+    response_object = jsonify({
+        "status": 201,
+        "data": serialized_petition
+    })
+    return response_object, 201
 
 
 def save_changes(data):
