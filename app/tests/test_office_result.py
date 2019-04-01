@@ -35,3 +35,15 @@ class OfficeResultsAPITestCases(BaseTestData):
         self.assertEqual(json_data['status'], 404)
         self.assertEqual(json_data['message'], "Results requested not found.")
         self.assertEqual(response.status_code, 404)
+
+    def test_result_endpoint_authentication(self):
+        """Test result endpoint is protected
+        : return STATUS CODE 402 Unauthorized
+        """
+
+        response = self.client.get(
+            '/api/v2/office/1/result'
+        )
+        json_data = response.get_json()
+        self.assertEqual(json_data['status'], 401)
+        self.assertEqual(response.status_code, 401)
