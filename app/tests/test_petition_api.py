@@ -2,6 +2,7 @@
 
 from .base_test import BaseTestData
 
+from app.api.db.petition_test_data import invalid_petition_data
 
 class PetitionAPITestCase(BaseTestData):
     """ petition endpoint api tests """
@@ -20,4 +21,20 @@ class PetitionAPITestCase(BaseTestData):
         self.assertEqual(data["body"], "some string")
         self.assertIsInstance(data["evidence"], list)
         self.assertEqual(response.status_code, 201)
+
+    def test_petition_input_data_validation(self):
+        """Test api returns correct error response when petition input data
+        fails validation
+        : returns: STATUS CODE 400 Bad Request
+        """
+
+        response = self.client.post(
+            '/api/v2/petitions', json=invalid_petition_data,
+            headers={
+                "Authorization": "Bearer {}".format(self.user_token)
+            }
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 400)
+        self.assertEqual(response.status_code, 400)
 

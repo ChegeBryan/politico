@@ -6,3 +6,9 @@ petition = {
     "body": "some string",
     "evidence": ['https://image.url']
 }
+
+invalid_petition_data = {
+    "office": "Not integer",
+    "body": 2,
+    "evidence": "Not a list of url"
+}
