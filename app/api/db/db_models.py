@@ -11,7 +11,8 @@ def drop_tables():
     offices = """ DROP TABLE IF EXISTS offices; """
     candidates = """ DROP TABLE IF EXISTS candidates; """
     votes = """ DROP TABLE IF EXISTS votes; """
-    return [votes, candidates, users, blacklist, parties, offices]
+    petitions = """ DROP TABLE IF EXISTS petitions; """
+    return [petitions, votes, candidates, users, blacklist, parties, offices]
 
 
 def create_tables():
