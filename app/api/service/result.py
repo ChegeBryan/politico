@@ -17,12 +17,19 @@ def office_result(office):
     results_query = get_office_result(office)
     office_result = db().get_all_rows_of_value(*results_query)
 
-    # serialize office results
-    serialize_results = results_schema.dump(office_result)
+    if office_result:
+        # serialize office results
+        serialize_results = results_schema.dump(office_result)
 
-    # json results response
+        # json results response
+        response_object = jsonify({
+            "status": 200,
+            "data": serialize_results
+        })
+        return response_object, 200
+    # when no result is returned
     response_object = jsonify({
-        "status": 200,
-        "data": serialize_results
+        "status": 404,
+        "message": "Results requested not found."
     })
-    return response_object, 200
+    return response_object, 404
