@@ -15,6 +15,7 @@ from app.api.controller.user_api import users as users_bp
 from app.api.controller.auth import auth as auth_bp
 from app.api.controller.candidate_api import candidates as candidates_bp
 from app.api.controller.vote_api import votes as votes_bp
+from app.api.controller.result_api import results as results_bp
 
 
 def create_app(config_name):
@@ -46,5 +47,6 @@ def create_app(config_name):
     app.register_blueprint(auth_bp, url_prefix='/api/v2')
     app.register_blueprint(candidates_bp, url_prefix='/api/v2')
     app.register_blueprint(votes_bp, url_prefix='/api/v2')
+    app.register_blueprint(results_bp, url_prefix='/api/v2')
 
     return app
