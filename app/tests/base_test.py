@@ -8,6 +8,7 @@ from app.api.db.office_test_data import office_holder
 from app.api.db.user_test_data import user, user_logins, admin_login
 from app.api.db.candidate_test_data import candidate
 from app.api.db.vote_test_data import vote
+from app.api.db.petition_test_data import petition
 from app.api.db.database import AppDatabase
 
 
@@ -78,6 +79,12 @@ class BaseTestData(unittest.TestCase):
             }
         )
 
+        # create a petition
+        self.petition = self.client.post(
+            '/api/v2/petitions', json=petition, headers={
+                "Authorization": "Bearer {}".format(self.user_token)
+            }
+        )
 
     def tearDown(self):
         """ destroy the database """
