@@ -30,3 +30,15 @@ class Petition:
         values = (self.office, self.contested_by, self.created_by, self.body,
                   self.evidence, self.created_on)
         return query, values
+
+    @staticmethod
+    def get_petition_by_id(_id):
+        """SQL query to return a selected petition
+
+        Args:
+            _id (integer): petition_id
+        """
+        sql = """SELECT * FROM petitions WHERE id=%s;"""
+        query = sql, (_id,)
+
+        return query
