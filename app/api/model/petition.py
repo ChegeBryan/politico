@@ -8,6 +8,10 @@ class Petition:
     and writing to the database
     """
 
-    def __init__(self):
-        pass
-
+    def __init__(self, **kwargs):
+        self.office = kwargs.get("office")
+        self.contested_by = kwargs.get("contested_by")
+        self.created_by = kwargs.get("created_by")
+        self.body = kwargs.get("body")
+        self.evidence = kwargs.get("evidence")
+        self.created_on = dt.datetime.now()
