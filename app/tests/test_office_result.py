@@ -17,3 +17,21 @@ class OfficeResultsAPITestCases(BaseTestData):
         self.assertEqual(data["office"], 1)
         self.assertEqual(data["candidate"], 2)
         self.assertEqual(data["result"], 1)
+
+    def test_no_results_found(self):
+        """Test API returns the correct response message and status code
+        when the office referenced has no votes or does not exist
+        :return STATUS CODE 404 Not Found
+        """
+        # get logged in user token
+        auth_token = self.user_token
+
+        response = self.client.get(
+            '/api/v2/office/232/result', headers={
+                'Authorization': 'Bearer {}'.format(auth_token)
+            }
+        )
+        json_data = response.get_json()
+        self.assertEqual(json_data['status'], 404)
+        self.assertEqual(json_data['message'], "Results requested not found.")
+        self.assertEqual(response.status_code, 404)
