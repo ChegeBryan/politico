@@ -2,7 +2,7 @@
 
 from .base_test import BaseTestData
 
-from app.api.db.petition_test_data import invalid_petition_data
+from app.api.db.petition_test_data import invalid_petition_data, petition
 
 class PetitionAPITestCase(BaseTestData):
     """ petition endpoint api tests """
@@ -38,3 +38,15 @@ class PetitionAPITestCase(BaseTestData):
         self.assertEqual(json_body["status"], 400)
         self.assertEqual(response.status_code, 400)
 
+    def test_petition_endpoint_authentication(self):
+        """Test api returns correct error response when petition when POST
+        petition is accessed without a authentication
+        : returns: STATUS CODE 401 Unauthorized
+        """
+
+        response = self.client.post(
+            '/api/v2/petitions', json=petition,
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 401)
+        self.assertEqual(response.status_code, 401)
