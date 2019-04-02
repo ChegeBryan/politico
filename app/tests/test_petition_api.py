@@ -39,14 +39,38 @@ class PetitionAPITestCase(BaseTestData):
         self.assertEqual(response.status_code, 400)
 
     def test_petition_endpoint_authentication(self):
-        """Test api returns correct error response when petition when POST
+        """Test api returns correct error response when petition POST
         petition is accessed without a authentication
         : returns: STATUS CODE 401 Unauthorized
         """
 
         response = self.client.post(
-            '/api/v2/petitions', json=petition,
+            '/api/v2/petitions', json=petition
         )
         json_body = response.get_json()
         self.assertEqual(json_body["status"], 401)
         self.assertEqual(response.status_code, 401)
+
+    def test_petition_office_candidate_not_found(self):
+        """Test api returns correct error response when office and candidate
+        referenced does not exist
+        : returns: STATUS CODE 404 Not found
+       """
+
+        response = self.client.post(
+            '/api/v2/petitions',
+            json={
+                "office": 234,
+                "contested_by": 2,
+                "body": "some string",
+                "evidence": ['https://image.url']
+            },
+            headers={
+                "Authorization": "Bearer {}".format(self.user_token)
+            }
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 404)
+        self.assertEqual(json_body["message"],
+                         "Office and candidate referenced does not exist.")
+        self.assertEqual(response.status_code, 404)
