@@ -4,6 +4,7 @@
 
 from flask import jsonify, request
 from marshmallow import ValidationError
+from psycopg2 import IntegrityError
 
 
 from app.api.model.petition import Petition
@@ -48,8 +49,14 @@ def save_new_petition(json_data):
             evidence=evidence
         )
 
-        # save the petition and return the id created thereafter
-        petition_id = save_changes(new_petition)
+        try:
+            # save the petition and return the id created thereafter
+            petition_id = save_changes(new_petition)
+        except IntegrityError:
+            return jsonify({
+                "status": 404,
+                "message": "Office and candidate referenced does not exist."
+            }), 404
 
         petition_query = Petition.get_petition_by_id(petition_id)
         petition = db().get_single_row(*petition_query)
