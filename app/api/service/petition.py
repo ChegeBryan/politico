@@ -33,29 +33,36 @@ def save_new_petition(json_data):
     body = data["body"]
     evidence = data["evidence"]
 
-    created_by = get_logged_in_user(request)
+    # check endpoint authorization
+    res, status = get_logged_in_user(request)
 
-    new_petition = Petition(
-        office=office,
-        contested_by=contested_by,
-        created_by=created_by,
-        body=body,
-        evidence=evidence
-    )
+    if status == 200:
+        # get the user id from the decoded token
+        created_by = res.get_json()['user'].get('user_id')
 
-    # save the petition and return the id created thereafter
-    petition_id = save_changes(new_petition)
+        new_petition = Petition(
+            office=office,
+            contested_by=contested_by,
+            created_by=created_by,
+            body=body,
+            evidence=evidence
+        )
 
-    petition_query = Petition.get_petition_by_id(petition_id)
-    petition = db().get_single_row(*petition_query)
+        # save the petition and return the id created thereafter
+        petition_id = save_changes(new_petition)
 
-    # serialize the petition details
-    serialized_petition = petitions_dump_schema.dump(petition)
-    response_object = jsonify({
-        "status": 201,
-        "data": serialized_petition
-    })
-    return response_object, 201
+        petition_query = Petition.get_petition_by_id(petition_id)
+        petition = db().get_single_row(*petition_query)
+
+        # serialize the petition details
+        serialized_petition = petitions_dump_schema.dump(petition)
+        response_object = jsonify({
+            "status": 201,
+            "data": serialized_petition
+        })
+        return response_object, 201
+    # if status code == 401
+    return res, status
 
 
 def save_changes(data):
