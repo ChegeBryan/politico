@@ -11,7 +11,8 @@ def drop_tables():
     offices = """ DROP TABLE IF EXISTS offices; """
     candidates = """ DROP TABLE IF EXISTS candidates; """
     votes = """ DROP TABLE IF EXISTS votes; """
-    return [votes, candidates, users, blacklist, parties, offices]
+    petitions = """ DROP TABLE IF EXISTS petitions; """
+    return [petitions, votes, candidates, users, blacklist, parties, offices]
 
 
 def create_tables():
@@ -89,8 +90,25 @@ def create_tables():
       CONSTRAINT vote_id PRIMARY KEY (office_id, created_by)
     );
     """
+    petitions = """
+    CREATE TABLE IF NOT EXISTS petitions(
+      id SERIAL PRIMARY KEY,
+      office_id INTEGER NOT NULL,
+      contested_by INTEGER NOT NULL,
+      created_by INTEGER NOT NULL,
+      body VARCHAR NOT NULL,
+      evidence VARCHAR NOT NULL,
+      created_on TIMESTAMPTZ NOT NULL,
 
-    return [users, blacklist, parties, offices, candidates, votes]
+      -- FK to ensure referential integrity is maintained
+      -- disallow deleting a user if they have created a petition
+      FOREIGN KEY (office_id, contested_by) REFERENCES
+        candidates (office_id, candidate_id) ON DELETE CASCADE,
+      FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE RESTRICT
+    );
+    """
+
+    return [users, blacklist, parties, offices, candidates, votes, petitions]
 
 
 def add_admin():

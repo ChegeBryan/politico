@@ -167,6 +167,26 @@ class ResultSchema(BaseSchema):
     result = fields.Integer()
 
 
+class PetitionLoadSchema(BaseSchema):
+    """ Petition deserializer schema """
+    office = fields.Integer(required=True)
+    contested_by = fields.Integer(required=True)
+    created_by = fields.Integer(dump_only=True)
+    body = fields.String(required=True)
+    evidence = fields.List(fields.Url())
+
+
+class PetitionDumpSchema(BaseSchema):
+    """ Petition serializer schema """
+    petition_id = fields.Integer(attribute="id")
+    office = fields.Integer(attribute="office_id")
+    contested_by = fields.Integer()
+    created_by = fields.Integer()
+    created_on = fields.LocalDateTime()
+    body = fields.String()
+    evidence = fields.List(fields.Url())
+
+
 party_schema = PartySchema()
 parties_schema = PartySchema(many=True)
 office_schema = OfficeSchema()
@@ -178,3 +198,5 @@ candidate_dump_schema = CandidateSchemaDump()
 vote_load_schema = VoteSchemaLoad()
 vote_dump_schema = VoteSchemaDump()
 results_schema = ResultSchema(many=True)
+petition_load_schema = PetitionLoadSchema()
+petitions_dump_schema = PetitionDumpSchema()
