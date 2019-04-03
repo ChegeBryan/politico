@@ -79,21 +79,6 @@ To run the application unit_tests
 - run `pytest` at the app root directory
 - run with coverage `pytest --cov=app/api app/tests`
 
-### Api endpoints (Non-Persistent)
-This are the currently available v1 endpoints. The data is written into python data
-strucutures.
-
-| HTTP Method   | URL Endpoint  | Description  |
-| -------- | ------------------------------------ | ---------------- |
-| `GET`    | `/api/v1/offices`                    | Fetch offices records |
-| `POST`   | `/api/v1/offices`                    | Create a new office |
-| `GET`    | `/api/v1/offices/<uuid:office_id>`    | Fetch a specific office |
-| `GET`    | `/api/v1/parties`                    | Fetch all parties created |
-| `POST`   | `/api/v1/parties`                    | Create a new party |
-| `GET`    | `/api/v1/parties/<uuid:party_id>`      | Fetch specific party |
-| `PATCH`  | `/api/v1/parties/<uuid:party_id>/name` | Update a party name |
-| `DELETE` | `/api/v1/parties/<uuid:party_id>`      | Delete a party |
-
 ### Api endpoints (Persistent)
 This are the currently available v2 endpoints. The data is written into a database.
 
@@ -113,6 +98,7 @@ This are the currently available v2 endpoints. The data is written into a databa
 | `POST`   | `/api/v2/offices`                     | Create a new office |
 | `PATCH`  | `/api/v2/parties/<int:party_id>/name` | Update a party name |
 | `DELETE` | `/api/v2/parties/<int:party_id>`      | Delete a party |
+| `POST`   | `/api/v2/office/<int:_id>/register`   | Register office candidate |
 
 
 - #### Open to logged in user
@@ -122,11 +108,18 @@ This are the currently available v2 endpoints. The data is written into a databa
 | `GET`    | `/api/v2/offices`                    | Fetch offices records |
 | `GET`    | `/api/v2/offices/<int:office_id>`    | Fetch a specific office |
 | `GET`    | `/api/v2/parties`                    | Fetch all parties created |
-| `GET`    | `/api/v1/parties/<int:party_id>`    | Fetch specific party |
+| `GET`    | `/api/v2/parties/<int:party_id>`    | Fetch specific party |
+| `GET`    | `/api/v2/parties/<int:party_id>`    | Fetch specific party |
+| `GET`    | `/api/v2/office/<int:office_id>/result` | Fetch office results |
+| `POST`   | `/api/v2/votes`                        | Cast a vote |
+| `POST`   | `/api/v2/petitions`                    | Create a petition |
 
 
 ### API hosting
-[![](https://img.shields.io/badge/Heroku-v1-blue.svg)](https://politico-cb.herokuapp.com)
+[![](https://img.shields.io/badge/Heroku-v2-blue.svg)](https://politico-v2-heroku.herokuapp.com)
+
+### API Documentation
+[![](https://img.shields.io/badge/Apiary-Documentation-yellowgreen.svg)](https://politico5.docs.apiary.io/#)
 
 ### Powered by
 
