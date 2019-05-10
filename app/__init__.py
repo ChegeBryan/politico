@@ -4,6 +4,7 @@ Creation of application factory
 """
 
 from flask import Flask
+from flask_cors import CORS
 
 from instance.config import config_environment
 from app.api.db.database import AppDatabase
@@ -29,6 +30,7 @@ def create_app(config_name):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config_environment[config_name])
     app.url_map.strict_slashes = False
+    CORS(app)
 
     # create database connection based on the application context
     with app.app_context():
