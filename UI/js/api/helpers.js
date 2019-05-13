@@ -12,7 +12,7 @@ export const ApiVersionPath = 'api/v2';
  * @function {formDataToJson} creates a json string from form data
  * @param {obj} Form input values
  * @returns {json} json string with form data values and keys
- *
+ * @exports formDataToJson function
  */
 export function formDataToJson(formData) {
   const JSONFormDataObj = {};
@@ -22,4 +22,17 @@ export function formDataToJson(formData) {
   });
   const formDataJSON = JSON.stringify(JSONFormDataObj);
   return formDataJSON;
+}
+
+/**
+ * @function validates fetch resolves successfully with status code 200-299
+ * @params fetch api response object
+ * @exports validateResponse function
+ * @returns resolved object if successfully
+ */
+export function validateResponse(response) {
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response;
 }

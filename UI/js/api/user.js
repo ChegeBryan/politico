@@ -7,6 +7,7 @@
 import {
   baseURL,
   formDataToJson,
+  validateResponse,
   ApiVersionPath as version,
 } from './helpers.js';
 
@@ -25,8 +26,9 @@ function registerUser() {
     'Content-Type': 'application/json'
   });
   fetch(signupApiUrl, {
-    method: 'POST',
-    body: data,
-    Headers: messageHeaders
-  });
+      method: 'POST',
+      body: data,
+      Headers: messageHeaders
+    })
+    .then(validateResponse);
 }
