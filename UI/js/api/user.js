@@ -1,25 +1,32 @@
 /**
- * @function {formDataToJson} creates a json string from form data
- * @param {obj} Form input values
- * @returns {json} json string with form data values and keys
- *
+ * @fileoverview logic for fetch user registration api
+ * @imports the base API URL, formDataToJson()
  */
-function formDataToJson(formData) {
-  const JSONFormDataObj = {};
-  // ? populate the json object with key-value pair
-  formData.forEach((value, key) => {
-    JSONFormDataObj[key] = value;
-  });
-  const formDataJSON = JSON.stringify(JSONFormDataObj);
-  return formDataJSON;
-}
 
+
+import {
+  baseURL,
+  formDataToJson,
+  ApiVersionPath as version,
+} from './helpers.js';
+
+
+// ? user registration API endpoint
+const signupApiUrl = new URL(`${version}/auth/signup`, baseURL);
 
 /**
- *
+ * @function submits signup form data to the server
  *
  */
 function registerUser() {
   const formData = new FormData(document.getElementById('signup-form'));
   const data = formDataToJson(formData);
+  const messageHeaders = new Headers({
+    'Content-Type': 'application/json'
+  });
+  fetch(signupApiUrl, {
+    method: 'POST',
+    body: data,
+    Headers: messageHeaders
+  });
 }

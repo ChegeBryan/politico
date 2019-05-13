@@ -6,6 +6,7 @@
 
 // ? create API base URL
 export const baseURL = new URL('https://politico-cb.herokuapp.com');
+export const ApiVersionPath = 'api/v2';
 
 /**
  * @function {formDataToJson} creates a json string from form data
