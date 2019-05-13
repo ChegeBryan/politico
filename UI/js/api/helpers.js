@@ -26,9 +26,9 @@ export function formDataToJson(formData) {
 
 /**
  * @function validates fetch resolves successfully with status code 200-299
- * @params fetch api response object
+ * @params {obj} fetch api response object
  * @exports validateResponse function
- * @returns resolved object if successfully
+ * @returns {obj} resolved object if successfully
  */
 export function validateResponse(response) {
   if (!response.ok) {
@@ -36,3 +36,10 @@ export function validateResponse(response) {
   }
   return response;
 }
+
+/**
+ * @function parses the fetch response as JSON
+ * @param {obj} fetch response promise object
+ * @returns {json} response object parsed to JSON
+ */
+export const readResponseAsJson = response => response.json();

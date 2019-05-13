@@ -8,6 +8,7 @@ import {
   baseURL,
   formDataToJson,
   validateResponse,
+  readResponseAsJson,
   ApiVersionPath as version,
 } from './helpers.js';
 
@@ -30,5 +31,6 @@ function registerUser() {
       body: data,
       Headers: messageHeaders
     })
-    .then(validateResponse);
+    .then(validateResponse)
+    .then(readResponseAsJson);
 }
