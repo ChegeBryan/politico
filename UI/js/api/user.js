@@ -15,18 +15,26 @@ import {
 const signupApiUrl = new URL(`${version}/auth/signup`, baseURL);
 
 /**
- * @function saves the sighup user token to localstorage
- * @param {json} json object with the registered user details 
+ * @description  pop an alert message when the form submission erred
+ * @function alertError
+ * @param {obj} error the error message
+ */
+const alertError = error => alert(error.message);
+
+/**
+ * @description Saves the sighup user token to localstorage
+ * @function saveCurrentUser
+ * @param {json} response json object with the registered user details
  */
 const saveCurrentUser = response => {
   const currentUserToken = response.data[0].token;
   localStorage.setItem('token', currentUserToken);
   window.location.replace('dashboard.html');
-}
+};
 
 /**
- * @function submits signup form data to the server
- *
+ * @description submits signup form data to the server
+ * @function registerUser
  */
 function registerUser() {
   const formData = new FormData(document.getElementById('signup_form'));
@@ -41,7 +49,8 @@ function registerUser() {
   })
     .then(validateResponse)
     .then(readResponseAsJson)
-    .then(saveCurrentUser);
+    .then(saveCurrentUser)
+    .catch(alertError);
 }
 
 const signupBtn = document.getElementById('signup_btn');
