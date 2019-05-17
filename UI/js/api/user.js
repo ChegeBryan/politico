@@ -33,6 +33,17 @@ const saveCurrentUser = response => {
 };
 
 /**
+ * @function validateForm checks if the forma is valid before calling register user api
+ */
+const validateForm = () => {
+  const form = document.querySelector('#signup_form');
+  if (form.checkValidity()) {
+    registerUser();
+  }
+  alert('Fix highlighted form error and submit again');
+}
+
+/**
  * @description submits signup form data to the server
  * @function registerUser
  */
@@ -43,10 +54,10 @@ function registerUser() {
     'Content-Type': 'application/json'
   });
   fetch(signupApiUrl, {
-    method: 'POST',
-    body: data,
-    headers: messageHeaders
-  })
+      method: 'POST',
+      body: data,
+      headers: messageHeaders
+    })
     .then(validateResponse)
     .then(readResponseAsJson)
     .then(saveCurrentUser)
@@ -54,6 +65,4 @@ function registerUser() {
 }
 
 const signupBtn = document.getElementById('signup_btn');
-signupBtn.addEventListener('click', registerUser);
-
-// TODO : Validate form data.
+signupBtn.addEventListener('click', validateForm);
