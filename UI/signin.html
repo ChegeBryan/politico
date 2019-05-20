@@ -49,12 +49,12 @@
             <div class="form__component position--rv">
               <label for="pwd" class="hide">Password: </label>
               <input type="password" class="form__component-input" id="pwd" name="password" placeholder="Password"
-                onblur="validateInput(this)" required>
+                required>
               <i class="fa fa-eye fa-lg pwd--toggle" onmouseover="showPassword()" onmouseout="hidePassword()"></i>
             </div>
 
             <div class="card--actions">
-              <button type="submit" class="btn btn--basic btn--block">Sign in</button>
+              <button type="button" id="signin-btn" class="btn btn--basic btn--block">Sign in</button>
             </div>
 
             <hr>
@@ -70,9 +70,10 @@
   </div>
 
   <script src="js/main.js"></script>
-  <script src="js/api//formValidation.js"></script>
+  <script src="js/api/formValidation.js"></script>
   <script type="module" src="js/api/helpers.js"></script>
-  <script type="module" src="js/api/user.js"></script>
+  <script type="module" src="js/api/auth.js"></script>
+  <script type="module" src="js/api/logIn.js"></script>
 
 </body>
 
