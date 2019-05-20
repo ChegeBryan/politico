@@ -48,7 +48,9 @@ def save_new_user(json_data):
         # 1. Serialize the input for response
         # 2. Return serialized and proper format json to api endpoint
         access_token = new_user.encode_auth_token(returned_id)
-        response = user_schema.dump(new_user)
+        user_query = User.get_user_by_email(email)
+        user = db().get_single_row(*user_query)
+        response = user_schema.dump(user)
         response_object = jsonify({
             "status": 201,
             "data": [{
