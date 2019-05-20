@@ -1,7 +1,6 @@
 /**
  * @fileoverview contains variables and functions that ares shared
  * @exports base api URL, formDataToJson function
- *
  */
 
 // ? create API base URL
@@ -15,7 +14,7 @@ export const ApiVersionPath = 'api/v2';
  * @returns {json} json string with form data values and keys
  * @exports formDataToJson function
  */
-export function formDataToJson(formData) {
+export const formDataToJson = formData => {
   const JSONFormDataObj = {};
   // ? populate the json object with key-value pair
   formData.forEach((value, key) => {
@@ -23,21 +22,7 @@ export function formDataToJson(formData) {
   });
   const formDataJSON = JSON.stringify(JSONFormDataObj);
   return formDataJSON;
-}
-
-/**
- * @description fetch resolves successfully with status code 200-299
- * @function validates
- * @param {obj} response fetch api response object
- * @exports validateResponse function
- * @returns {obj} resolved object if successfully
- */
-export function validateResponse(response) {
-  if (!response.ok) {
-    checkErrorCode(response);
-  }
-  return response;
-}
+};
 
 /**
  * @function checks error code and throws and appropriate error message
@@ -51,7 +36,24 @@ const checkErrorCode = response => {
     throw new Error(
       'Looks like you are already registered. Login to continue.'
     );
+  } else if (response.status === 404) {
+    throw new Error('User not registered.');
   }
+};
+
+/**
+ * @description fetch resolves successfully with status code 200-299
+ * @function validates
+ * @param {obj} response fetch api response object
+ * @exports validateResponse function
+ * @returns {obj} resolved object if successfully
+ */
+export const validateResponse = response => {
+  if (!response.ok) {
+    checkErrorCode(response);
+    return;
+  }
+  return response;
 };
 
 /**
