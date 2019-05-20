@@ -25,9 +25,9 @@ def save_new_user(json_data):
     email = data["email"]
     phonenumber = data["phonenumber"]
     password = User.generate_hash_password(data["password"])
-    passportUrl = data["passportUrl"]
-    isAdmin = data["isAdmin"]
-    isPolitician = data["isPolitician"]
+    passportUrl = data["passporturl"]
+    isAdmin = data["isadmin"]
+    isPolitician = data["ispolitician"]
 
     # 1. query database if provided email exists.
     # 2. if it exists exit with a 409 error
