@@ -115,9 +115,13 @@ class UserSchema(BaseSchema):
                 min=10,
                 error="{input} is not a valid phonename.")])
     password = fields.String(required=True)
-    passportUrl = fields.Url(required=True)
-    isAdmin = fields.Boolean(missing=False)
-    isPolitician = fields.Boolean(missing=False)
+    passporturl = fields.Url(required=True, data_key='passportUrl',
+                             attribute='passportUrl')
+    isadmin = fields.Boolean(missing=False,
+                             data_key='isAdmin', attribute='isAdmin')
+    ispolitician = fields.Boolean(missing=False,
+                                  data_key='isPolitician',
+                                  attribute='isPolitician')
 
 
 class AuthSchema(BaseSchema):
