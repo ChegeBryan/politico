@@ -4,8 +4,12 @@
  */
 
 // ? create API base URL
-export const baseURL = new URL('https://politico-cb.herokuapp.com');
-export const ApiVersionPath = 'api/v2';
+const BASE_URL = new URL('https://politico-cb.herokuapp.com');
+const VERSION = 'api/v2';
+
+// ? user registration API endpoint
+export const signInApiUrl = new URL(`${VERSION}/auth/signin`, BASE_URL);
+export const signUpApiUrl = new URL(`${VERSION}/auth/signup`, BASE_URL);
 
 /**
  * @description creates a json string from form data
@@ -30,9 +34,9 @@ export const formDataToJson = formData => {
  * @throws {obj} bad request error data conflict error depending on statusCode
  */
 const checkErrorCode = response => {
-  if (response.status == 400) {
-    throw new Error('Correct highlighted form errors and try again.');
-  } else if (response.status == 409) {
+  if (response.status === 400) {
+    throw new Error('Verify your inputs data are correct and try again.');
+  } else if (response.status === 409) {
     throw new Error(
       'Looks like you are already registered. Login to continue.'
     );
@@ -61,5 +65,25 @@ export const validateResponse = response => {
  * @function readResponseAsJson
  * @param {obj} fetch response promise object
  * @returns {json} response object parsed to JSON
+ * @exports readResponseAsJson function
  */
 export const readResponseAsJson = response => response.json();
+
+/**
+ * @description Saves the signed up user token to localstorage
+ * @function saveCurrentUser
+ * @param {json} response json object with the registered user details
+ * @exports saveCurrentUser function
+ */
+export const saveCurrentUser = response => {
+  const currentUserToken = response.data[0].token;
+  localStorage.setItem('token', currentUserToken);
+  window.location.replace('dashboard.html');
+};
+
+/**
+ * @description  pop an alert message when the form submission erred
+ * @function alertError
+ * @param {obj} error the error message
+ */
+export const alertError = error => alert(error.message);
