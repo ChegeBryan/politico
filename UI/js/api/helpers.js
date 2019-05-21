@@ -78,6 +78,10 @@ export const readResponseAsJson = response => response.json();
 export const saveCurrentUser = response => {
   const currentUserToken = response.data[0].token;
   localStorage.setItem('token', currentUserToken);
+  if (response.data[0].user[0].isAdmin) {
+    window.location.replace('admin_dashboard.html');
+    return;
+  }
   window.location.replace('dashboard.html');
 };
 
