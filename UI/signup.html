@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Politico | Sign Up</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
 </head>
@@ -46,39 +46,39 @@
             <div class="form__component position--rv">
               <label for="firstname" class="hide">Firstname: </label>
               <input type="text" class="form__component-input" id="firstname" name="firstname" placeholder="Firstname"
-                     pattern="[A-Za-z]+" onblur="validateInput(this)" title="Must be letters only." required>
+                pattern="[A-Za-z]+" onblur="validateInput(this)" title="Must be letters only." required>
             </div>
             <div class="form__component">
               <label for="lastname" class="hide">Lastname: </label>
               <input type="text" class="form__component-input" id="lastname" name="lastname" placeholder="Lastname"
-                     pattern="[A-Za-z]+" onblur="validateInput(this)" title="Must be letters only." required>
+                pattern="[A-Za-z]+" onblur="validateInput(this)" title="Must be letters only." required>
             </div>
             <div class="form__component">
               <label for="othername" class="hide">othername: </label>
               <input type="text" class="form__component-input" id="othername" name="othername" placeholder="Othername"
-                     pattern="[A-Za-z]+" onblur="validateInput(this)" title="Must be letters only." required>
+                pattern="[A-Za-z]+" onblur="validateInput(this)" title="Must be letters only." required>
             </div>
             <div class="form__component">
               <label for="phonenumber" class="hide">Phonenumber: </label>
               <input type="tel" class="form__component-input" id="phonenumber" name="phonenumber" pattern="[0-9]+"
-                     placeholder="Phonenumber" onblur="validateInput(this)" title="Must be Numbers only." required>
+                placeholder="Phonenumber" onblur="validateInput(this)" title="Must be Numbers only." required>
             </div>
             <div class="form__component">
               <label for="useremail" class="hide">User email: </label>
               <input type="email" class="form__component-input" id="useremail" name="email" placeholder="Email"
-                     onblur="validateInput(this)" required>
+                onblur="validateInput(this)" required>
             </div>
             <div class="form__component">
               <label for="passporturl" class="hide">Passort Url: </label>
               <input type="url" class="form__component-input" id="passporturl" name="passportUrl"
-                     placeholder="Passport url" title="Passport absolute url." onblur="validateInput(this)" required>
+                placeholder="Passport url" title="Passport absolute url." onblur="validateInput(this)" required>
             </div>
             <div class="form__component position--rv">
               <label for="pwd" class="hide">Password: </label>
               <input type="password" class="form__component-input" id="pwd" name="password" placeholder="Password"
-                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                     title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters."
-                     required>
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters."
+                required>
               <i class="fa fa-eye fa-lg pwd--toggle" onmouseover="showPassword()" onmouseout="hidePassword()"></i>
             </div>
 
@@ -102,7 +102,8 @@
   <script src="js/main.js"></script>
   <script src="js/api/formValidation.js"></script>
   <script type="module" src="js/api/helpers.js"></script>
-  <script type="module" src="js/api/user.js"></script>
+  <script type="module" src="js/api/auth.js"></script>
+  <script type="module" src="js/api/signUp.js"></script>
 </body>
 
 </html>
