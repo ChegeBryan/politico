@@ -3,12 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
+  <meta name="description"
+    content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
   <meta name="author" content="Chege Bryan">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Politico | Offices</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
 </head>
@@ -29,7 +30,7 @@
           <a href="vote.html" class="nav__link">Vote</a>
         </li>
         <li>
-          <a href="signin.html" class="nav__link">Sign out</a>
+          <a href="#0" id="logout-btn" class="nav__link">Sign out</a>
         </li>
       </ul>
     </div>
@@ -69,11 +70,11 @@
     <div class="container">
       <div class="card">
         <div class="container__flex flex__justify--between">
-        <h2 class="card--title">Government Offices overview</h2>
-        <div class="card--actions">
-          <a href="express_interest.html" class="label label--basic">Vie for
-            office</a>
-        </div>
+          <h2 class="card--title">Government Offices overview</h2>
+          <div class="card--actions">
+            <a href="express_interest.html" class="label label--basic">Vie for
+              office</a>
+          </div>
         </div>
         <div class="table--responsive">
           <table>
@@ -106,7 +107,10 @@
     </div>
   </div>
 
+  <!-- Load scripts-->
   <script src="js/main.js"></script>
+  <script type="module" src="js/api/helpers.js"></script>
+  <script type="module" src="js/api/logOut.js"></script>
 </body>
 
 </html>
