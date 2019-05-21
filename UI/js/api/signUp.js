@@ -4,10 +4,10 @@
  *
  */
 
-import Auth from './auth.js'
+import Auth from './auth.js';
 import {
   signUpApiUrl
-} from './helpers.js'
+} from './helpers.js';
 
 // user login form submit button
 const signUpBtn = document.querySelector('#signup-btn');
@@ -20,5 +20,5 @@ signUpBtn.addEventListener('click', () => {
   // create AUth class instance for user registration
   const signUpForm = document.querySelector('#signup-form');
   const userSignUp = new Auth(signUpForm, signUpApiUrl);
-  userSignUp.validateForm()
+  userSignUp.validateForm();
 });
