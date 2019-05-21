@@ -4,7 +4,8 @@
 
 import {
   signOutApiUrl,
-  validateResponse
+  validateResponse,
+  alertError,
 } from './helpers.js';
 
 // get the logout button
@@ -20,6 +21,7 @@ logOutBtn.addEventListener('click', () => {
         },
       })
       .then(validateResponse)
+      .catch(alertError);
   }
   // clear the token fr om the client local storage
   return;

@@ -43,6 +43,8 @@ const checkErrorCode = response => {
     );
   } else if (response.status === 404) {
     throw new Error('User not registered.');
+  } else if (response.status === 401) {
+    throw new Error('User is logged out. Please log in.');
   }
 };
 
