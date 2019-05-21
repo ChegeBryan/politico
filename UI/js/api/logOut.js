@@ -21,8 +21,8 @@ logOutBtn.addEventListener('click', () => {
         },
       })
       .then(validateResponse)
+      .then(localStorage.removeItem('token')) // clear token from client localstorage
+      .then(window.location.replace('signin.html'))
       .catch(alertError);
   }
-  // clear the token fr om the client local storage
-  return;
 });
