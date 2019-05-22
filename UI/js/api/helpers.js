@@ -7,9 +7,10 @@
 const BASE_URL = new URL('https://politico-cb.herokuapp.com');
 const VERSION = 'api/v2';
 
-// ? user registration API endpoint
+// user authentication API endpoint
 export const signInApiUrl = new URL(`${VERSION}/auth/signin`, BASE_URL);
 export const signUpApiUrl = new URL(`${VERSION}/auth/signup`, BASE_URL);
+export const signOutApiUrl = new URL(`${VERSION}/auth/signout`, BASE_URL);
 
 /**
  * @description creates a json string from form data
@@ -42,6 +43,8 @@ const checkErrorCode = response => {
     );
   } else if (response.status === 404) {
     throw new Error('User not registered.');
+  } else if (response.status === 401) {
+    throw new Error('User is logged out. Please log in.');
   }
 };
 
