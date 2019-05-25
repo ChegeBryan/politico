@@ -7,7 +7,11 @@ import {
   formDataToJson,
   validateResponse,
   alertError,
+  readResponseAsJson,
 } from '../helpers.js';
+import {
+  notificationToast
+} from '../view/notificationToast.js';
 
 /**
  * Party class has the methods for fetch calls to the server
@@ -47,6 +51,8 @@ export default class Party {
         headers: requestHeaders,
       })
       .then(validateResponse)
+      .then(readResponseAsJson)
+      .then(notificationToast)
       .catch(alertError);
   }
 }
