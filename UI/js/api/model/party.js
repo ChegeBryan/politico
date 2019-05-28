@@ -55,4 +55,24 @@ export default class Party {
       .then(notificationToast)
       .catch(alertError);
   }
+
+  /**
+   * gets all parties from the server
+   *
+   * @static
+   * @param {string} url the GET parties api endpoint
+   * @param {string} currentUser the current logged in user token
+   * @memberof Party
+   */
+  static getParties(url, currentUser) {
+    fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${currentUser}`
+        },
+      })
+      .then(validateResponse)
+      .then(readResponseAsJson)
+      .catch(alertError)
+  }
 }
