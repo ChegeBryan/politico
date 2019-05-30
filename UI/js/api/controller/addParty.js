@@ -2,10 +2,12 @@
  * @fileoverview Party registration controller
  */
 
-import Party from '../model/party.js';
 import {
-  partiesApiUrl
+  partiesApiUrl,
 } from '../helpers.js';
+import {
+  PartyAdminAccess,
+} from '../model/party.js';
 
 
 const addPartyBtn = document.querySelector('#add-party-btn');
@@ -16,12 +18,12 @@ addPartyBtn.addEventListener('click', () => {
   // check if the form data is valid before submiting
   if (form.checkValidity()) {
     /**
-     * Party instance, to aceess the add party method for party
+     * PartyAdminAccess instance, to aceess the add party method for party
      * party registration
      * @instance
      */
-    const registerParty = new Party(currentUserToken, partiesApiUrl, form);
-    registerParty.addParty();
+    const registerParty = new PartyAdminAccess(currentUserToken, partiesApiUrl);
+    registerParty.addParty(form);
     return;
   }
   alert('Fix highlighted form error and submit again');

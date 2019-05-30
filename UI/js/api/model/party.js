@@ -1,6 +1,6 @@
 /**
  * @fileoverview the party class model
- * @exports class party
+ * @exports class party, PartyAdminAccess
  */
 
 import {
@@ -10,41 +10,74 @@ import {
   readResponseAsJson,
 } from '../helpers.js';
 import {
-  notificationToast
+  notificationToast,
 } from '../view/notificationToast.js';
+
 
 /**
  * Party class has the methods for fetch calls to the server
  * @class
  */
-export default class Party {
+export class Party {
   /**
    * @constructs PArty class instance
    * @param {byte} user  logged in user token
    * @param {string} url parties API endpoint
-   * @param {object} [form=null] default value is set to null
-   * for method calls that do not require a form element in the instance
    * @memberof Party
    */
-  constructor(user, url, form = null) {
+  constructor(user, url) {
     this.user = user;
     this.url = url;
-    this.form = form;
   }
 
   /**
-   * takes data from the register party form and send it to the server
+   * gets all parties from the server
+   *
+   * @static
+   * @param {string} url the GET parties api endpoint
+   * @param {string} currentUser the current logged in user token
    * @memberof Party
    */
-  addParty() {
-    const formData = new FormData(this.form);
+  static getParties(url, currentUser) {
+    return fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${currentUser}`
+        },
+      })
+      .then(validateResponse)
+      .then(readResponseAsJson)
+      .catch(alertError)
+  }
+
+  // TODO: add method to render the the parties to DOM for normal user
+}
+
+
+/**
+ * constains methods for actions done by an the admin user
+ *
+ * @export
+ * @class PartyAdminAccess has methods only accessible by admin user
+ * @extends {Party}
+ */
+export class PartyAdminAccess extends Party {
+
+  /**
+   * takes data from the register party form and send it to the server
+   *
+   * @param {element} form register party form from DOM
+   * @memberof PartyAdminAccess
+   */
+  addParty(form) {
+    const formData = new FormData(form);
     // generate the form data as json string
     const data = formDataToJson(formData);
     const requestHeaders = new Headers({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.user}`,
     });
-    // send data to the server
+    // send form data to the server
     fetch(this.url, {
         method: 'POST',
         body: data,
@@ -57,22 +90,19 @@ export default class Party {
   }
 
   /**
-   * gets all parties from the server
+   * gets the parties to edit for and renders them to the DOM
    *
    * @static
-   * @param {string} url the GET parties api endpoint
-   * @param {string} currentUser the current logged in user token
-   * @memberof Party
+   * @param {object} url Get parties endpoint
+   * @param {string} currentUser currently logged in admin token
+   * @memberof PartyAdminAccess
    */
-  static getParties(url, currentUser) {
-    fetch(url, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${currentUser}`
-        },
-      })
-      .then(validateResponse)
-      .then(readResponseAsJson)
-      .catch(alertError)
+  static editPartiesList(url, currentUser) {
+    // call get parties method from Party class the promise returned
+    super.getParties(url, currentUser)
   }
+
+  // TODO: add method for sending the edit party name
+  // TODO: add method for rendering parties to delete.
+  // TODO: add method for deleting party
 }
