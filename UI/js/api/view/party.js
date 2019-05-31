@@ -10,6 +10,12 @@
  * @returns undefined - the function just gives a side effect
  */
 export const renderEditParties = parties => {
+  // display a message when there is no party registered
+  if (parties.data.length === 0) {
+    const cardHeader = document.querySelector('.card--title');
+    cardHeader.innerHTML = `Oops! No party has been registered yet.`;
+    return;
+  }
   const table = document.querySelector('#editTable');
   const tableHeader = table.createTHead();
   const tableHeaderRow = tableHeader.insertRow(0);
@@ -52,5 +58,4 @@ export const renderEditParties = parties => {
     partyAddress.innerHTML = `${party.hq_address}`;
     editButton = createEditButton(`${party.party_id}`);
   });
-  return;
 };
