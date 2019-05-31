@@ -84,6 +84,10 @@ const launchEditForm = (btn) => {
   let editTableCard = document.querySelector('.edit__table');
   let editForm = document.querySelector('.edit__form');
   
+  // take party id, add it to the rename party button 
+  const id = btn.dataset.partyId;
+  const renamePartyBtn = document.querySelector('#rename-party-btn');
+  renamePartyBtn.setAttribute('data-party-id', id);
   // hide the edit table
   editTableCard.classList.toggle("hide");
   // show the edit form
