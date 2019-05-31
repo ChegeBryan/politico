@@ -35,7 +35,7 @@ export const renderEditParties = parties => {
     let tableRow = tableBody.insertRow(0);
     let partyName = tableRow.insertCell(0);
     let partyAddress = tableRow.insertCell(1);
-    let editButton = tableRow.insertCell(2);
+    let editButtonCell = tableRow.insertCell(2);
 
     /**
      * create an edit button on the last cell of the party details row
@@ -44,18 +44,34 @@ export const renderEditParties = parties => {
      * @returns Div element with an edit party button
      */
     let createEditButton = id => {
+      // create card--actioNS DIV 
       let buttonDiv = document.createElement('div');
       buttonDiv.classList.add('card--actions');
-      // add an edit button the div with a data-party-attribute which
-      // is the party id
-      buttonDiv.innerHTML = `<button class="btn btn--primary" onclick="edit()" data-party-id='${id}'>
-      <i class="fas fa-fw fa-edit"></i>&nbsp;Edit</button>`;
 
-      return editButton.appendChild(buttonDiv);
+      // add the edit button
+      let editBtn = document.createElement('button');
+      editBtn.classList.add('btn', 'btn--primary');
+      editBtn.setAttribute('data-party-id', id);
+      editBtn.setAttribute('type', 'button');
+
+      // add edit icon to the button
+      let editIcon = document.createElement('i');
+      editIcon.classList.add('fas', 'fa-fw', 'fa-edit');
+      
+      // insert icon as child node to button node 
+      editBtn.appendChild(editIcon);
+      // insert button text after the icon node 
+      editIcon.insertAdjacentHTML('afterend', '&nbsp;Edit')
+
+      // insert button as a child node to button div
+      buttonDiv.appendChild(editBtn);
+
+      // insert card--actions div as child node to edit button table cell
+      return editButtonCell.appendChild(buttonDiv);
     };
     // populate table cells with the party detail data
     partyName.innerHTML = `${party.party_name}`;
     partyAddress.innerHTML = `${party.hq_address}`;
-    editButton = createEditButton(`${party.party_id}`);
+    editButtonCell = createEditButton(`${party.party_id}`);
   });
 };
