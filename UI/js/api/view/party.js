@@ -54,6 +54,10 @@ export const renderEditParties = parties => {
       editBtn.setAttribute('data-party-id', id);
       editBtn.setAttribute('type', 'button');
 
+      // launch rename party form when buttin is clicked
+      editBtn.addEventListener('click', () => {
+        launchEditForm(editBtn);
+      });
       // add edit icon to the button
       let editIcon = document.createElement('i');
       editIcon.classList.add('fas', 'fa-fw', 'fa-edit');
@@ -75,3 +79,13 @@ export const renderEditParties = parties => {
     editButtonCell = createEditButton(`${party.party_id}`);
   });
 };
+
+const launchEditForm = (btn) => {
+  let editTableCard = document.querySelector('.edit__table');
+  let editForm = document.querySelector('.edit__form');
+  
+  // hide the edit table
+  editTableCard.classList.toggle("hide");
+  // show the edit form
+  editForm.classList.toggle("hide");
+}
