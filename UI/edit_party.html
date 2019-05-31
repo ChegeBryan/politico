@@ -74,11 +74,13 @@
 
       <div class="container__flex">
         <div class="card edit__form flex--col-5 hide">
-          <h2 class="card--title">Edit party details</h2>
+          <h2 class="card--title">Edit party name</h2>
           <form>
             <div class="form__component">
               <label for="party_name_edit" class="hide">Political party name: </label>
-              <input type="text" class="form__component-input" id="party_name_edit" placeholder="New party name"
+              <input type="text" class="form__component-input" id="party_name" name="party_name"
+                     placeholder="New party name" pattern="^([a-zA-Z]([ A-Za-z]*)){4,}"
+                     onblur="validateInput(this)"
                      required>
             </div>
 
@@ -96,7 +98,7 @@
   </div>
 
   <!-- Load scripts-->
-  <script src="js/main.js"></script>
+  <script src="js/api/formValidation.js"></script>
   <script type="module" src="js/api/helpers.js"></script>
   <script type="module" src="js/api/view/party.js"></script>
   <script type="module" src="js/api/model/party.js"></script>
