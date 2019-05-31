@@ -106,7 +106,29 @@ export class PartyAdminAccess extends Party {
       .then(renderEditParties)
   }
 
-  // TODO: add method for sending the edit party name
+  /**
+   * send the new name from form to the server
+   *
+   * @param {obj} form edit party name form
+   * @memberof PartyAdminAccess
+   */
+  editPartyName(form) {
+    const formData = new FormData(form);
+    // generate the form data as json string
+    const data = formDataToJson(formData);
+    const requestHeaders = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.user}`,
+    });
+    fetch(this.url, {
+        method: 'PATCH',
+        body: data,
+        headers: requestHeaders,
+      })
+      .then(validateResponse)
+      .catch(alertError)
+  }
+
   // TODO: add method for rendering parties to delete.
   // TODO: add method for deleting party
 }
