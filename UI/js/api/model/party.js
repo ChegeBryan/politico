@@ -12,6 +12,9 @@ import {
 import {
   notificationToast,
 } from '../view/notificationToast.js';
+import {
+  renderEditParties
+} from '../view/party.js';
 
 
 /**
@@ -100,6 +103,7 @@ export class PartyAdminAccess extends Party {
   static editPartiesList(url, currentUser) {
     // call get parties method from Party class the promise returned
     super.getParties(url, currentUser)
+      .then(renderEditParties)
   }
 
   // TODO: add method for sending the edit party name
