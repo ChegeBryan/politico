@@ -25,13 +25,21 @@ const fetchParties = () => {
  */
 window.addEventListener('load', fetchParties);
 
+/**
+ * trigger a page reload when user clicks on go back button
+ *
+ * @event click
+ */
+const viewEditPartyListBtn = document.querySelector('#view-edit-list-btn');
+viewEditPartyListBtn.addEventListener('click', () => location.reload());
+
 const renamePartyBtn = document.querySelector('#rename-party-btn');
 renamePartyBtn.addEventListener('click', () => {
   // party registration form
   const currentUserToken = localStorage.getItem('token');
   const form = document.querySelector('#rename-party-form');
   const partyId = renamePartyBtn.dataset.partyId;
-  const renamePartyUrl = `${partiesApiUrl}/${partyId}/name`
+  const renamePartyUrl = `${partiesApiUrl}/${partyId}/name`;
   // check if the form data is valid before submiting
   if (form.checkValidity()) {
     /**
@@ -40,7 +48,7 @@ renamePartyBtn.addEventListener('click', () => {
      * @instance
      */
     const renameParty = new PartyAdminAccess(currentUserToken, renamePartyUrl);
-    renameParty.editPartyName(form)
+    renameParty.editPartyName(form);
     return;
   }
   alert('Fix highlighted form error and submit again');

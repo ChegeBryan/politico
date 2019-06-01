@@ -3,12 +3,27 @@
  * @exports renderEditParties
  */
 
+const launchEditForm = (btn) => {
+  let editTableCard = document.querySelector('.edit__table');
+  let editForm = document.querySelector('.edit__form');
+
+  // take party id, add it to the rename party button
+  const id = btn.dataset.partyId;
+  const renamePartyBtn = document.querySelector('#rename-party-btn');
+  renamePartyBtn.setAttribute('data-party-id', id);
+  // hide the edit table
+  editTableCard.classList.toggle("hide");
+  // show the edit form
+  editForm.classList.toggle("hide");
+};
+
 /**
  * renders a table with the parties details and a button to launch
  * the edit party name form
  * @param {obj} parties JSON object containing parties details
  * @returns undefined - the function just gives a side effect
  */
+
 export const renderEditParties = parties => {
   // display a message when there is no party registered
   if (parties.data.length === 0) {
@@ -44,7 +59,7 @@ export const renderEditParties = parties => {
      * @returns Div element with an edit party button
      */
     let createEditButton = id => {
-      // create card--actioNS DIV 
+      // create card--actioNS DIV
       let buttonDiv = document.createElement('div');
       buttonDiv.classList.add('card--actions');
 
@@ -61,10 +76,10 @@ export const renderEditParties = parties => {
       // add edit icon to the button
       let editIcon = document.createElement('i');
       editIcon.classList.add('fas', 'fa-fw', 'fa-edit');
-      
-      // insert icon as child node to button node 
+
+      // insert icon as child node to button node
       editBtn.appendChild(editIcon);
-      // insert button text after the icon node 
+      // insert button text after the icon node
       editIcon.insertAdjacentHTML('afterend', '&nbsp;Edit')
 
       // insert button as a child node to button div
@@ -79,17 +94,3 @@ export const renderEditParties = parties => {
     editButtonCell = createEditButton(`${party.party_id}`);
   });
 };
-
-const launchEditForm = (btn) => {
-  let editTableCard = document.querySelector('.edit__table');
-  let editForm = document.querySelector('.edit__form');
-  
-  // take party id, add it to the rename party button 
-  const id = btn.dataset.partyId;
-  const renamePartyBtn = document.querySelector('#rename-party-btn');
-  renamePartyBtn.setAttribute('data-party-id', id);
-  // hide the edit table
-  editTableCard.classList.toggle("hide");
-  // show the edit form
-  editForm.classList.toggle("hide");
-}

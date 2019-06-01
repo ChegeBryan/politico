@@ -48,7 +48,7 @@ export class Party {
       })
       .then(validateResponse)
       .then(readResponseAsJson)
-      .catch(alertError)
+      .catch(alertError);
   }
 
   // TODO: add method to render the the parties to DOM for normal user
@@ -106,7 +106,7 @@ export class PartyAdminAccess extends Party {
   static editPartiesList(url, currentUser) {
     // call get parties method from Party class the promise returned
     super.getParties(url, currentUser)
-      .then(renderEditParties)
+      .then(renderEditParties);
   }
 
   /**
@@ -136,7 +136,7 @@ export class PartyAdminAccess extends Party {
           displayNotification.successPartyRename();
         }
       )
-      .catch(alertError)
+      .catch(alertError);
   }
 
   // TODO: add method for rendering parties to delete.
