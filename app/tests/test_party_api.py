@@ -291,7 +291,7 @@ class PartyAPITestCase(BaseTestData):
 
     def test_edit_party_name(self):
         """
-        Test api can edit a political party, with the a new name and address.
+        Test api can edit a political party, with the a new name.
         :return: STATUS CODE 200
         """
         response = self.post_data
@@ -322,7 +322,7 @@ class PartyAPITestCase(BaseTestData):
         self.assertEqual(new_data["data"][0]["party_name"], "Changed this")
         self.assertEqual(response_edit.status_code, 200)
 
-    def test_edit_party_error(self):
+    def test_edit_party_not_found(self):
         """
         Test error returned when the party to edit is not found.
         :return: STATUS CODE 404
@@ -346,6 +346,38 @@ class PartyAPITestCase(BaseTestData):
         self.assertEqual(new_data["error"],
                          "Resource requested for edit not found.")
         self.assertEqual(response_edit.status_code, 404)
+
+    def test_edit_party_name_duplicate_name(self):
+        """
+        Test api esits with error when a the party name provided is already
+        registered
+        :return: STATUS CODE 409
+        """
+        # register a party
+        response = self.post_data
+        self.assertEqual(response.status_code, 201)
+        json_data = response.get_json()
+        _id = json_data["data"][0]["party_id"]
+
+        # admin token
+        auth_token = self.admin_token
+
+        # edit party details (party name) with the same name as a registered party
+        # the name previous was 'example name'
+        response_edit = self.client.patch(
+            'api/v2/parties/{}/name'.format(_id),
+            json={
+                "party_name": "example name"
+            },
+            headers={
+                "Authorization": "Bearer {}".format(auth_token)
+            }
+        )
+
+        duplicate_name_response = response_edit.get_json()
+        self.assertTrue(
+            duplicate_name_response["error"] == "Provided name is already taken or is the same for this party.")
+        self.assertEqual(response_edit.status_code, 409)
 
     def test_delete_party(self):
         """
