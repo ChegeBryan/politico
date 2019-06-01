@@ -3,15 +3,13 @@
  * @exports class party, PartyAdminAccess
  */
 
+import NotificationToast from '../view/notificationToast.js';
 import {
   formDataToJson,
   validateResponse,
   alertError,
   readResponseAsJson,
 } from '../helpers.js';
-import {
-  notificationToast,
-} from '../view/notificationToast.js';
 import {
   renderEditParties
 } from '../view/party.js';
@@ -88,7 +86,12 @@ export class PartyAdminAccess extends Party {
       })
       .then(validateResponse)
       .then(readResponseAsJson)
-      .then(notificationToast)
+      .then(
+        (res) => {
+          let displayNotification = new NotificationToast(res);
+          displayNotification.successPartyRegistration();
+        }
+      )
       .catch(alertError);
   }
 
