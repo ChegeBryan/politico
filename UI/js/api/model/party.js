@@ -129,6 +129,13 @@ export class PartyAdminAccess extends Party {
         headers: requestHeaders,
       })
       .then(validateResponse)
+      .then(readResponseAsJson)
+      .then(
+        (res) => {
+          const displayNotification = new NotificationToast(res);
+          displayNotification.successPartyRename();
+        }
+      )
       .catch(alertError)
   }
 

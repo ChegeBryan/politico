@@ -22,15 +22,41 @@ export default class NotificationToast {
   }
 
   /**
+   * gets the party name from the response
+   * @returns party name
+   */
+  getPartyName() {
+    return this.resp.data[0].party_name;
+  }
+
+  /**
+   * adds the appear class to snackbar div showing the notification snackbar
+   */
+  showNotification() {
+    this.snackBar.className = 'appear';
+  }
+
+  /**
    * shows a notification toast for when a user is registered successfully
    *
    * @memberof NotificationToast
    */
   successPartyRegistration() {
-    const partyName = this.resp.data[0].party_name;
-    this.snackBar.className = 'appear';
+    this.showNotification();
     // add the message to the toast notification
-    this.snackBar.innerHTML = `${partyName} is now registered.`;
+    this.snackBar.innerHTML = `${this.getPartyName()} is now registered.`;
+    this.hideNotification();
+  }
+
+  /**
+   * shows a notification when a party has been renamed successfully
+   *
+   * @memberof NotificationToast
+   */
+  successPartyRename() {
+    this.showNotification();
+    // add the message to the toast notification
+    this.snackBar.innerHTML = `Party name changed to ${this.getPartyName()}.`;
     this.hideNotification();
   }
 
