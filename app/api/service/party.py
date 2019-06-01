@@ -109,21 +109,35 @@ def edit_party(_id, json_data):
             "status": 400,
             "error": e.messages
         }), 400
+
+    # check if the party with the provided party id exists.
     party_to_edit_query = Party.get_party_by_id(_id)
     party_to_edit = db().get_single_row(*party_to_edit_query)
     if party_to_edit:
         new_name = data["party_name"]
-        # construct update party name query
-        query, values = Party.update_party(_id, new_name)
-        # persist changes to the database
-        db().commit_changes(query, values)
 
-        # query back the database for the edited party.
-        party_edited = db().get_single_row(*party_to_edit_query)
+        # check if the provided name already exists
+        party_by_name = Party.get_party_by_name(new_name)
+        party = db().get_single_row(*party_by_name)
+        if party is None:
+            # construct update party name query
+            query, values = Party.update_party(_id, new_name)
+            # persist changes to the database
+            db().commit_changes(query, values)
+
+            # query back the database for the edited party.
+            party_edited = db().get_single_row(*party_to_edit_query)
+            return jsonify({
+                "status": 200,
+                "data": [party_schema.dump(party_edited)]
+            })
+
+        # if party name is already registered
         return jsonify({
-            "status": 200,
-            "data": [party_schema.dump(party_edited)]
-        })
+            "status": 409,
+            "error":
+            "Provided name is already taken or is the same for this party."
+        }), 409
 
     # response when party not found
     return jsonify({
