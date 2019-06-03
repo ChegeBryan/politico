@@ -12,7 +12,7 @@ import {
 } from '../helpers.js';
 import {
   renderEditParties
-} from '../view/party.js';
+} from '../view/editParty.js';
 
 
 /**
