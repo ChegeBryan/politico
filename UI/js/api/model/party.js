@@ -11,8 +11,11 @@ import {
   readResponseAsJson,
 } from '../helpers.js';
 import {
-  renderEditParties
+  renderEditParties,
 } from '../view/editParty.js';
+import {
+  renderDeleteParties,
+} from '../view/deleteParty.js'
 
 
 /**
@@ -139,6 +142,19 @@ export class PartyAdminAccess extends Party {
       .catch(alertError);
   }
 
-  // TODO: add method for rendering parties to delete.
+  /**
+   * gets the parties to delete and renders them to the DOM
+   *
+   * @static
+   * @param {object} url Get parties endpoint
+   * @param {string} currentUser currently logged in admin token
+   * @memberof PartyAdminAccess
+   */
+  static deletePartiesList(url, currentUser) {
+    // get parties fromthe server passing the response
+    // to render the response to the DOM
+    super.getParties(url, currentUser)
+      .then(renderDeleteParties);
+  }
   // TODO: add method for deleting party
 }
