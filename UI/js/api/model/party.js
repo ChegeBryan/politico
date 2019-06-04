@@ -15,7 +15,7 @@ import {
 } from '../view/editParty.js';
 import {
   renderDeleteParties,
-} from '../view/deleteParty.js'
+} from '../view/deleteParty.js';
 
 
 /**
@@ -176,7 +176,10 @@ export class PartyAdminAccess extends Party {
       .then((res) => {
         let displayNotification = new NotificationToast(res);
         displayNotification.successPartyDeletion();
+        // wait for 3 seconds for notification to finish showing
+        // then reload the page
+        setTimeout(() => location.reload(), 3000);
       })
-      .catch(alertError)
+      .catch(alertError);
   }
 }

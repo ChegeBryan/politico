@@ -4,10 +4,10 @@
 
 import {
   PartyAdminAccess
-} from "../model/party.js";
+} from '../model/party.js';
 import {
   partiesApiUrl
-} from "../helpers.js";
+} from '../helpers.js';
 
 /**
  * @description fetches parties details from the server
@@ -16,7 +16,7 @@ const fetchParties = () => {
   const currentUser = localStorage.getItem('token');
   // call the getParties from the Party class
   PartyAdminAccess.deletePartiesList(partiesApiUrl, currentUser);
-}
+};
 
 /**
  * call the fetch parties method whenever the edit page is loaded
@@ -35,4 +35,4 @@ export const removeParty = partyId => {
   const currentUserTOken = localStorage.getItem('token');
   const partyToDeleteUrl = `${partiesApiUrl}/${partyId}`;
   PartyAdminAccess.deleteParty(partyToDeleteUrl, currentUserTOken);
-}
+};

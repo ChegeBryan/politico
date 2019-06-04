@@ -4,7 +4,7 @@
 
 import {
   removeParty
-} from '../controller/deleteParty.js'
+} from '../controller/deleteParty.js';
 
 /**
  * renders a table with the parties details and a button to
