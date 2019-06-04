@@ -156,5 +156,22 @@ export class PartyAdminAccess extends Party {
     super.getParties(url, currentUser)
       .then(renderDeleteParties);
   }
-  // TODO: add method for deleting party
+
+  /**
+   * Deletes a party the passed in party URL
+   *
+   * @param {String} url party url with party id on the URL
+   * @param {*} currentUser currently logged in admin user token
+   * @memberof PartyAdminAccess
+   */
+  static deleteParty(url, currentUser) {
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${currentUser}`
+        },
+      })
+      .then(validateResponse)
+      .catch(alertError)
+  }
 }
