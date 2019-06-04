@@ -11,8 +11,11 @@ import {
   readResponseAsJson,
 } from '../helpers.js';
 import {
-  renderEditParties
-} from '../view/party.js';
+  renderEditParties,
+} from '../view/editParty.js';
+import {
+  renderDeleteParties,
+} from '../view/deleteParty.js';
 
 
 /**
@@ -139,6 +142,44 @@ export class PartyAdminAccess extends Party {
       .catch(alertError);
   }
 
-  // TODO: add method for rendering parties to delete.
-  // TODO: add method for deleting party
+  /**
+   * gets the parties to delete and renders them to the DOM
+   *
+   * @static
+   * @param {object} url Get parties endpoint
+   * @param {string} currentUser currently logged in admin token
+   * @memberof PartyAdminAccess
+   */
+  static deletePartiesList(url, currentUser) {
+    // get parties fromthe server passing the response
+    // to render the response to the DOM
+    super.getParties(url, currentUser)
+      .then(renderDeleteParties);
+  }
+
+  /**
+   * Deletes a party the passed in party URL
+   *
+   * @param {String} url party url with party id on the URL
+   * @param {*} currentUser currently logged in admin user token
+   * @memberof PartyAdminAccess
+   */
+  static deleteParty(url, currentUser) {
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${currentUser}`
+        },
+      })
+      .then(validateResponse)
+      .then(readResponseAsJson)
+      .then((res) => {
+        let displayNotification = new NotificationToast(res);
+        displayNotification.successPartyDeletion();
+        // wait for 3 seconds for notification to finish showing
+        // then reload the page
+        setTimeout(() => location.reload(), 3000);
+      })
+      .catch(alertError);
+  }
 }
