@@ -1,4 +1,12 @@
 /**
+ * @fileoverview creates a table to the DOM with delete option
+ */
+
+import {
+  removeParty
+} from '../controller/deleteParty.js'
+
+/**
  * renders a table with the parties details and a button to
  * the remove party
  * @param {obj} parties JSON object containing parties details
@@ -52,6 +60,12 @@ export const renderDeleteParties = parties => {
 
       // insert button text after the icon node
       deleteBtn.innerHTML = `Dissolve party`;
+
+      // delete party when the delete party button
+      // against it is clicked
+      deleteBtn.addEventListener('click', () => {
+        removeParty(deleteBtn.dataset.partyId);
+      });
 
       // insert button as a child node to button div
       buttonDiv.appendChild(deleteBtn);

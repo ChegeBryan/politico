@@ -24,3 +24,15 @@ const fetchParties = () => {
  * @event load
  */
 window.addEventListener('load', fetchParties);
+
+
+/**
+ * delete party when the delete button against is clicked
+ *
+ * @param {string} partyId party to delete
+ */
+export const removeParty = partyId => {
+  const currentUserTOken = localStorage.getItem('token');
+  const partyToDeleteUrl = `${partiesApiUrl}/${partyId}`;
+  PartyAdminAccess.deleteParty(partyToDeleteUrl, currentUserTOken);
+}
