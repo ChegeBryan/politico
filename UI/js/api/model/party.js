@@ -172,6 +172,11 @@ export class PartyAdminAccess extends Party {
         },
       })
       .then(validateResponse)
+      .then(readResponseAsJson)
+      .then((res) => {
+        let displayNotification = new NotificationToast(res);
+        displayNotification.successPartyDeletion();
+      })
       .catch(alertError)
   }
 }

@@ -61,6 +61,18 @@ export default class NotificationToast {
   }
 
   /**
+   * display a notification when party is deleted successfully
+   *
+   * @memberof NotificationToast
+   */
+  successPartyDeletion() {
+    this.showNotification();
+    // add message to the toast notification
+    this.snackBar.innerHTML = `${this.resp.data[0].message}`;
+    this.hideNotification();
+  }
+
+  /**
    * hide the notification bar when after 3 seconds it shows
    *
    * @memberof NotificationToast
