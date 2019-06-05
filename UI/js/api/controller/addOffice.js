@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Office registration controller
+ */
+
 import {
   OfficeAdminAccess
 } from '../model/office.js';
@@ -6,9 +10,16 @@ import {
 } from '../helpers.js';
 
 /**
- * @fileoverview Office registration controller
+ * disallow a user from clicking on the office type radio buttons
  */
-
+const officeTypeInputs = document.querySelectorAll('input[name="office_type"]');
+window.addEventListener('load', () => {
+  officeTypeInputs.forEach(officeTypeInput => {
+    officeTypeInput.addEventListener('click', (e) => {
+      e.preventDefault();
+    });
+  });
+});
 
 /**
  * listens for a click event the office name inputs
