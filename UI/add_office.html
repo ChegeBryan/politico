@@ -66,10 +66,27 @@
         <div class="flex--col-6 card">
           <h2 class="card--title">Add new office</h2>
           <form id="add-office-form">
-            <div class="form__component">
-              <label for="office_name" class="hide">Political office name: </label>
-              <input type="text" class="form__component-input" id="office_name" placeholder="Government office name"
-                     required>
+            <div class="container__flex">
+              <!--Office name option group-->
+              <div class="form__component flex--col-6">
+                <h3 class="card--title">Office name</h3>
+                <label class="form__label--radio">President
+                  <input type="radio" name="office_name" value="president" checked>
+                  <span class="checkmark"></span>
+                </label>
+                <label class="form__label--radio">Governor
+                  <input type="radio" name="office_name" value="governor">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="form__label--radio">Senator
+                  <input type="radio" name="office_name" value="senator">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="form__label--radio">House of Representatives
+                  <input type="radio" name="office_name" value="house of representatives">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
             </div>
 
             <div class="card--actions">
