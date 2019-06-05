@@ -12,6 +12,7 @@
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
+  <script src="js/api/requireAuth.js"></script>
 </head>
 
 <body>
@@ -65,25 +66,60 @@
       <div class="container__flex">
         <div class="flex--col-6 card">
           <h2 class="card--title">Add new office</h2>
-          <form>
-            <div class="form__component">
-              <label for="office_name" class="hide">Political office name: </label>
-              <input type="text" class="form__component-input" id="office_name" placeholder="Government office name"
-                     required>
+          <form id="add-office-form">
+            <div class="container__flex">
+              <!--Office name option group-->
+              <div class="form__component flex--col-6">
+                <h3 class="card--title">Office name</h3>
+                <label class="form__label--radio">President
+                  <input type="radio" name="office_name" value="president" checked>
+                  <span class="checkmark"></span>
+                </label>
+                <label class="form__label--radio">Governor
+                  <input type="radio" name="office_name" value="governor">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="form__label--radio">Senator
+                  <input type="radio" name="office_name" value="senator">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="form__label--radio">House of Representatives
+                  <input type="radio" name="office_name" value="house of representatives">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <!--office type option group-->
+              <div class="form__component flex--col-6">
+                <h3 class="card--title">Office Type</h3>
+                <label class="form__label--radio">Federal
+                  <input type="radio" name="office_type" value="federal" checked>
+                  <span class="checkmark"></span>
+                </label>
+                <label class="form__label--radio">Congress
+                  <input type="radio" name="office_type" value="congress">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="form__label--radio">State
+                  <input type="radio" name="office_type" value="state">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
             </div>
 
             <div class="card--actions">
-              <button type="submit" class="btn btn--basic card--actions-btn"> Create Office</button>
-              <button type="button" class="btn btn--basic card--actions-btn">Cancel</button>
+              <button type="button" class="btn btn--basic card--actions-btn" id="add-office-btn"> Create Office</button>
+              <button type="reset" class="btn btn--basic card--actions-btn">Cancel</button>
             </div>
           </form>
         </div>
       </div>
+      <div id="snackbar"></div>
     </div>
   </div>
 
   <!--Load scripts -->
   <script type="module" src="js/api/logOut.js"></script>
+  <script type="module" src="js/api/controller/addOffice.js"></script>
 
 </body>
 

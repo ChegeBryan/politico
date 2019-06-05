@@ -12,6 +12,7 @@ export const signInApiUrl = new URL(`${VERSION}/auth/signin`, BASE_URL);
 export const signUpApiUrl = new URL(`${VERSION}/auth/signup`, BASE_URL);
 export const signOutApiUrl = new URL(`${VERSION}/auth/signout`, BASE_URL);
 export const partiesApiUrl = new URL(`${VERSION}/parties`, BASE_URL);
+export const officesApiUrl = new URL(`${VERSION}/offices`, BASE_URL);
 
 /**
  * @description creates a json string from form data
