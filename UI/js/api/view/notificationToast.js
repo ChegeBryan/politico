@@ -72,6 +72,14 @@ export default class NotificationToast {
     this.hideNotification();
   }
 
+  successOfficeRegistration() {
+    this.showNotification();
+    // add office name to the toast notification
+    this.snackBar.innerHTML = `${this.resp.data[0].office_name} office registered to
+    ${this.resp.data[0].office_type} offices.`;
+    this.hideNotification();
+  }
+
   /**
    * hide the notification bar when after 3 seconds it shows
    *

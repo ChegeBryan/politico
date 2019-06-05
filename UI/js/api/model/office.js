@@ -7,7 +7,9 @@ import {
   formDataToJson,
   validateResponse,
   alertError,
+  readResponseAsJson,
 } from '../helpers.js';
+import NotificationToast from '../view/notificationToast.js';
 
 
 /**
@@ -58,6 +60,11 @@ export class OfficeAdminAccess extends Office {
         headers: requestHeaders,
       })
       .then(validateResponse)
+      .then(readResponseAsJson)
+      .then((res) => {
+        let displayNotification = new NotificationToast(res);
+        displayNotification.successOfficeRegistration();
+      })
       .catch(alertError);
   }
 }
