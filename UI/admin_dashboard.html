@@ -73,25 +73,6 @@
     </div>
   </div>
 
-  <!--Modal to add political party-->
-  <div id="modal" class="modal">
-    <span class="modal--close" onclick="closeModal()"><i class="far fa-times-circle"></i></span>
-    <div class="card">
-      <h2 class="card--title"> Add a Party</h2>
-      <form>
-        <div class="form__component">
-          <label for="party_name" class="hide">Political party name: </label>
-          <input type="text" class="form__component-input" id="party_name" placeholder="Political party name" required>
-        </div>
-
-        <div class="card--actions">
-          <button type="submit" class="btn btn--basic btn--block">Create party</button>
-        </div>
-      </form>
-
-    </div>
-  </div>
-  <div class="modal__overlay" id="modal-overlay"></div>
 
   <script src="js/main.js"></script>
   <script type="module" src="js/api/controller/partyList.js"></script>
