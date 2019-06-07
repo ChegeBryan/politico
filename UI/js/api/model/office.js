@@ -10,6 +10,9 @@ import {
   readResponseAsJson,
 } from '../helpers.js';
 import NotificationToast from '../view/notificationToast.js';
+import {
+  renderOffices
+} from '../view/officeList.js';
 
 
 /**
@@ -30,8 +33,41 @@ export class Office {
     this.url = url;
   }
 
-  // TODO: add method to get registered offices
+  /**
+   * fetches registered offices
+   *
+   * @static
+   * @param {string} url get office endpoint url
+   * @param {string} currentUser currently logged in user
+   * @returns office list promise
+   * @memberof Office
+   */
+  static getOffices(url, currentUser) {
+    return fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${currentUser}`
+        },
+      })
+      .then(validateResponse)
+      .then(readResponseAsJson)
+      .catch(alertError);
+  }
+
+  /**
+   * renders returned offices to the DOM
+   *
+   * @static
+   * @param {string} url get offices api endpoint url
+   * @param {string} currentUser currently logged in user
+   * @memberof Office
+   */
+  static officeList(url, currentUser) {
+    this.getOffices(url, currentUser)
+      .then(renderOffices);
+  }
 }
+
 
 /**
  * contains APi calls that ate only accessbile to the admin
