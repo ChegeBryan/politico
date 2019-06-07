@@ -30,8 +30,28 @@ export class Office {
     this.url = url;
   }
 
-  // TODO: add method to get registered offices
+  /**
+   * fetches registered offices
+   *
+   * @static
+   * @param {string} url get office endpoint url
+   * @param {string} currentUser currently logged in user
+   * @returns office list promise
+   * @memberof Office
+   */
+  static getOffices(url, currentUser) {
+    return fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${currentUser}`
+        },
+      })
+      .then(validateResponse)
+      .then(readResponseAsJson)
+      .catch(alertError);
+  }
 }
+
 
 /**
  * contains APi calls that ate only accessbile to the admin
