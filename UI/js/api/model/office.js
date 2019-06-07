@@ -10,6 +10,9 @@ import {
   readResponseAsJson,
 } from '../helpers.js';
 import NotificationToast from '../view/notificationToast.js';
+import {
+  renderOffices
+} from '../view/officeList.js';
 
 
 /**
@@ -49,6 +52,19 @@ export class Office {
       .then(validateResponse)
       .then(readResponseAsJson)
       .catch(alertError);
+  }
+
+  /**
+   * renders returned offices to the DOM
+   *
+   * @static
+   * @param {string} url get offices api endpoint url
+   * @param {string} currentUser currently logged in user
+   * @memberof Office
+   */
+  static officeList(url, currentUser) {
+    this.getOffices(url, currentUser)
+      .then(renderOffices);
   }
 }
 
