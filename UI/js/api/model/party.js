@@ -16,6 +16,9 @@ import {
 import {
   renderDeleteParties,
 } from '../view/deleteParty.js';
+import {
+  renderParties,
+} from '../view/partyList.js';
 
 
 /**
@@ -54,7 +57,19 @@ export class Party {
       .catch(alertError);
   }
 
-  // TODO: add method to render the the parties to DOM for normal user
+  /**
+   * renders parties from the server on the DOM
+   *
+   * @static
+   * @param {string} url get parties endpoint url
+   * @param {string} currentUser currently logged in user token
+   * @memberof Party
+   */
+  static partiesList(url, currentUser) {
+    // call get parties method from Party class the promise returned
+    this.getParties(url, currentUser)
+      .then(renderParties);
+  }
 }
 
 

@@ -12,6 +12,7 @@
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
+  <script src="js/api/requireAuth.js"></script>
 </head>
 
 <body>
@@ -71,38 +72,7 @@
       <div class="card">
         <h2 class="card--title">Political parties overview</h2>
         <div class="table--responsive">
-          <table>
-            <tr>
-              <th>Party name</th>
-              <th>% Members in party</th>
-              <th>% Offices occupied</th>
-            </tr>
-            <tr>
-              <td>Council of Ricks</td>
-              <td>
-                <div class="percentage__bar">
-                  <div class="percentage__bar--level level-2">60%</div>
-                </div>
-              </td>
-              <td>
-                <div class="percentage__bar">
-                  <div class="percentage__bar--level level-4">100%</div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Council of Mortys</td>
-              <td>
-                <div class="percentage__bar">
-                  <div class="percentage__bar--level level-1">25%</div>
-                </div>
-              </td>
-              <td>
-                <div class="percentage__bar">
-                  <div class="percentage__bar--level level-3">45%</div>
-                </div>
-              </td>
-            <tr>
+          <table id="parties-table-list">
           </table>
         </div>
       </div>
@@ -111,6 +81,7 @@
 
   <!-- Load scripts-->
   <script src="js/main.js"></script>
+  <script type="module" src="js/api/controller/partyList.js"></script>
   <script type="module" src="js/api/logOut.js"></script>
 
 </body>
