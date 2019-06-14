@@ -210,6 +210,15 @@ class ApplicationLoadSchema(BaseSchema):
         return data
 
 
+class ApplicationDumpSchema(BaseSchema):
+    """ Application serializer schema """
+    party = fields.Integer(attribute="party_id")
+    office = fields.Integer(attribute="office_id")
+    createdBy = fields.Integer(attribute="applicant_id")
+    approved = fields.Boolean()
+    requested_on = fields.LocalDateTime()
+
+
 party_schema = PartySchema()
 parties_schema = PartySchema(many=True)
 office_schema = OfficeSchema()
@@ -224,3 +233,4 @@ results_schema = ResultSchema(many=True)
 petition_load_schema = PetitionLoadSchema()
 petitions_dump_schema = PetitionDumpSchema()
 application_load_schema = ApplicationLoadSchema()
+application_dump_schema = ApplicationDumpSchema()
