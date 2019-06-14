@@ -18,3 +18,18 @@ class Application:
         self.party = party
         self.office = office
         self.requested_on = datetime.datetime.now()
+
+    def add_application(self, user_id):
+        """SQL query to add a user application for office user
+
+        Args:
+            user_id (integer): user who made the application request
+        """
+        query = """
+        INSERT INTO
+          applications(applicant_id, office_id, party_id, requested_on)
+          VALUES(%s, %s, %s, %s);
+        """
+        values = (user_id, self.office, self.party, self.requested_on)
+
+        return query, values
