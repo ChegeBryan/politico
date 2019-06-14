@@ -187,6 +187,29 @@ class PetitionDumpSchema(BaseSchema):
     evidence = fields.List(fields.Url())
 
 
+class ApplicationLoadSchema(BaseSchema):
+    """ Application deserializer schema """
+    party = fields.String(required=True)
+    office = fields.String(required=True)
+
+    @pre_load(pass_many=True)
+    def lower_cased(self, data, many):
+        """return the input names as lower case prevents a party or
+        office from not been been found because of mismatch in case
+
+        Args:
+            data (dict): data list with
+            many : instructs marshmallow to expect more than one input field
+
+        Returns:
+            dict: input fields in lower case
+        """
+
+        data["party"] = data["party"].lower()
+        data["office"] = data["office"].lower()
+        return data
+
+
 party_schema = PartySchema()
 parties_schema = PartySchema(many=True)
 office_schema = OfficeSchema()
@@ -200,3 +223,4 @@ vote_dump_schema = VoteSchemaDump()
 results_schema = ResultSchema(many=True)
 petition_load_schema = PetitionLoadSchema()
 petitions_dump_schema = PetitionDumpSchema()
+application_load_schema = ApplicationLoadSchema()
