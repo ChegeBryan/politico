@@ -1,10 +1,13 @@
 """ Application views """
-from flask import request
+from flask import request, Blueprint
 from flask.views import MethodView
 
 
 from app.api.service.application import save_new_application
 from app.api.util.decorator import token_required
+
+
+application = Blueprint('application', __name__)
 
 
 class ApplicationApi(MethodView):
@@ -21,3 +24,7 @@ class ApplicationApi(MethodView):
 
 # register application api class as a view
 application_view = ApplicationApi.as_view('application')
+
+# application endpoint rules
+application.add_url_rule('/office/application',
+                         view_func=application_view, methods=['POST'])
