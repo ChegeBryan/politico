@@ -33,3 +33,17 @@ class Application:
         values = (user_id, self.office, self.party, self.requested_on)
 
         return query, values
+
+    @staticmethod
+    def get_application(user_id):
+        """SQL query to get an application entry of a user
+
+        Args:
+            user_id (integer): user who made the application
+
+        Returns:
+            string: select application sql query
+        """
+        sql = """SELECT * FROM applications WHERE applicant_id=%s;"""
+        query = sql, (user_id,)
+        return query
