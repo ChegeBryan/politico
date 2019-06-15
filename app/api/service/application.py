@@ -8,6 +8,8 @@ from marshmallow import ValidationError
 
 from app.api.util.dto import application_load_schema
 from app.api.service.auth_helper import get_logged_in_user
+from app.api.model.party import Party
+from app.api.db.database import AppDatabase as db
 
 
 def save_new_application(json_data):
@@ -36,3 +38,15 @@ def save_new_application(json_data):
     if status == 200:
         # get user id from decoded token
         applicant_id = res.get_json()['user'].get('user_id')
+
+
+def get_party_id(party_name):
+    """gets id of the passed party name from the database
+
+    Args:
+        party_name (string): party name to query id for
+    """
+    party_name_query = Party.get_party_by_name(party_name)
+    party = db().get_single_row(*party_name_query)
+    if party:
+        return party['id']
