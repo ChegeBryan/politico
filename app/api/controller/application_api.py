@@ -17,3 +17,7 @@ class ApplicationApi(MethodView):
         # register user office application
         json_input = request.get_json()
         return save_new_application(json_input)
+
+
+# register application api class as a view
+application_view = ApplicationApi.as_view('application')
