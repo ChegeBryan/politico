@@ -10,6 +10,7 @@ from app.api.util.dto import application_load_schema
 from app.api.service.auth_helper import get_logged_in_user
 from app.api.model.party import Party
 from app.api.model.office import Office
+from app.api.model.application import Application
 from app.api.db.database import AppDatabase as db
 
 
@@ -40,6 +41,20 @@ def save_new_application(json_data):
         # get user id from decoded token
         applicant_id = res.get_json()['user'].get('user_id')
 
+        party_id = get_party_id(party)
+        office_id = get_office_id(office)
+
+        if party_id and office_id:
+            new_application = Application(
+                party=party_id,
+                office=office_id
+            )
+            save_changes(applicant_id, new_application)
+        return jsonify({
+            "status": 400,
+            "error": "Party or office referenced does not exists."
+        }), 400
+
 
 def get_party_id(party_name):
     """gets id of the passed party name from the database
@@ -63,3 +78,14 @@ def get_office_id(office_name):
     office = db().get_single_row(*office_name_query)
     if office:
         return office['id']
+
+
+def save_changes(_id, data):
+    """commit application details to the database
+
+    Args:
+        _id (integer): id of user making the application
+        data (object): application instance
+    """
+    query, values = Application.add_application(data, user_id=_id)
+    db().commit_changes(query, values)
