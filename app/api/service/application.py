@@ -2,11 +2,12 @@
 model and application endpoint
 """
 
-from flask import jsonify
+from flask import jsonify, request
 from marshmallow import ValidationError
 
 
 from app.api.util.dto import application_load_schema
+from app.api.service.auth_helper import get_logged_in_user
 
 
 def save_new_application(json_data):
@@ -28,3 +29,10 @@ def save_new_application(json_data):
         }), 400
     party = data['party']
     office = data['office']
+
+    # decode the auth token of logged-in user
+    res, status = get_logged_in_user(request)
+
+    if status == 200:
+        # get user id from decoded token
+        applicant_id = res.get_json()['user'].get('user_id')
