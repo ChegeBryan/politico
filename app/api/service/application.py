@@ -4,6 +4,7 @@ model and application endpoint
 
 from flask import jsonify, request
 from marshmallow import ValidationError
+from psycopg2 import IntegrityError
 
 
 from app.api.util.dto import application_load_schema
@@ -49,7 +50,17 @@ def save_new_application(json_data):
                 party=party_id,
                 office=office_id
             )
-            save_changes(applicant_id, new_application)
+
+            try:
+                save_changes(applicant_id, new_application)
+            except IntegrityError:
+                # Executed if the user has an application
+                # already made before
+                return jsonify({
+                    "status": 400,
+                    "error": "User has an application registered already."
+                }), 400
+
         return jsonify({
             "status": 400,
             "error": "Party or office referenced does not exists."
