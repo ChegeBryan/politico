@@ -34,6 +34,20 @@ class PartySchema(BaseSchema):
                 error="Please provide party Headquarters address.")])
     logo_url = fields.URL(required=True)
 
+    @pre_load
+    def lower_cased(self, data):
+        """return the input names as lower case
+
+        Args:
+            data (dict): data list to get the input field
+
+        Returns:
+            dict: input field party name in lower case
+        """
+
+        data["party_name"] = data["party_name"].lower()
+        return data
+
 
 class OfficeSchema(BaseSchema):
     """
