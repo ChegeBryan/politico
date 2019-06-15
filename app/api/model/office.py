@@ -41,6 +41,20 @@ class Office:
         return query
 
     @staticmethod
+    def get_office_by_name(name):
+        """ SQL query to return a office found in the database
+
+        Args:
+            name : office name to search for
+
+        Returns:
+            string : select office sql query
+        """
+        sql = """SELECT * FROM offices WHERE office_name=%s;"""
+        query = sql, (name,)
+        return query
+
+    @staticmethod
     def get_offices_query():
         """ SQL query to return a parties in the database
 

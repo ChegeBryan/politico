@@ -10,9 +10,11 @@ def drop_tables():
     parties = """ DROP TABLE IF EXISTS parties; """
     offices = """ DROP TABLE IF EXISTS offices; """
     candidates = """ DROP TABLE IF EXISTS candidates; """
+    applications = """ DROP TABLE IF EXISTS applications; """
     votes = """ DROP TABLE IF EXISTS votes; """
     petitions = """ DROP TABLE IF EXISTS petitions; """
-    return [petitions, votes, candidates, users, blacklist, parties, offices]
+    return [petitions, votes, applications, candidates, users,
+            blacklist, parties, offices]
 
 
 def create_tables():
@@ -107,8 +109,23 @@ def create_tables():
       FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE RESTRICT
     );
     """
+    applications = """
+    CREATE TABLE IF NOT EXISTS applications(
+      applicant_id INTEGER PRIMARY KEY,
+      office_id INTEGER NOT NULL,
+      party_id INTEGER NOT NULL,
+      approved BOOLEAN DEFAULT FALSE,
+      requested_on TIMESTAMPTZ NOT NULL,
 
-    return [users, blacklist, parties, offices, candidates, votes, petitions]
+      -- FK for referential integrity
+      FOREIGN KEY (applicant_id) REFERENCES users (id) ON DELETE CASCADE,
+      FOREIGN KEY (office_id) REFERENCES offices (id) ON DELETE CASCADE,
+      FOREIGN KEY (party_id) REFERENCES parties (id) ON DELETE CASCADE
+    );
+    """
+
+    return [users, blacklist, parties, offices, candidates, applications,
+            votes, petitions]
 
 
 def add_admin():

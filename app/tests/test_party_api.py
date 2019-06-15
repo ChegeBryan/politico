@@ -306,7 +306,7 @@ class PartyAPITestCase(BaseTestData):
         response_edit = self.client.patch(
             'api/v2/parties/{}/name'.format(_id),
             json={
-                "party_name": "Changed this"
+                "party_name": "changed this"
             },
             headers={
                 "Authorization": "Bearer {}".format(auth_token)
@@ -319,7 +319,7 @@ class PartyAPITestCase(BaseTestData):
             }
         )
         new_data = edited_data.get_json()
-        self.assertEqual(new_data["data"][0]["party_name"], "Changed this")
+        self.assertEqual(new_data["data"][0]["party_name"], "changed this")
         self.assertEqual(response_edit.status_code, 200)
 
     def test_edit_party_not_found(self):
