@@ -9,3 +9,8 @@ unregistered_party_application = {
     "party": "random party",
     "office": "senator"
 }
+
+unregistered_office_application = {
+    "party": "example name",
+    "office": "random office"
+}

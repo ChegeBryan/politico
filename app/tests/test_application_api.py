@@ -2,7 +2,8 @@
 
 from .base_test import BaseTestData
 from app.api.db.application_test_data import (
-    application, unregistered_party_application)
+    application, unregistered_party_application,
+    unregistered_office_application)
 
 
 class ApplicationApiTestCase(BaseTestData):
@@ -52,6 +53,25 @@ class ApplicationApiTestCase(BaseTestData):
         response = self.client.post(
             '/api/v2/office/application',
             json=unregistered_party_application,
+            headers={
+                "Authorization": "Bearer {}".format(self.user_token)
+            }
+        )
+        json_body = response.get_json()
+        self.assertEqual(json_body["status"], 400)
+        self.assertEqual(json_body["error"],
+                         "Party or office referenced does not exists.")
+        self.assertEqual(response.status_code, 400)
+
+    def test_unregistered_office_application_registration(self):
+        """Test api endpoint return correct status code when
+        the user applies for office application with an office that
+        does not exist
+        : return STATUS CODE 400 Bad Request
+        """
+        response = self.client.post(
+            '/api/v2/office/application',
+            json=unregistered_office_application,
             headers={
                 "Authorization": "Bearer {}".format(self.user_token)
             }
