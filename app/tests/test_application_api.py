@@ -1,6 +1,7 @@
 """ Test office application registration endpoint """
 
 from .base_test import BaseTestData
+from app.api.db.application_test_data import application
 
 
 class ApplicationApiTestCase(BaseTestData):
@@ -19,3 +20,24 @@ class ApplicationApiTestCase(BaseTestData):
         self.assertEqual(json_body["data"][0]["office"], 1)
         self.assertTrue(json_body["data"][0]["requested_on"])
         self.assertEqual(response.status_code, 201)
+
+    def test_duplicate_user_application_registration(self):
+        """Test api endpoint return correct status code when
+        the same user tries to apply for an office more than once
+        : return STATUS CODE 400 Bad Request
+        """
+        # initial registration
+        response = self.office_application
+        self.assertEqual(response.status_code, 201)
+
+        # user applies again for an office
+        apply_again = self.client.post(
+            '/api/v2/office/application', json=application, headers={
+                "Authorization": "Bearer {}".format(self.user_token)
+            }
+        )
+        json_body = apply_again.get_json()
+        self.assertEqual(json_body["status"], 400)
+        self.assertEqual(json_body["error"],
+                         "User has an application registered already.")
+        self.assertEqual(apply_again.status_code, 400)
