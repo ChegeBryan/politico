@@ -9,6 +9,7 @@ from marshmallow import ValidationError
 from app.api.util.dto import application_load_schema
 from app.api.service.auth_helper import get_logged_in_user
 from app.api.model.party import Party
+from app.api.model.office import Office
 from app.api.db.database import AppDatabase as db
 
 
@@ -50,3 +51,15 @@ def get_party_id(party_name):
     party = db().get_single_row(*party_name_query)
     if party:
         return party['id']
+
+
+def get_office_id(office_name):
+    """gets id of the passed office name from the database
+
+    Args:
+        office_name (string): office name oto query id for
+    """
+    office_name_query = Office.get_office_by_name(office_name)
+    office = db().get_single_row(*office_name_query)
+    if office:
+        return office['id']
