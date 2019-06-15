@@ -7,7 +7,7 @@ from marshmallow import ValidationError
 from psycopg2 import IntegrityError
 
 
-from app.api.util.dto import application_load_schema
+from app.api.util.dto import application_load_schema, application_dump_schema
 from app.api.service.auth_helper import get_logged_in_user
 from app.api.model.party import Party
 from app.api.model.office import Office
@@ -60,6 +60,17 @@ def save_new_application(json_data):
                     "status": 400,
                     "error": "User has an application registered already."
                 }), 400
+
+            application_registered_query = Application.get_application(
+                applicant_id)
+            application_registered = db().get_single_row(*application_registered_query)
+            response = application_dump_schema.dump(application_registered)
+
+            response_object = jsonify({
+                "status": 201,
+                "data": [response]
+            })
+            return response_object, 201
 
         return jsonify({
             "status": 400,
