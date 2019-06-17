@@ -77,7 +77,7 @@
       <div class="container__flex">
         <div class="card flex--col-5">
           <h2 class="card--title">Express office interest</h2>
-          <form>
+          <form id="vie-office-form">
             <div class="form__component">
               <label for="political_party" class="hide">Political party: </label>
               <input type="text" class="form__component-input"
@@ -109,7 +109,8 @@
             <!--office type option group-->
 
             <div class="card--actions">
-              <button type="submit" class="btn btn--basic card--actions-btn">Express interest</button>
+              <button type="button" class="btn btn--basic card--actions-btn" id="vie-office-btn">Express
+                interest</button>
               <a href="government_offices.html" class="btn btn--basic">Cancel</a>
             </div>
           </form>
@@ -121,7 +122,7 @@
   <!-- Load scripts-->
   <script src="js/main.js"></script>
   <script src="js/api/formValidation.js"></script>
-  <script type="module" src="js/api/helpers.js"></script>
+  <script type="module" src="js/api/controller/officeApplication.js"></script>
   <script type="module" src="js/api/logOut.js"></script>
 
 </body>
