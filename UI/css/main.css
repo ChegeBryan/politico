@@ -236,6 +236,11 @@ h6 {
   width: 0;
 }
 
+.option-grp--title {
+  font-weight: 600;
+  color: #da7b93;
+}
+
 .checkmark {
   position: absolute;
   top: 0;
