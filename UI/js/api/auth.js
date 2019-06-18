@@ -2,6 +2,7 @@
  * @fileoverview Authentication class that has the user signup and signin logic
  * @imports formaDataToJson, validateResponse, readResponseAsJson,
  *      saveCurrentUser
+ * @exports Auth
  */
 
 import {
@@ -14,11 +15,22 @@ import {
 
 
 export default class Auth {
+  /**
+   * Creates an instance of Auth.
+   * @param {element} form signup form or log in form
+   * @param {string} url user sign-in / sign-up url
+   * @memberof Auth
+   */
   constructor(form, url) {
     this.form = form;
     this.url = url;
   }
 
+  /**
+   * Send form data to server
+   *
+   * @memberof Auth
+   */
   sendData() {
     const formData = new FormData(this.form);
     const data = formDataToJson(formData);
@@ -34,13 +46,5 @@ export default class Auth {
       .then(readResponseAsJson)
       .then(saveCurrentUser)
       .catch(alertError);
-  }
-
-  validateForm() {
-    if (this.form.checkValidity()) {
-      this.sendData();
-      return;
-    }
-    alert('Fix highlighted form error and submit again');
   }
 }
