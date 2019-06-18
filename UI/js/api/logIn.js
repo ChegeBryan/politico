@@ -19,6 +19,17 @@ const signInBtn = document.querySelector('#signin-btn');
 signInBtn.addEventListener('click', () => {
   // create AUth class instance for user login
   const signInForm = document.querySelector('#signin-form');
-  const userLogin = new Auth(signInForm, signInApiUrl);
-  userLogin.validateForm();
+
+  // check if the form data is valid before submiting
+  if (signInForm.checkValidity()) {
+    /**
+     * Auth instance, to access method for sending form data
+     * party registration
+     * @instance
+     */
+    const userLogin = new Auth(signInForm, signInApiUrl);
+    userLogin.sendData();
+    return;
+  }
+  alert('Fix highlighted form error and submit again');
 });
