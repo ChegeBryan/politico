@@ -81,6 +81,19 @@ export default class NotificationToast {
   }
 
   /**
+   * show notification snackbar on success office
+   * application
+   *
+   * @memberof NotificationToast
+   */
+  successOfficeApplication() {
+    this.showNotification();
+    // add text to show on the notification
+    this.snackBar.innerHTML = "Application submitted.";
+    this.hideNotification();
+  }
+
+  /**
    * hide the notification bar when after 3 seconds it shows
    *
    * @memberof NotificationToast

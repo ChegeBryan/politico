@@ -3,6 +3,7 @@
  * @exports OfficeApplication class
  */
 
+import NotificationToast from '../view/notificationToast.js';
 import {
   formDataToJson,
   validateResponse,
@@ -45,6 +46,10 @@ export class OfficeApplication {
       })
       .then(validateResponse)
       .then(readResponseAsJson)
+      .then((res) => {
+        const displayNotification = new NotificationToast(res);
+        displayNotification.successOfficeApplication();
+      })
       .catch(alertError);
   }
 }
