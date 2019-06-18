@@ -78,6 +78,7 @@
               <input type="password" class="form__component-input" id="pwd" name="password" placeholder="Password"
                      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                      title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters."
+                     onblur="validateInput(this)"
                      required>
               <i class="fa fa-eye fa-lg pwd--toggle" onmouseover="showPassword()" onmouseout="hidePassword()"></i>
             </div>
