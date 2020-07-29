@@ -1,0 +1,4 @@
+export SECRET='your_random_characters_secret_key'
+export DEVELOPMENT_DB_DSN='your_development_database_dsn'
+export TESTING_DB_DSN='your_testing_database_dsn'
+export PRODUCTION_DB_DSN='your_production_database_dsn'

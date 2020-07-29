@@ -1,0 +1,4 @@
+set SECRET='your_random_characters_secret_key'
+set DEVELOPMENT_DB_DSN='your_development_database_dsn'
+set TESTING_DB_DSN='your_testing_database_dsn'
+set PRODUCTION_DB_DSN='your_production_database_dsn'

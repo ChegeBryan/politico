@@ -1,0 +1,24 @@
+language: python
+
+python:
+  - '3.6'
+
+# command to install dependencies
+install:
+  - pip3 install -r requirements.txt
+  - pip3 install coveralls
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database politico_test;' -U postgres
+  - psql -c 'create database politico;' -U postgres
+  - psql -c 'create database politico_main;' -U postgres
+
+# command to run tests with coverage
+script:
+  - pytest --cov=app/api app/tests
+
+after_success:
+  - coveralls
