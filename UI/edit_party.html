@@ -3,14 +3,17 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
+  <meta name="description"
+        content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
   <meta name="author" content="Chege Bryan">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Politico Admin | Edit party</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
+  <!--check if a user_token is available before DOMContent loads, redirect to Sign-in otherwise-->
+  <script src="js/api/requireAuth.js"></script>
 </head>
 
 <body>
@@ -22,7 +25,7 @@
     <!--Navigation link for and sign out-->
     <ul class="navbar__nav">
       <li>
-        <a href="signin.html" class="nav__link">Sign out</a>
+        <a href="#0" id="logout-btn" class="nav__link">Sign out</a>
       </li>
     </ul>
   </nav>
@@ -39,7 +42,7 @@
         <i class="fas fa-fw fa-handshake"></i>&nbsp;Political Parties
       </a>
       <div class="dropdown">
-        <a href="#" class="dropdown__link modal--open"><i class="fas fa-fw
+        <a href="add_party.html" class="dropdown__link"><i class="fas fa-fw
         fa-plus"></i>&nbsp;Create party</a>
         <a href="delete_party.html" class="dropdown__link"><i class="fas fa-fw fa-trash"></i>&nbsp;Delete party</a>
       </div>
@@ -64,58 +67,40 @@
       <div class="card edit__table">
         <h2 class="card--title">Edit Political party Details</h2>
         <div class="table--responsive">
-          <table>
-            <tr>
-              <th>Party name</th>
-              <th>Members</th>
-              <th>Click to edit</th>
-            </tr>
-            <tr>
-              <td>Council of Ricks</td>
-              <td>4</td>
-              <td>
-                <div class="card--actions">
-                  <button type="submit" class="btn btn--primary" onclick="edit()"><i class="fas fa-fw fa-edit"></i>&nbsp;Edit</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Council of Mortys</td>
-              <td>1</td>
-              <td>
-                <div class="card--actions">
-                  <button type="submit" class="btn btn--primary" onclick="edit()"><i class="fas fa-fw fa-edit"></i>&nbsp;Edit</button>
-                </div>
-              </td>
-            </tr>
+          <table id="editTable">
           </table>
         </div>
       </div>
 
       <div class="container__flex">
         <div class="card edit__form flex--col-5 hide">
-          <h2 class="card--title">Edit party details</h2>
-          <form>
+          <h2 class="card--title">Edit party name</h2>
+          <form id="rename-party-form">
             <div class="form__component">
               <label for="party_name_edit" class="hide">Political party name: </label>
-              <input type="text" class="form__component-input" id="party_name_edit" placeholder="New party name"
-                required>
+              <input type="text" class="form__component-input" id="party_name" name="party_name"
+                     placeholder="New party name" pattern="^([a-zA-Z]([ A-Za-z]*)){4,}"
+                     onblur="validateInput(this)"
+                     required>
             </div>
 
             <div class="card--actions">
-              <button type="submit" class="btn btn--basic
-            card--actions-btn">Rename party</button>
-              <button type="button" class="btn btn--basic card--actions-btn">Cancel</button>
+              <button type="button" class="btn btn--basic card--actions-btn" id="rename-party-btn">
+                Rename party</button>
+              <button type="button" class="btn btn--basic card--actions-btn" id="view-edit-list-btn">Go Back</button>
             </div>
 
           </form>
         </div>
-
       </div>
     </div>
+    <div id="snackbar"></div>
   </div>
 
-  <script src="js/main.js"></script>
+  <!-- Load scripts-->
+  <script src="js/api/formValidation.js"></script>
+  <script type="module" src="js/api/controller/editParty.js"></script>
+  <script type="module" src="js/api/logOut.js"></script>
 
 </body>
 

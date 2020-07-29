@@ -40,10 +40,3 @@ window.onclick = function (event) {
     overLay.classList.toggle("show");
   }
 }
-
-var editTable = document.getElementsByClassName("edit__table")[0];
-var editForm = document.getElementsByClassName("edit__form")[0];
-function edit() {
-  editTable.classList.toggle("hide");
-  editForm.classList.toggle("hide");
-}

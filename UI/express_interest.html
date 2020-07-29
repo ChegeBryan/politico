@@ -3,12 +3,14 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
+  <meta name="description"
+        content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
   <meta name="author" content="Chege Bryan">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Politico | Express interest</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+        crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
 </head>
@@ -29,7 +31,7 @@
           <a href="vote.html" class="nav__link">Vote</a>
         </li>
         <li>
-          <a href="signin.html" class="nav__link">Sign out</a>
+          <a href="#0" id="logout-btn" class="nav__link">Sign out</a>
         </li>
       </ul>
     </div>
@@ -53,6 +55,11 @@
       </a>
     </li>
     <li class="sidenav__item">
+      <a href="#0" class="nav__link">
+        <i class="far fa-fw fa-clipboard"></i>&nbsp;Vie for Office
+      </a>
+    </li>
+    <li class="sidenav__item">
       <a href="vote.html" class="nav__link">
         <i class="fas fa-fw fa-vote-yea"></i>&nbsp;Vote
       </a>
@@ -70,27 +77,56 @@
       <div class="container__flex">
         <div class="card flex--col-5">
           <h2 class="card--title">Express office interest</h2>
-          <form>
+          <form id="vie-office-form">
             <div class="form__component">
-              <label for="government_office" class="hide">Government office: </label>
+              <label for="political_party" class="hide">Political party: </label>
               <input type="text" class="form__component-input"
-              id="government_office" placeholder="Office name" required>
+                     id="political_party" name="party" placeholder="Party name"
+                     pattern="^([a-zA-Z]([ A-Za-z]*)){4,}"
+                     onblur="validateInput(this)"
+                     required>
             </div>
+            <!--Office name option group-->
             <div class="form__component">
-              <label for="political_party" class="hide">Political office: </label>
-              <input type="text" class="form__component-input"
-              id="political_party" placeholder="Political party name" required>
+              <p class="option-grp--title">Select office to vie for:</p>
+              <label class="form__label--radio">President
+                <input type="radio" name="office" value="president" checked>
+                <span class="checkmark"></span>
+              </label>
+              <label class="form__label--radio">Governor
+                <input type="radio" name="office" value="governor">
+                <span class="checkmark"></span>
+              </label>
+              <label class="form__label--radio">Senator
+                <input type="radio" name="office" value="senator">
+                <span class="checkmark"></span>
+              </label>
+              <label class="form__label--radio">House of Representatives
+                <input type="radio" name="office" value="house of representatives">
+                <span class="checkmark"></span>
+              </label>
             </div>
+            <!--office type option group-->
 
             <div class="card--actions">
-              <button type="submit" class="btn btn--basic card--actions-btn">Express interest</button>
+              <button type="button" class="btn btn--basic card--actions-btn" id="vie-office-btn">Express
+                interest</button>
               <a href="government_offices.html" class="btn btn--basic">Cancel</a>
             </div>
           </form>
         </div>
       </div>
+      <!-- Notification toast -->
+      <div id="snackbar"></div>
     </div>
   </div>
+
+  <!-- Load scripts-->
+  <script src="js/main.js"></script>
+  <script src="js/api/formValidation.js"></script>
+  <script type="module" src="js/api/controller/officeApplication.js"></script>
+  <script type="module" src="js/api/logOut.js"></script>
+
 </body>
 
 </html>
