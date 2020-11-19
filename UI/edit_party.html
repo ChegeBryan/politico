@@ -1,107 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="description"
-        content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
-  <meta name="author" content="Chege Bryan">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Politico Admin | Edit party</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css">
-  <!--check if a user_token is available before DOMContent loads, redirect to Sign-in otherwise-->
-  <script src="js/api/requireAuth.js"></script>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description"
+          content="A platform that enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.">
+    <meta name="author" content="Chege Bryan">
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text
+                y=%22.9em%22 font-size=%2290%22>🗳</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politico Admin | Edit party</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <!--check if a user_token is available before DOMContent loads, redirect to Sign-in otherwise-->
+    <script src="js/api/requireAuth.js"></script>
+  </head>
 
-<body>
-  <!--navigation bar-->
-  <nav class="navbar navbar--fixed navbar--default">
-    <!--Project name-->
-    <a href="index.html" class="navbar--brand">Politico</a>
+  <body>
+    <!--navigation bar-->
+    <nav class="navbar navbar--fixed navbar--default">
+      <!--Project name-->
+      <a href="index.html" class="navbar--brand">Politico</a>
 
-    <!--Navigation link for and sign out-->
-    <ul class="navbar__nav">
-      <li>
-        <a href="#0" id="logout-btn" class="nav__link">Sign out</a>
+      <!--Navigation link for and sign out-->
+      <ul class="navbar__nav">
+        <li>
+          <a href="#0" id="logout-btn" class="nav__link">Sign out</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!--Side bar navigation-->
+    <ul class="sidenav sidenav__nav">
+      <li class="sidenav__item">
+        <a href="admin_dashboard.html" class="nav__link">
+          <i class="fas fa-fw fa-tachometer-alt"></i>&nbsp;Admin Dashboard
+        </a>
+      </li>
+      <li class="sidenav__item">
+        <a href="#" class="nav__link">
+          <i class="fas fa-fw fa-handshake"></i>&nbsp;Political Parties
+        </a>
+        <div class="dropdown">
+          <a href="add_party.html" class="dropdown__link"><i class="fas fa-fw
+        fa-plus"></i>&nbsp;Create party</a>
+          <a href="delete_party.html" class="dropdown__link"><i class="fas fa-fw fa-trash"></i>&nbsp;Delete party</a>
+        </div>
+      </li>
+      <li class="sidenav__item">
+        <a href="#" class="nav__link">
+          <i class="fas fa-fw fa-university"></i>&nbsp;Political Offices
+        </a>
+        <div class="dropdown">
+          <a href="add_office.html" class="dropdown__link"><i class="fas fa-fw fa-plus"></i>&nbsp;Create Office</a>
+          <a href="edit_office.html" class="dropdown__link"><i class="fas fa-fw
+        fa-edit"></i>&nbsp;Edit office</a>
+          <a href="delete_office.html" class="dropdown__link"><i class="fas fa-fw
+        fa-trash"></i>&nbsp;Remove office</a>
+        </div>
       </li>
     </ul>
-  </nav>
 
-  <!--Side bar navigation-->
-  <ul class="sidenav sidenav__nav">
-    <li class="sidenav__item">
-      <a href="admin_dashboard.html" class="nav__link">
-        <i class="fas fa-fw fa-tachometer-alt"></i>&nbsp;Admin Dashboard
-      </a>
-    </li>
-    <li class="sidenav__item">
-      <a href="#" class="nav__link">
-        <i class="fas fa-fw fa-handshake"></i>&nbsp;Political Parties
-      </a>
-      <div class="dropdown">
-        <a href="add_party.html" class="dropdown__link"><i class="fas fa-fw
-        fa-plus"></i>&nbsp;Create party</a>
-        <a href="delete_party.html" class="dropdown__link"><i class="fas fa-fw fa-trash"></i>&nbsp;Delete party</a>
-      </div>
-    </li>
-    <li class="sidenav__item">
-      <a href="#" class="nav__link">
-        <i class="fas fa-fw fa-university"></i>&nbsp;Political Offices
-      </a>
-      <div class="dropdown">
-        <a href="add_office.html" class="dropdown__link"><i class="fas fa-fw fa-plus"></i>&nbsp;Create Office</a>
-        <a href="edit_office.html" class="dropdown__link"><i class="fas fa-fw
-        fa-edit"></i>&nbsp;Edit office</a>
-        <a href="delete_office.html" class="dropdown__link"><i class="fas fa-fw
-        fa-trash"></i>&nbsp;Remove office</a>
-      </div>
-    </li>
-  </ul>
+    <!--Page main content-->
+    <div class="main">
+      <div class="container">
+        <div class="card edit__table">
+          <h2 class="card--title">Edit Political party Details</h2>
+          <div class="table--responsive">
+            <table id="editTable">
+            </table>
+          </div>
+        </div>
 
-  <!--Page main content-->
-  <div class="main">
-    <div class="container">
-      <div class="card edit__table">
-        <h2 class="card--title">Edit Political party Details</h2>
-        <div class="table--responsive">
-          <table id="editTable">
-          </table>
+        <div class="container__flex">
+          <div class="card edit__form flex--col-5 hide">
+            <h2 class="card--title">Edit party name</h2>
+            <form id="rename-party-form">
+              <div class="form__component">
+                <label for="party_name_edit" class="hide">Political party name: </label>
+                <input type="text" class="form__component-input" id="party_name" name="party_name"
+                       placeholder="New party name" pattern="^([a-zA-Z]([ A-Za-z]*)){4,}"
+                       onblur="validateInput(this)"
+                       required>
+              </div>
+
+              <div class="card--actions">
+                <button type="button" class="btn btn--basic card--actions-btn" id="rename-party-btn">
+                  Rename party</button>
+                <button type="button" class="btn btn--basic card--actions-btn" id="view-edit-list-btn">Go Back</button>
+              </div>
+
+            </form>
+          </div>
         </div>
       </div>
-
-      <div class="container__flex">
-        <div class="card edit__form flex--col-5 hide">
-          <h2 class="card--title">Edit party name</h2>
-          <form id="rename-party-form">
-            <div class="form__component">
-              <label for="party_name_edit" class="hide">Political party name: </label>
-              <input type="text" class="form__component-input" id="party_name" name="party_name"
-                     placeholder="New party name" pattern="^([a-zA-Z]([ A-Za-z]*)){4,}"
-                     onblur="validateInput(this)"
-                     required>
-            </div>
-
-            <div class="card--actions">
-              <button type="button" class="btn btn--basic card--actions-btn" id="rename-party-btn">
-                Rename party</button>
-              <button type="button" class="btn btn--basic card--actions-btn" id="view-edit-list-btn">Go Back</button>
-            </div>
-
-          </form>
-        </div>
-      </div>
+      <div id="snackbar"></div>
     </div>
-    <div id="snackbar"></div>
-  </div>
 
-  <!-- Load scripts-->
-  <script src="js/api/formValidation.js"></script>
-  <script type="module" src="js/api/controller/editParty.js"></script>
-  <script type="module" src="js/api/logOut.js"></script>
+    <!-- Load scripts-->
+    <script src="js/api/formValidation.js"></script>
+    <script type="module" src="js/api/controller/editParty.js"></script>
+    <script type="module" src="js/api/logOut.js"></script>
 
-</body>
+  </body>
 
 </html>
