@@ -18,7 +18,7 @@ more-itertools==5.0.0
 passlib==1.7.1
 pluggy==0.8.1
 psycopg2-binary==2.8.5
-py==1.7.0
+py==1.10.0
 pycodestyle==2.5.0
 PyJWT==1.7.1
 pylint==2.2.2
