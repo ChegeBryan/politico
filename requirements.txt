@@ -20,7 +20,7 @@ pluggy==0.8.1
 psycopg2-binary==2.8.5
 py==1.7.0
 pycodestyle==2.5.0
-PyJWT==1.7.1
+PyJWT==2.4.0
 pylint==2.2.2
 pytest==4.2.0
 pytest-cov==2.6.1
